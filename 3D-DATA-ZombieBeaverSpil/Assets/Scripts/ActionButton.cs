@@ -7,6 +7,7 @@ public class ActionButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     private Vector3 inputVector;
     private Image actionButton;
+    
 
     // Use this for initialization
     void Start()
@@ -31,13 +32,14 @@ public class ActionButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
             inputVector = new Vector3(pos.x * 2 + 1, 0, pos.y * 2 - 1);
             inputVector = (inputVector.magnitude > 1.0f) ? inputVector.normalized : inputVector;
-
+            
             Debug.Log("I puez axsion butten.");
+            actionButton.color = new Color32(0, 255, 55, 255);
         }
     }
 
     public virtual void OnPointerUp(PointerEventData ped)
     {
-
+        actionButton.color = new Color32(0, 255, 55, 0);
     }
 }
