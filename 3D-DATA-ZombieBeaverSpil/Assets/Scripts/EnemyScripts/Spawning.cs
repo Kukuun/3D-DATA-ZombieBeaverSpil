@@ -13,7 +13,7 @@ public class Spawning : MonoBehaviour {
     private bool startedSpawning;
     [SerializeField]
     private GameObject[] enemies;
-    [SerializeField]
+
     private Vector3 spawnPosition;
 
 	// Use this for initialization
@@ -21,6 +21,8 @@ public class Spawning : MonoBehaviour {
     {
         clock = 0;
         startedSpawning = false;
+
+        spawnPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 	}
 	
 	// Update is called once per frame
