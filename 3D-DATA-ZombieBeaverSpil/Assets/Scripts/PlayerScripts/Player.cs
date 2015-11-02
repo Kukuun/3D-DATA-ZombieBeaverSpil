@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
         get { return bæverTænder; }
     }
 
+    [SerializeField]
+    private float rateOfFire;
+    private float shootClock;
 
 
     #endregion
@@ -28,30 +31,32 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        shootClock = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Shoot();
-        LifeZeroEnding();
+        shootClock += Time.deltaTime;
     }
 
     private void Shoot()
     {
-        MakeRay();
-        if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
+        if (shootClock >= rateOfFire)
         {
-            Debug.Log("Hit with Ray: " + hit.collider.gameObject.layer);
-            if (Input.GetKeyDown(KeyCode.Space))
+            MakeRay();
+            if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
             {
+                //Debug.Log("Hit with Ray: " + hit.collider.gameObject.layer);
+
                 if (hit.collider.tag == "Enemy")
                 {
                     hit.collider.SendMessage("TakeDamageMan", 10);
                     Debug.Log("Hit");
                 }
+
             }
+            shootClock = 0;
         }
     }
 

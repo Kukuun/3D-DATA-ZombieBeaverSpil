@@ -6,14 +6,17 @@ using System;
 
 public class VirtualAimingJoystick : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
-
     private Image aimingBackgroundImage;
     private Image aimingJoystickImage;
+
+    public GameObject player;
+
     private Vector3 inputVector;
     [NonSerialized]
     public Vector3 angle;
     [NonSerialized]
     public bool initialInput;
+    public bool isShooting;
 
     // Use this for initialization
     void Start()
@@ -22,12 +25,16 @@ public class VirtualAimingJoystick : MonoBehaviour, IDragHandler, IPointerDownHa
         aimingJoystickImage = transform.GetChild(0).GetComponent<Image>();
         initialInput = false;
         angle = Vector3.zero;
+        isShooting = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (isShooting)
+        {
+            player.SendMessage("Shoot");
+        }
     }
 
     public virtual void OnDrag(PointerEventData ped)
@@ -45,8 +52,19 @@ public class VirtualAimingJoystick : MonoBehaviour, IDragHandler, IPointerDownHa
             aimingJoystickImage.rectTransform.anchoredPosition = new Vector3(inputVector.x * (aimingBackgroundImage.rectTransform.sizeDelta.x / 2.7f), inputVector.z * (aimingBackgroundImage.rectTransform.sizeDelta.y / 2.7f));
             angle = aimingJoystickImage.rectTransform.anchoredPosition;
 
-            Debug.Log(inputVector);
+            //Debug.Log(inputVector);
         }
+
+        if (inputVector.magnitude > 0.75f)
+        {
+            isShooting = true;
+        }
+        else
+        {
+            isShooting = false;
+        }
+
+
     }
 
     public virtual void OnPointerDown(PointerEventData ped)
@@ -59,5 +77,7 @@ public class VirtualAimingJoystick : MonoBehaviour, IDragHandler, IPointerDownHa
     {
         inputVector = Vector3.zero;
         aimingJoystickImage.rectTransform.anchoredPosition = Vector3.zero;
+
+        isShooting = false;
     }
 }
