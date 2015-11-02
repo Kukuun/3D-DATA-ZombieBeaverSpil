@@ -12,7 +12,7 @@ public class WriteToCanvas : MonoBehaviour {
     {
         player = GameObject.FindGameObjectWithTag("Player");
         text = GetComponentInChildren<Text>();
-        text.text = ("Beaver teeth this round: " + player.GetComponent<PlayerHealth>().BæverTænder).ToString();
+        text.text = ("Beaver teeth this round: " + player.GetComponent<Player>().BæverTænder).ToString();
 	}
 	
 	// Update is called once per frame
