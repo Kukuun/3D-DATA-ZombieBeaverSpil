@@ -25,7 +25,12 @@ public class Player : MonoBehaviour
     private float rateOfFire;
     private float shootClock;
 
-
+    /// <summary>
+    /// Is true if the action button is down. 
+    /// Can for instance be used by doors to trigger opening.
+    /// </summary>
+    public bool actionEvent;
+    public float interactionMaxDistance;
     #endregion
 
     // Use this for initialization
@@ -38,6 +43,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         shootClock += Time.deltaTime;
+
+        CheckForInteractiveObjects();
     }
 
     private void Shoot()
@@ -81,6 +88,26 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+    }
+
+    private void CheckForInteractiveObjects()
+    {
+        GameObject[] intObj = GameObject.FindGameObjectsWithTag("Interactive Object");
+
+        foreach (GameObject obj in intObj)
+        {
+            //Checks if an object is close enough to interact
+            Vector3 v = obj.transform.position - transform.position;
+            float vLenght = Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2) + Mathf.Pow(v.z, 2));
+            if (vLenght < interactionMaxDistance) //if it is
+            {
+                FindObjectOfType<ActionButton>().greenify = true;
+            }
+            else //if it isnt
+            {
+                FindObjectOfType<ActionButton>().greenify = false;
+            }
+        }
     }
 
 }
