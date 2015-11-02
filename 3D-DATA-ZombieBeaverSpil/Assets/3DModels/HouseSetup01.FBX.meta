@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: da2d766283770834db617093695b765a
 timeCreated: 1446469620
 licenseType: Pro
+=======
+guid: 903d8c496447a564aba80478c68ea863
+timeCreated: 1446457425
+licenseType: Free
+>>>>>>> ca258a36b45c704ea5b65daffe305750b61d62d9
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
@@ -67,8 +73,15 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
+<<<<<<< HEAD
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+=======
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+>>>>>>> ca258a36b45c704ea5b65daffe305750b61d62d9
   additionalBone: 0
   userData: 
   assetBundleName: 

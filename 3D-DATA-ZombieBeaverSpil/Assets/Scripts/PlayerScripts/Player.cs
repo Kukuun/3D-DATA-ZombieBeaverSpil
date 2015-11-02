@@ -25,7 +25,15 @@ public class Player : MonoBehaviour
     private float rateOfFire;
     private float shootClock;
 
+    [SerializeField]
+    private float meleeRange;
 
+    /// <summary>
+    /// Is true if the action button is down. 
+    /// Can for instance be used by doors to trigger opening.
+    /// </summary>
+    public bool actionEvent;
+    public float interactionMaxDistance;
     #endregion
 
     // Use this for initialization
@@ -38,6 +46,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         shootClock += Time.deltaTime;
+
+        CheckForInteractiveObjects();
     }
 
     private void Shoot()
@@ -51,8 +61,19 @@ public class Player : MonoBehaviour
 
                 if (hit.collider.tag == "Enemy")
                 {
-                    hit.collider.SendMessage("TakeDamageMan", 10);
-                    Debug.Log("Hit");
+                    //Melee?
+                    Vector3 deltaPos = hit.collider.transform.position - gameObject.transform.position;
+                    Debug.Log("DeltaPos: " + deltaPos.magnitude);
+                    if (deltaPos.magnitude <= meleeRange)
+                    {
+                        hit.collider.SendMessage("TakeDamageMan", 5);
+                    }
+                    else  //Melee? slut
+                    {
+                        hit.collider.SendMessage("TakeDamageMan", 10);
+                        Debug.Log("Hit");
+                    }
+                    
                 }
 
             }
@@ -75,6 +96,31 @@ public class Player : MonoBehaviour
             dead = true;
 
             Application.LoadLevelAdditive("Done Screen");
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+    }
+
+    private void CheckForInteractiveObjects()
+    {
+        GameObject[] intObj = GameObject.FindGameObjectsWithTag("Interactive Object");
+
+        foreach (GameObject obj in intObj)
+        {
+            //Checks if an object is close enough to interact
+            Vector3 v = obj.transform.position - transform.position;
+            float vLenght = Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2) + Mathf.Pow(v.z, 2));
+            if (vLenght < interactionMaxDistance) //if it is
+            {
+                FindObjectOfType<ActionButton>().greenify = true;
+            }
+            else //if it isnt
+            {
+                FindObjectOfType<ActionButton>().greenify = false;
+            }
         }
     }
 
