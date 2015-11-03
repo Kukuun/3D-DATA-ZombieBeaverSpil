@@ -71,6 +71,7 @@ ModelImporter:
     100126: Bone063
     100128: Bone064
     100130: Box001
+<<<<<<< HEAD
     100132: Cylinder001
     100134: Dummy010
     100136: Dummy011
@@ -87,6 +88,23 @@ ModelImporter:
     100158: IK Chain026
     100160: IK Chain027
     100162: IK Chain028
+=======
+    100132: Dummy010
+    100134: Dummy011
+    100136: Dummy012
+    100138: IK Chain007
+    100140: IK Chain013
+    100142: IK Chain019
+    100144: IK Chain020
+    100146: IK Chain021
+    100148: IK Chain022
+    100150: IK Chain023
+    100152: IK Chain024
+    100154: IK Chain025
+    100156: IK Chain026
+    100158: IK Chain027
+    100160: IK Chain028
+>>>>>>> 5cb2284a7d08b9ea6427122277f6336f5e32baa4
     400000: //RootNode
     400002: Bone001
     400004: Bone002
@@ -153,6 +171,7 @@ ModelImporter:
     400126: Bone063
     400128: Bone064
     400130: Box001
+<<<<<<< HEAD
     400132: Cylinder001
     400134: Dummy010
     400136: Dummy011
@@ -169,6 +188,23 @@ ModelImporter:
     400158: IK Chain026
     400160: IK Chain027
     400162: IK Chain028
+=======
+    400132: Dummy010
+    400134: Dummy011
+    400136: Dummy012
+    400138: IK Chain007
+    400140: IK Chain013
+    400142: IK Chain019
+    400144: IK Chain020
+    400146: IK Chain021
+    400148: IK Chain022
+    400150: IK Chain023
+    400152: IK Chain024
+    400154: IK Chain025
+    400156: IK Chain026
+    400158: IK Chain027
+    400160: IK Chain028
+>>>>>>> 5cb2284a7d08b9ea6427122277f6336f5e32baa4
     2300000: //RootNode
     2300002: Cylinder001
     3300000: //RootNode
