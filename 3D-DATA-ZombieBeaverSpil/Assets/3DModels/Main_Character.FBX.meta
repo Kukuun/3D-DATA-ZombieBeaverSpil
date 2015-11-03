@@ -6,12 +6,173 @@ ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Bone001
+    100004: Bone002
+    100006: Bone003
+    100008: Bone004
+    100010: Bone005
+    100012: Bone006
+    100014: Bone007
+    100016: Bone008
+    100018: Bone009
+    100020: Bone010
+    100022: Bone011
+    100024: Bone012
+    100026: Bone013
+    100028: Bone014
+    100030: Bone015
+    100032: Bone016
+    100034: Bone017
+    100036: Bone018
+    100038: Bone019
+    100040: Bone020
+    100042: Bone021
+    100044: Bone022
+    100046: Bone023
+    100048: Bone024
+    100050: Bone025
+    100052: Bone026
+    100054: Bone027
+    100056: Bone028
+    100058: Bone029
+    100060: Bone030
+    100062: Bone031
+    100064: Bone032
+    100066: Bone033
+    100068: Bone034
+    100070: Bone035
+    100072: Bone036
+    100074: Bone037
+    100076: Bone038
+    100078: Bone039
+    100080: Bone040
+    100082: Bone041
+    100084: Bone042
+    100086: Bone043
+    100088: Bone044
+    100090: Bone045
+    100092: Bone046
+    100094: Bone047
+    100096: Bone048
+    100098: Bone049
+    100100: Bone050
+    100102: Bone051
+    100104: Bone052
+    100106: Bone053
+    100108: Bone054
+    100110: Bone055
+    100112: Bone056
+    100114: Bone057
+    100116: Bone058
+    100118: Bone059
+    100120: Bone060
+    100122: Bone061
+    100124: Bone062
+    100126: Bone063
+    100128: Bone064
+    100130: Box001
+    100132: Dummy010
+    100134: Dummy011
+    100136: Dummy012
+    100138: IK Chain007
+    100140: IK Chain013
+    100142: IK Chain019
+    100144: IK Chain020
+    100146: IK Chain021
+    100148: IK Chain022
+    100150: IK Chain023
+    100152: IK Chain024
+    100154: IK Chain025
+    100156: IK Chain026
+    100158: IK Chain027
+    100160: IK Chain028
     400000: //RootNode
+    400002: Bone001
+    400004: Bone002
+    400006: Bone003
+    400008: Bone004
+    400010: Bone005
+    400012: Bone006
+    400014: Bone007
+    400016: Bone008
+    400018: Bone009
+    400020: Bone010
+    400022: Bone011
+    400024: Bone012
+    400026: Bone013
+    400028: Bone014
+    400030: Bone015
+    400032: Bone016
+    400034: Bone017
+    400036: Bone018
+    400038: Bone019
+    400040: Bone020
+    400042: Bone021
+    400044: Bone022
+    400046: Bone023
+    400048: Bone024
+    400050: Bone025
+    400052: Bone026
+    400054: Bone027
+    400056: Bone028
+    400058: Bone029
+    400060: Bone030
+    400062: Bone031
+    400064: Bone032
+    400066: Bone033
+    400068: Bone034
+    400070: Bone035
+    400072: Bone036
+    400074: Bone037
+    400076: Bone038
+    400078: Bone039
+    400080: Bone040
+    400082: Bone041
+    400084: Bone042
+    400086: Bone043
+    400088: Bone044
+    400090: Bone045
+    400092: Bone046
+    400094: Bone047
+    400096: Bone048
+    400098: Bone049
+    400100: Bone050
+    400102: Bone051
+    400104: Bone052
+    400106: Bone053
+    400108: Bone054
+    400110: Bone055
+    400112: Bone056
+    400114: Bone057
+    400116: Bone058
+    400118: Bone059
+    400120: Bone060
+    400122: Bone061
+    400124: Bone062
+    400126: Bone063
+    400128: Bone064
+    400130: Box001
+    400132: Dummy010
+    400134: Dummy011
+    400136: Dummy012
+    400138: IK Chain007
+    400140: IK Chain013
+    400142: IK Chain019
+    400144: IK Chain020
+    400146: IK Chain021
+    400148: IK Chain022
+    400150: IK Chain023
+    400152: IK Chain024
+    400154: IK Chain025
+    400156: IK Chain026
+    400158: IK Chain027
+    400160: IK Chain028
     2300000: //RootNode
     3300000: //RootNode
     4300000: Box001
     7400000: Take 001
     9500000: //RootNode
+    13700000: Box001
   materials:
     importMaterials: 1
     materialName: 0
