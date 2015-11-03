@@ -1,80 +1,67 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 1de49105628cefd498241b8a3bb5d4a2
-timeCreated: 1446469619
-licenseType: Pro
-=======
-guid: b80200a0df52e5345931681c35e4d3e6
-timeCreated: 1446462546
+guid: 6128a76cc58a72c40b19beef6b3f7d3f
+timeCreated: 1446546933
 licenseType: Free
->>>>>>> ca258a36b45c704ea5b65daffe305750b61d62d9
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: Bord
-    100002: DoubleDuvet
+    100000: Bord001
+    100002: DoubleDuvet001
     100004: //RootNode
-    100006: IKEABed
-    100008: IKEABedsideTable_1
-    100010: IKEASkab
-    100012: LongPillow_1
-    100014: Pejs001
-    100016: Pejs004
-    100018: Pillow_1
-    100020: Sofa
-    100022: SofaTable
-    100024: Stol_05
-    400000: Bord
-    400002: DoubleDuvet
+    100006: IKEABed001
+    100008: IKEABedsideTable_002
+    100010: IKEASkab001
+    100012: LongPillow_003
+    100014: Pejs005
+    100016: Pillow_003
+    100018: Sofa001
+    100020: SofaTable001
+    100022: Stol_006
+    400000: Bord001
+    400002: DoubleDuvet001
     400004: //RootNode
-    400006: IKEABed
-    400008: IKEABedsideTable_1
-    400010: IKEASkab
-    400012: LongPillow_1
-    400014: Pejs001
-    400016: Pejs004
-    400018: Pillow_1
-    400020: Sofa
-    400022: SofaTable
-    400024: Stol_05
-    2300000: Bord
-    2300002: DoubleDuvet
-    2300004: IKEABed
-    2300006: IKEABedsideTable_1
-    2300008: IKEASkab
-    2300010: LongPillow_1
-    2300012: Pejs001
-    2300014: Pejs004
-    2300016: Pillow_1
-    2300018: Sofa
-    2300020: SofaTable
-    2300022: Stol_05
-    3300000: Bord
-    3300002: DoubleDuvet
-    3300004: IKEABed
-    3300006: IKEABedsideTable_1
-    3300008: IKEASkab
-    3300010: LongPillow_1
-    3300012: Pejs001
-    3300014: Pejs004
-    3300016: Pillow_1
-    3300018: Sofa
-    3300020: SofaTable
-    3300022: Stol_05
-    4300000: IKEABed
-    4300002: Pillow_1
-    4300004: LongPillow_1
-    4300006: DoubleDuvet
-    4300008: IKEABedsideTable_1
-    4300010: IKEASkab
-    4300012: Pejs001
-    4300014: Pejs004
-    4300016: Bord
-    4300018: Stol_05
-    4300020: Sofa
-    4300022: SofaTable
-    7400000: Take 001
-    9500000: //RootNode
+    400006: IKEABed001
+    400008: IKEABedsideTable_002
+    400010: IKEASkab001
+    400012: LongPillow_003
+    400014: Pejs005
+    400016: Pillow_003
+    400018: Sofa001
+    400020: SofaTable001
+    400022: Stol_006
+    2300000: Bord001
+    2300002: DoubleDuvet001
+    2300004: IKEABed001
+    2300006: IKEABedsideTable_002
+    2300008: IKEASkab001
+    2300010: LongPillow_003
+    2300012: Pejs005
+    2300014: Pillow_003
+    2300016: Sofa001
+    2300018: SofaTable001
+    2300020: Stol_006
+    3300000: Bord001
+    3300002: DoubleDuvet001
+    3300004: IKEABed001
+    3300006: IKEABedsideTable_002
+    3300008: IKEASkab001
+    3300010: LongPillow_003
+    3300012: Pejs005
+    3300014: Pillow_003
+    3300016: Sofa001
+    3300018: SofaTable001
+    3300020: Stol_006
+    4300000: Pejs005
+    4300002: IKEASkab001
+    4300004: IKEABedsideTable_002
+    4300006: IKEABed001
+    4300008: DoubleDuvet001
+    4300010: LongPillow_003
+    4300012: Pillow_003
+    4300014: Stol_006
+    4300016: Bord001
+    4300018: Sofa001
+    4300020: SofaTable001
   materials:
     importMaterials: 1
     materialName: 0
@@ -131,15 +118,10 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-<<<<<<< HEAD
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
-=======
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
->>>>>>> ca258a36b45c704ea5b65daffe305750b61d62d9
   additionalBone: 0
   userData: 
   assetBundleName: 

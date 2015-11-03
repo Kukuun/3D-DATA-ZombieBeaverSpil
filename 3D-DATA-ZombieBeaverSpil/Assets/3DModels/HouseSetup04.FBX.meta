@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: a669f4943ce558d41923b5e05f9ee279
-timeCreated: 1446469620
-licenseType: Pro
-=======
-guid: 8010f40a2c967584393a28ac18aa54a1
-timeCreated: 1446462164
+guid: a95b0a175897e00489199c4b9207ab8d
+timeCreated: 1446546934
 licenseType: Free
->>>>>>> ca258a36b45c704ea5b65daffe305750b61d62d9
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
@@ -21,9 +15,8 @@ ModelImporter:
     2300002: Setup_005
     3300000: OverEtage_Dobbelt001
     3300002: Setup_005
-    4300000: OverEtage_Dobbelt001
-    4300002: Setup_005
-    9500000: //RootNode
+    4300000: Setup_005
+    4300002: OverEtage_Dobbelt001
   materials:
     importMaterials: 1
     materialName: 0
@@ -80,15 +73,10 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-<<<<<<< HEAD
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
-=======
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
->>>>>>> ca258a36b45c704ea5b65daffe305750b61d62d9
   additionalBone: 0
   userData: 
   assetBundleName: 
