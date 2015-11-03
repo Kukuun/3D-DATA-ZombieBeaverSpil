@@ -25,6 +25,9 @@ public class Player : MonoBehaviour
     private float rateOfFire;
     private float shootClock;
 
+    [SerializeField]
+    private float meleeRange;
+
     /// <summary>
     /// Is true if the action button is down. 
     /// Can for instance be used by doors to trigger opening.
@@ -58,8 +61,19 @@ public class Player : MonoBehaviour
 
                 if (hit.collider.tag == "Enemy")
                 {
-                    hit.collider.SendMessage("TakeDamageMan", 10);
-                    Debug.Log("Hit");
+                    //Melee?
+                    Vector3 deltaPos = hit.collider.transform.position - gameObject.transform.position;
+                    Debug.Log("DeltaPos: " + deltaPos.magnitude);
+                    if (deltaPos.magnitude <= meleeRange)
+                    {
+                        hit.collider.SendMessage("TakeDamageMan", 5);
+                    }
+                    else  //Melee? slut
+                    {
+                        hit.collider.SendMessage("TakeDamageMan", 10);
+                        Debug.Log("Hit");
+                    }
+                    
                 }
 
             }

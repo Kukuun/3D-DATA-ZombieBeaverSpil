@@ -1,22 +1,66 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: da2d766283770834db617093695b765a
+guid: 21306016897103a4da488ed468671325
 timeCreated: 1446469620
 licenseType: Pro
-=======
-guid: 903d8c496447a564aba80478c68ea863
-timeCreated: 1446457425
-licenseType: Free
->>>>>>> ca258a36b45c704ea5b65daffe305750b61d62d9
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Beaver body
+    100004: left back foot
+    100006: left back foot01
+    100008: left back foot02
+    100010: left back foot03
+    100012: Left front foot
+    100014: Left front foot01
+    100016: Left front foot02
+    100018: Left front foot03
+    100020: Right back foot
+    100022: Right back foot01
+    100024: Right back foot02
+    100026: Right back foot03
+    100028: Right front foot005
+    100030: Right front foot00501
+    100032: Right front foot00502
+    100034: Right front foot00503
+    100036: "Ryg s\xF8jle"
+    100038: "Ryg s\xF8jle01"
+    100040: "Ryg s\xF8jle02"
+    100042: "Ryg s\xF8jle03"
+    100044: Tail
+    100046: Tail01
+    100048: Tail02
+    100050: Tail03
     400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Setup_005
+    400002: Beaver body
+    400004: left back foot
+    400006: left back foot01
+    400008: left back foot02
+    400010: left back foot03
+    400012: Left front foot
+    400014: Left front foot01
+    400016: Left front foot02
+    400018: Left front foot03
+    400020: Right back foot
+    400022: Right back foot01
+    400024: Right back foot02
+    400026: Right back foot03
+    400028: Right front foot005
+    400030: Right front foot00501
+    400032: Right front foot00502
+    400034: Right front foot00503
+    400036: "Ryg s\xF8jle"
+    400038: "Ryg s\xF8jle01"
+    400040: "Ryg s\xF8jle02"
+    400042: "Ryg s\xF8jle03"
+    400044: Tail
+    400046: Tail01
+    400048: Tail02
+    400050: Tail03
+    4300000: Beaver body
+    7400000: Take 001
     9500000: //RootNode
+    13700000: Beaver body
   materials:
     importMaterials: 1
     materialName: 0
@@ -73,15 +117,8 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-<<<<<<< HEAD
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
-=======
-    hasTranslationDoF: 0
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
-  humanoidOversampling: 1
->>>>>>> ca258a36b45c704ea5b65daffe305750b61d62d9
   additionalBone: 0
   userData: 
   assetBundleName: 
