@@ -58,7 +58,11 @@ ModelImporter:
     400048: Tail02
     400050: Tail03
     4300000: Beaver body
-    7400000: Take 001
+    7400000: Attack
+    7400002: Walk
+    7400004: Death
+    7400006: Idle
+    7400008: LayingDead
     9500000: //RootNode
     13700000: Beaver body
   materials:
@@ -80,7 +84,427 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 85
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Beaver body
+        weight: 1
+      - path: "Ryg s\xF8jle"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01/left back foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01/left back foot02/left
+          back foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01/Right back foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01/Right back foot02/Right
+          back foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01/Left
+          front foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01/Left
+          front foot02/Left front foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005/Right
+          front foot00501"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005/Right
+          front foot00501/Right front foot00502"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Ryg s\xF8jle02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Ryg s\xF8jle02/Ryg s\xF8jle03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01/Tail02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01/Tail02/Tail03"
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Attack
+      takeName: Take 001
+      firstFrame: 85
+      lastFrame: 140
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Beaver body
+        weight: 1
+      - path: "Ryg s\xF8jle"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01/left back foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01/left back foot02/left
+          back foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01/Right back foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01/Right back foot02/Right
+          back foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01/Left
+          front foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01/Left
+          front foot02/Left front foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005/Right
+          front foot00501"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005/Right
+          front foot00501/Right front foot00502"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Ryg s\xF8jle02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Ryg s\xF8jle02/Ryg s\xF8jle03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01/Tail02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01/Tail02/Tail03"
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Death
+      takeName: Take 001
+      firstFrame: 140
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Beaver body
+        weight: 1
+      - path: "Ryg s\xF8jle"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01/left back foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01/left back foot02/left
+          back foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01/Right back foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01/Right back foot02/Right
+          back foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01/Left
+          front foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01/Left
+          front foot02/Left front foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005/Right
+          front foot00501"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005/Right
+          front foot00501/Right front foot00502"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Ryg s\xF8jle02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Ryg s\xF8jle02/Ryg s\xF8jle03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01/Tail02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01/Tail02/Tail03"
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Beaver body
+        weight: 1
+      - path: "Ryg s\xF8jle"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01/left back foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01/left back foot02/left
+          back foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01/Right back foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01/Right back foot02/Right
+          back foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01/Left
+          front foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01/Left
+          front foot02/Left front foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005/Right
+          front foot00501"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005/Right
+          front foot00501/Right front foot00502"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Ryg s\xF8jle02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Ryg s\xF8jle02/Ryg s\xF8jle03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01/Tail02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01/Tail02/Tail03"
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: LayingDead
+      takeName: Take 001
+      firstFrame: 160
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Beaver body
+        weight: 1
+      - path: "Ryg s\xF8jle"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01/left back foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/left back foot/left back foot01/left back foot02/left
+          back foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01/Right back foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Right back foot/Right back foot01/Right back foot02/Right
+          back foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01/Left
+          front foot02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Left front foot/Left front foot01/Left
+          front foot02/Left front foot03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005/Right
+          front foot00501"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Right front foot00503/Right front foot005/Right
+          front foot00501/Right front foot00502"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Ryg s\xF8jle02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Ryg s\xF8jle01/Ryg s\xF8jle02/Ryg s\xF8jle03"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01/Tail02"
+        weight: 1
+      - path: "Ryg s\xF8jle/Tail/Tail01/Tail02/Tail03"
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
