@@ -23,7 +23,7 @@ public class MusicController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Application.loadedLevelName == "Done Screen" && Application.loadedLevelName == "Game")
+        if (Application.loadedLevelName == "Done Screen")
         {
             source.Stop();
         }
