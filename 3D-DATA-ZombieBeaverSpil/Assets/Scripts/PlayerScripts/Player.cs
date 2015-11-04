@@ -7,6 +7,13 @@ public class Player : MonoBehaviour
     private Ray attackRay;
     private RaycastHit hit;
     private bool dead;
+    private AudioSource source;
+    private float volLowRange = .5f;
+    private float volHighRange = 1.0f;
+    public AudioClip gunSound;
+    public AudioClip gameOver;
+    public AudioClip playerHurt;
+    public AudioClip playerDeath;
 
     [SerializeField]
     private int health;
@@ -36,6 +43,10 @@ public class Player : MonoBehaviour
     public float interactionMaxDistance;
     #endregion
 
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
     // Use this for initialization
     void Start()
     {
@@ -48,12 +59,16 @@ public class Player : MonoBehaviour
         shootClock += Time.deltaTime;
 
         CheckForInteractiveObjects();
+
+        LifeZeroEnding();
     }
 
     private void Shoot()
     {
         if (shootClock >= rateOfFire)
         {
+            float vol = Random.Range(volLowRange, volHighRange);
+            source.PlayOneShot(gunSound, vol);
             MakeRay();
             if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
             {
@@ -91,6 +106,8 @@ public class Player : MonoBehaviour
     {
         if (health <= 0 && !dead)
         {
+            source.PlayOneShot(playerDeath, 0.4f);
+            source.PlayOneShot(gameOver);
             bæverTænder = (int)(Time.time);
             //Destroy(gameObject);
             dead = true;
@@ -101,6 +118,11 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (health > 0)
+        {
+          source.PlayOneShot(playerHurt, 0.7f);  
+        }
+        
         health -= damage;
     }
 

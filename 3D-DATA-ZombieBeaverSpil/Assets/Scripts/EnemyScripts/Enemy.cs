@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
+    public AudioClip BeaverDie;
+    public AudioClip BeaverHurt;
     [SerializeField]
     NavMeshAgent myAgent;
     GameObject playerGO;
@@ -16,8 +18,15 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int attackRate;
     private float attackTime = 0;
+    private AudioSource source;
+    private float volLowRange = .3f;
+    private float volHighRange = 1.0f;
 
     // Use this for initialization
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
     void Start()
     {
 
@@ -35,11 +44,14 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamageMan(int damage)
     {
+        float vol = Random.Range(volLowRange, volHighRange);
+        source.PlayOneShot(BeaverHurt, vol);
         Debug.Log("Took Damage: " + damage);
         health -= damage;
 
         if (health <= 0)
         {
+            source.PlayOneShot(BeaverDie, vol);
             Destroy(gameObject);
         }
     }
