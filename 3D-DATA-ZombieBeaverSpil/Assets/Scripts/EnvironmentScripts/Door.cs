@@ -5,6 +5,8 @@ public class Door : MonoBehaviour
 {
     [SerializeField]
     private GameObject player;
+    [SerializeField]
+    private int health;
 
     [SerializeField]
     private bool open;
@@ -29,7 +31,13 @@ public class Door : MonoBehaviour
     void Update()
     {
         clock += Time.deltaTime;
+        Interaction();
+        Die();
+        
+    }
 
+    private void Interaction()
+    {
         if (player.GetComponent<Player>().actionEvent)
         {
             //Debug.Log("Check Action");
@@ -50,6 +58,13 @@ public class Door : MonoBehaviour
         {
             Quaternion doorOpen = Quaternion.Euler(0, openAngle, 0);
             GetComponentInChildren<Transform>().localRotation = Quaternion.Slerp(transform.localRotation, doorOpen, Time.deltaTime * smooth);
+        }
+    }
+    private void Die()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
