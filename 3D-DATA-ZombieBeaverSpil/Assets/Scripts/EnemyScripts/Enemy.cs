@@ -16,11 +16,14 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int attackRate;
     private float attackTime = 0;
+    private Animator myAnimator;
+    private float deathTimer = 0;
+    private bool dead;
 
     // Use this for initialization
     void Start()
     {
-
+        myAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -28,9 +31,20 @@ public class Enemy : MonoBehaviour
     {
         playerGO = GameObject.FindGameObjectWithTag("Player");
         playerO = FindObjectOfType<Player>();
-
-        Navigation();
-        Attack();
+        if (!dead)
+        {
+            Navigation();
+            Attack();
+        }
+        if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName("LayingDead"))
+        {
+            deathTimer += Time.deltaTime;
+            dead = true;
+            if (deathTimer >= 3)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     public void TakeDamageMan(int damage)
@@ -40,7 +54,7 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+            myAnimator.SetBool("Dying", true);
         }
     }
 
@@ -54,7 +68,12 @@ public class Enemy : MonoBehaviour
             {
                 (playerO as Player).TakeDamage(damage);
                 attackTime = 0;
+                myAnimator.SetBool("Attacking", true);
             }
+        }
+        else
+        {
+            myAnimator.SetBool("Attacking", false);
         }
     }
 
@@ -64,10 +83,12 @@ public class Enemy : MonoBehaviour
         if (Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2) + Mathf.Pow(v.z, 2)) > distanceToPlayerBeforeHold)
         {
             myAgent.SetDestination(playerGO.transform.position);
+            myAnimator.SetBool("Walking", true);
         }
         else
         {
             myAgent.SetDestination(transform.position);
+            myAnimator.SetBool("Walking", false);
         }
     }
 }
