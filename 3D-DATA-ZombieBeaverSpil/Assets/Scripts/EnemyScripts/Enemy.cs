@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     private int attackRate;
     private float attackTime = 0;
     private AudioSource source;
-    private float volLowRange = .3f;
+    private float volLowRange = 0.3f;
     private float volHighRange = 1.0f;
     private Animator myAnimator;
     private float deathTimer = 0;
