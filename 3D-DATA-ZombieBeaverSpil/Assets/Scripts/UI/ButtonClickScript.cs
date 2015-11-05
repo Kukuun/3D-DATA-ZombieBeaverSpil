@@ -3,7 +3,14 @@ using System.Collections;
 
 public class ButtonClickScript : MonoBehaviour
 {
+    public AudioClip menuSound;
 
+    private AudioSource source;
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
     // Use this for initialization
     void Start()
     {
@@ -18,16 +25,19 @@ public class ButtonClickScript : MonoBehaviour
 
     public void StartGame()
     {
+        source.PlayOneShot(menuSound);
         Application.LoadLevel("Game");
     }
 
     public void GoToOptions()
     {
+        source.PlayOneShot(menuSound);
         Application.LoadLevel("Options");
     }
 
     public void ExitGame()
     {
+        source.PlayOneShot(menuSound);
         Application.Quit();
     }
 }

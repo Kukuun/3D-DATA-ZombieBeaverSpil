@@ -28,6 +28,11 @@ public class MarkedMenuScript : MonoBehaviour
     private int houseLevel;
     private const int maxHouseLevel = 3;
 
+    public AudioClip buySound;
+    public AudioClip menuSound;
+
+    private AudioSource source;
+
     [SerializeField]
     Text healthCostText, healthValueText, houseCostText, houseLevelText, weaponCostText, damageCostText, damageModifierText, currencyText;
 
@@ -39,6 +44,11 @@ public class MarkedMenuScript : MonoBehaviour
     3: houseLevel
     
     */
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     // Use this for initialization
     void Start()
@@ -62,6 +72,7 @@ public class MarkedMenuScript : MonoBehaviour
     {
         if (CanBuy(currency, upgradeHealthPrice))
         {
+            source.PlayOneShot(buySound);
             playerHealth += 25;
             UpdatePrice(UpgradeType.Health);
             Debug.Log("New Health price: " + upgradeHealthPrice);
@@ -81,6 +92,7 @@ public class MarkedMenuScript : MonoBehaviour
     {
         if (CanBuy(currency, upgradeHousePrice, houseLevel, maxHouseLevel))
         {
+            source.PlayOneShot(buySound);
             Debug.Log("Upgraded the house");
             houseLevel++;
             UpdatePrice(UpgradeType.HouseLevel);
@@ -101,7 +113,7 @@ public class MarkedMenuScript : MonoBehaviour
     public void BuyWeapon()
     {
         Debug.Log("Bought weapon");
-
+        source.PlayOneShot(buySound);
         UpdateText();
         SaveToDatabase();
     }
@@ -110,6 +122,7 @@ public class MarkedMenuScript : MonoBehaviour
     {
         if (CanBuy(currency, upgradeDamagePrice))
         {
+            source.PlayOneShot(buySound);
             weaponDamageModifier += 0.1f;
             UpdatePrice(UpgradeType.Damage);
             Debug.Log("New Weapon damage price: " + upgradeDamagePrice);
@@ -123,7 +136,7 @@ public class MarkedMenuScript : MonoBehaviour
     public void BackToPreviousMenu()
     {
         SaveToDatabase();
-
+        source.PlayOneShot(menuSound);
         Application.UnloadLevel(Application.loadedLevel);
     }
 
