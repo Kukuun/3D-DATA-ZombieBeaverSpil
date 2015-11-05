@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using UnityEngine.UI;
 using System;
+using System.Text;
 
 enum UpgradeType { Health, Damage, HouseLevel };
 
