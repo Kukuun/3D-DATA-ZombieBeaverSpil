@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     /// Can for instance be used by doors to trigger opening.
     /// </summary>
     public bool actionEvent;
-    public float interactionMaxDistance;
+    public float interactionMaxDistance = 2;
     #endregion
 
     void Awake()
