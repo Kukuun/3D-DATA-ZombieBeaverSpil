@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         SetupDatabase();
         File.WriteAllLines("Assets/MarkedUpgrade.txt", database);
         currentHealth = maxHealth;
-        InvokeRepeating("decreaseHealth", 1f, 1f);
+        //InvokeRepeating("decreaseHealth", 1f, 1f);
     }
 
     // Update is called once per frame
