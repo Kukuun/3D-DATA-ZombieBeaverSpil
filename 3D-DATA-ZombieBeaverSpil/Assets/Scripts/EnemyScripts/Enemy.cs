@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         myAnimator = GetComponent<Animator>();
+        myAgent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
