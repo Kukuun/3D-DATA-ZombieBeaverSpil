@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Door : MonoBehaviour
 {
+    public AudioClip doorOpenSound;
+    public AudioClip doorCloseSound;
+
+    private AudioSource source;
     [SerializeField]
     private GameObject player;
     [SerializeField]
@@ -19,6 +23,11 @@ public class Door : MonoBehaviour
 
     private float clock;
 
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     // Use this for initialization
     void Start()
@@ -44,6 +53,8 @@ public class Door : MonoBehaviour
             Vector3 deltaDis = transform.position - player.transform.position;
             if (player.GetComponent<Player>().interactionMaxDistance >= Mathf.Abs(deltaDis.magnitude) && clock > 2)
             {
+                //source.PlayOneShot(doorCloseSound);
+                source.PlayOneShot(doorOpenSound);
                 open = !open;
                 clock = 0;
             }
@@ -51,11 +62,13 @@ public class Door : MonoBehaviour
 
         if (!open)
         {
+            
             Quaternion doorClosed = Quaternion.Euler(0, closeAngle, 0);
             GetComponentInChildren<Transform>().localRotation = Quaternion.Slerp(transform.localRotation, doorClosed, Time.deltaTime * smooth);
         }
         if (open)
         {
+            
             Quaternion doorOpen = Quaternion.Euler(0, openAngle, 0);
             GetComponentInChildren<Transform>().localRotation = Quaternion.Slerp(transform.localRotation, doorOpen, Time.deltaTime * smooth);
         }
