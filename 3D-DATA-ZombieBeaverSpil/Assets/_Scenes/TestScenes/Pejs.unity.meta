@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: cec59dea340a10242a91009241868b9b
 timeCreated: 1446796392
 licenseType: Pro
+=======
+guid: 93b7bb6435484194984f29ad86443ce2
+timeCreated: 1446757402
+licenseType: Free
+>>>>>>> 9327d320dbe2f127a8179b794af7fb56603a431e
 DefaultImporter:
   userData: 
   assetBundleName: 
