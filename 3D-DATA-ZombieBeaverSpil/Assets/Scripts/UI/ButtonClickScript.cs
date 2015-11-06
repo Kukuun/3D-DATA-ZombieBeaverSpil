@@ -25,19 +25,21 @@ public class ButtonClickScript : MonoBehaviour
 
     public void StartGame()
     {
-        source.PlayOneShot(menuSound);
-        Application.LoadLevel("Game");
+        Application.LoadLevel("PresentationScene");
     }
 
     public void GoToOptions()
     {
-        source.PlayOneShot(menuSound);
         Application.LoadLevel("Options");
     }
 
     public void ExitGame()
     {
-        source.PlayOneShot(menuSound);
         Application.Quit();
+    }
+
+    public void GoToMarked()
+    {
+        Application.LoadLevel("MarkedScene");
     }
 }

@@ -55,10 +55,15 @@ public class Enemy : MonoBehaviour
             Navigation();
             Attack();
         }
+        else
+        {
+            myAgent.SetDestination(transform.position);
+            myAnimator.SetBool("Walking", false);
+        }
         if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName("LayingDead"))
         {
             deathTimer += Time.deltaTime;
-            dead = true;
+            
             if (deathTimer >= 3)
             {
                 Destroy(gameObject);
@@ -75,6 +80,7 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
+            dead = true;
             source.PlayOneShot(BeaverDie, vol);
             myAnimator.SetBool("Dying", true);
         }

@@ -32,9 +32,12 @@ public class PlayerTouchInput : MonoBehaviour {
     {
         myRigidbody.AddForce(MoveVector * movementSpeed);
 
+        Vector3 point = transform.position + aimJoystick.inputVector;
+
         if (aimJoystick.initialInput)
         {
-            transform.LookAt(new Vector3(aimJoystick.angle.x, 0, aimJoystick.angle.y));
+            transform.LookAt(point);
+            //transform.LookAt(new Vector3(aimJoystick.angle.x, 0, aimJoystick.angle.y));
         }
     }
 

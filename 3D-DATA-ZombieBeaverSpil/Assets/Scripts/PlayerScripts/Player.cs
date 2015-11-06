@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     private float meleeRange;
 
     private string[] database;
+    private string filePath;
 
     /// <summary>
     /// Is true if the action button is down. 
@@ -59,6 +60,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+        filePath = Application.persistentDataPath + "/MarkedUpgrade.txt";
         source = GetComponent<AudioSource>();
     }
     // Use this for initialization
@@ -66,7 +68,7 @@ public class Player : MonoBehaviour
     {
         shootClock = 0;
         SetupDatabase();
-        File.WriteAllLines("Assets/MarkedUpgrade.txt", database);
+        File.WriteAllLines(filePath, database);
         currentHealth = maxHealth;
         //InvokeRepeating("decreaseHealth", 1f, 1f);
     }
@@ -99,11 +101,11 @@ public class Player : MonoBehaviour
                     Debug.Log("DeltaPos: " + deltaPos.magnitude);
                     if (deltaPos.magnitude <= meleeRange)
                     {
-                        hit.collider.SendMessage("TakeDamageMan", 5);
+                        hit.collider.SendMessage("TakeDamageMan", 50);
                     }
                     else  //Melee? slut
                     {
-                        hit.collider.SendMessage("TakeDamageMan", 10);
+                        hit.collider.SendMessage("TakeDamageMan", 100);
                         Debug.Log("Hit");
                     }
                     
@@ -132,7 +134,7 @@ public class Player : MonoBehaviour
 
             database[0] += bæverTænder;
 
-            File.WriteAllLines("Assets/MarkedUpgrade.txt", database);
+            File.WriteAllLines(filePath, database);
 
             Application.LoadLevelAdditive("Done Screen");
         }
@@ -178,11 +180,11 @@ public class Player : MonoBehaviour
 
     private void SetupDatabase()
     {
-        if (!File.Exists("Assets/MarkedUpgrade.txt"))
+        if (!File.Exists(filePath))
         {
-            File.CreateText("Assets/MarkedUpgrade.txt").Close();
+            File.CreateText(filePath).Close();
         }
-        database = File.ReadAllLines("Assets/MarkedUpgrade.txt");
+        database = File.ReadAllLines(filePath);
         if (database == null || database.Length == 0)
         {
             Debug.Log("Not Existing");
@@ -191,6 +193,9 @@ public class Player : MonoBehaviour
             database[1] = "100";
             database[2] = "1";
             database[3] = "1";
+            database[4] = "0";
+            database[5] = "0";
+            database[6] = "0";
         }
 
         //currency = int.Parse(database[0]);
