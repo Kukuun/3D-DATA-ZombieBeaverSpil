@@ -101,11 +101,11 @@ public class Player : MonoBehaviour
                     Debug.Log("DeltaPos: " + deltaPos.magnitude);
                     if (deltaPos.magnitude <= meleeRange)
                     {
-                        hit.collider.SendMessage("TakeDamageMan", 50);
+                        hit.collider.SendMessage("TakeDamageMan", 5);
                     }
                     else  //Melee? slut
                     {
-                        hit.collider.SendMessage("TakeDamageMan", 100);
+                        hit.collider.SendMessage("TakeDamageMan", 10);
                         Debug.Log("Hit");
                     }
                     
