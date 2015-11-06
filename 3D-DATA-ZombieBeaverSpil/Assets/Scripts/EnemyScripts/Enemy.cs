@@ -74,14 +74,20 @@ public class Enemy : MonoBehaviour
     public void TakeDamageMan(int damage)
     {
         float vol = Random.Range(volLowRange, volHighRange);
-        source.PlayOneShot(BeaverHurt, vol);
+        if (dead != true)
+        {
+          source.PlayOneShot(BeaverHurt, vol);  
+        }
         Debug.Log("Took Damage: " + damage);
         health -= damage;
 
         if (health <= 0)
         {
+            if (dead != true)
+            {
+               source.PlayOneShot(BeaverDie, vol); 
+            }
             dead = true;
-            source.PlayOneShot(BeaverDie, vol);
             myAnimator.SetBool("Dying", true);
         }
     }
