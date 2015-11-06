@@ -11,7 +11,7 @@ public class VirtualAimingJoystick : MonoBehaviour, IDragHandler, IPointerDownHa
 
     public GameObject player;
 
-    private Vector3 inputVector;
+    public Vector3 inputVector;
     [NonSerialized]
     public Vector3 angle;
     [NonSerialized]
