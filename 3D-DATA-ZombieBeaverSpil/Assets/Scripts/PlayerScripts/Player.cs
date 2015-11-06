@@ -14,6 +14,14 @@ public class Player : MonoBehaviour
     {
         get { return health; }
     }
+
+    [SerializeField]
+    private int armor;
+    public int Armor
+    {
+        get { return armor; }
+    }
+
     [SerializeField]
     private int bæverTænder;
     public int BæverTænder
@@ -89,6 +97,8 @@ public class Player : MonoBehaviour
 
     private void LifeZeroEnding()
     {
+        
+        
         if (health <= 0 && !dead)
         {
             bæverTænder = (int)(Time.time);
@@ -101,7 +111,20 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
+        
+        armor -= damage;
+        if (armor <= -1)
+        {
+            health -= damage;
+            armor = 0;
+        }
+
+        if (health <= 0)
+        {
+            health = 0;
+        }
+        
+        
     }
 
     private void CheckForInteractiveObjects()
