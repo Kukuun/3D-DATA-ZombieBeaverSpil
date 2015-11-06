@@ -20,4 +20,9 @@ public class WriteToCanvas : MonoBehaviour {
     {
         
     }
+
+    public void BackToMain()
+    {
+        Application.LoadLevel("MainMenu");
+    }
 }

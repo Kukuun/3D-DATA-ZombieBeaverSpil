@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
+    public AudioClip BeaverDie;
+    public AudioClip BeaverHurt;
     [SerializeField]
     NavMeshAgent myAgent;
     GameObject playerGO;
@@ -16,11 +18,22 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int attackRate;
     private float attackTime = 0;
+    private AudioSource source;
+    private float volLowRange = 0.3f;
+    private float volHighRange = 1.0f;
+    private Animator myAnimator;
+    private float deathTimer = 0;
+    private bool dead;
 
     // Use this for initialization
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
     void Start()
     {
-
+        myAnimator = GetComponent<Animator>();
+        myAgent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -28,19 +41,39 @@ public class Enemy : MonoBehaviour
     {
         playerGO = GameObject.FindGameObjectWithTag("Player");
         playerO = FindObjectOfType<Player>();
-
-        Navigation();
-        Attack();
+        if (!dead)
+        {
+            Navigation();
+            Attack();
+        }
+        else
+        {
+            myAgent.SetDestination(transform.position);
+            myAnimator.SetBool("Walking", false);
+        }
+        if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName("LayingDead"))
+        {
+            deathTimer += Time.deltaTime;
+            
+            if (deathTimer >= 3)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     public void TakeDamageMan(int damage)
     {
+        float vol = Random.Range(volLowRange, volHighRange);
+        source.PlayOneShot(BeaverHurt, vol);
         Debug.Log("Took Damage: " + damage);
         health -= damage;
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+            dead = true;
+            source.PlayOneShot(BeaverDie, vol);
+            myAnimator.SetBool("Dying", true);
         }
     }
 
@@ -54,7 +87,12 @@ public class Enemy : MonoBehaviour
             {
                 (playerO as Player).TakeDamage(damage);
                 attackTime = 0;
+                myAnimator.SetBool("Attacking", true);
             }
+        }
+        else
+        {
+            myAnimator.SetBool("Attacking", false);
         }
     }
 
@@ -64,10 +102,12 @@ public class Enemy : MonoBehaviour
         if (Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2) + Mathf.Pow(v.z, 2)) > distanceToPlayerBeforeHold)
         {
             myAgent.SetDestination(playerGO.transform.position);
+            myAnimator.SetBool("Walking", true);
         }
         else
         {
             myAgent.SetDestination(transform.position);
+            myAnimator.SetBool("Walking", false);
         }
     }
 }
