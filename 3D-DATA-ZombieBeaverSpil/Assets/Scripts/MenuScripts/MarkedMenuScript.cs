@@ -28,6 +28,11 @@ public class MarkedMenuScript : MonoBehaviour
     private int houseLevel;
     private const int maxHouseLevel = 3;
 
+    public AudioClip buySound;
+    public AudioClip menuSound;
+
+    private AudioSource source;
+
     [SerializeField]
     private int assaultRifleCost;
     private bool assaultHasBought;
@@ -56,6 +61,11 @@ public class MarkedMenuScript : MonoBehaviour
     6: uziHasBought if true = 1
     */
 
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -79,6 +89,7 @@ public class MarkedMenuScript : MonoBehaviour
     {
         if (CanBuy(currency, upgradeHealthPrice))
         {
+            source.PlayOneShot(buySound);
             playerHealth += 25;
             UpdatePrice(UpgradeType.Health);
             Debug.Log("New Health price: " + upgradeHealthPrice);
@@ -98,6 +109,7 @@ public class MarkedMenuScript : MonoBehaviour
     {
         if (CanBuy(currency, upgradeHousePrice, houseLevel, maxHouseLevel))
         {
+            source.PlayOneShot(buySound);
             Debug.Log("Upgraded the house");
             houseLevel++;
             UpdatePrice(UpgradeType.HouseLevel);
