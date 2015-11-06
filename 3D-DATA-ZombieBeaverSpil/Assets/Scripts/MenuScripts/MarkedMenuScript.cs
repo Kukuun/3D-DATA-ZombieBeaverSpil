@@ -34,15 +34,31 @@ public class MarkedMenuScript : MonoBehaviour
     private AudioSource source;
 
     [SerializeField]
-    Text healthCostText, healthValueText, houseCostText, houseLevelText, weaponCostText, damageCostText, damageModifierText, currencyText;
+    private int assaultRifleCost;
+    private bool assaultHasBought;
 
+    [SerializeField]
+    private int shotgunCost;
+    private bool shotgunHasBought;
+
+    [SerializeField]
+    private int uziCost;
+    private bool uziHasBought;
+
+    [SerializeField]
+    Text healthCostText, healthValueText, houseCostText, houseLevelText, damageCostText, damageModifierText, currencyText,
+    assualtRifleCostText, assaultRifleHasBoughtText, shotgunCostText, shotgunHasBoughtText, uziCostText, uziHasBoughtText;
+
+    private string filePath;
 
     /*
     0: currency
     1: playerHealth
     2: weaponDamageModifier
     3: houseLevel
-    
+    4: assaulRifleHasBought if true = 1
+    5: shotgunHasBought if true = 1
+    6: uziHasBought if true = 1
     */
 
     void Awake()
@@ -53,6 +69,7 @@ public class MarkedMenuScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        filePath = Application.persistentDataPath + "/MarkedUpgrade.txt";
         SetupDatabase();
 
         UpdatePrice(UpgradeType.Health);
@@ -110,19 +127,72 @@ public class MarkedMenuScript : MonoBehaviour
 
     }
 
-    public void BuyWeapon()
+    public void BuyAssaultRifle()
     {
-        Debug.Log("Bought weapon");
-        source.PlayOneShot(buySound);
-        UpdateText();
-        SaveToDatabase();
+
+        if (CanBuy(currency, assaultRifleCost, assaultHasBought))
+        {
+            Debug.Log("Bought weapon");
+
+            assaultHasBought = true;
+            database[4] = "1";
+            UpdateText();
+            SaveToDatabase();
+        }
+        else if (assaultHasBought)
+        {
+            Debug.Log("Already Bought");
+        }
+        else
+        {
+            Debug.Log("Not enough beaver teeth");
+        }
+    }
+    public void BuyShotgun()
+    {
+        if (CanBuy(currency, shotgunCost, shotgunHasBought))
+        {
+            Debug.Log("Bought weapon");
+
+            shotgunHasBought = true;
+            database[5] = "1";
+            UpdateText();
+            SaveToDatabase();
+        }
+        else if (shotgunHasBought)
+        {
+            Debug.Log("Already Bought");
+        }
+        else
+        {
+            Debug.Log("Not enough beaver teeth");
+        }
+    }
+    public void BuyUzi()
+    {
+        if (CanBuy(currency, uziCost, uziHasBought))
+        {
+            Debug.Log("Bought weapon");
+
+            uziHasBought = true;
+            database[6] = "1";
+            UpdateText();
+            SaveToDatabase();
+        }
+        else if (uziHasBought)
+        {
+            Debug.Log("Already Bought");
+        }
+        else
+        {
+            Debug.Log("Not enough beaver teeth");
+        }
     }
 
     public void UpgradeWeaponDamage()
     {
         if (CanBuy(currency, upgradeDamagePrice))
         {
-            source.PlayOneShot(buySound);
             weaponDamageModifier += 0.1f;
             UpdatePrice(UpgradeType.Damage);
             Debug.Log("New Weapon damage price: " + upgradeDamagePrice);
@@ -136,13 +206,24 @@ public class MarkedMenuScript : MonoBehaviour
     public void BackToPreviousMenu()
     {
         SaveToDatabase();
-        source.PlayOneShot(menuSound);
-        Application.UnloadLevel(Application.loadedLevel);
+
+        Application.LoadLevel("MainMenu");
     }
 
     private bool CanBuy(int currentCurrency, int price)
     {
         if (price <= currentCurrency)
+        {
+            currency -= price;
+            database[0] = currency.ToString();
+            return true;
+        }
+
+        return false;
+    }
+    private bool CanBuy(int currentCurrency, int price, bool bought)
+    {
+        if (price <= currentCurrency && !bought)
         {
             currency -= price;
             database[0] = currency.ToString();
@@ -184,11 +265,11 @@ public class MarkedMenuScript : MonoBehaviour
     }
     private void SetupDatabase()
     {
-        if (!File.Exists("Assets/MarkedUpgrade.txt"))
+        if (!File.Exists(filePath))
         {
-            File.CreateText("Assets/MarkedUpgrade.txt").Close();
+            File.CreateText(filePath).Close();
         }
-        database = File.ReadAllLines("Assets/MarkedUpgrade.txt");
+        database = File.ReadAllLines(filePath);
         if (database == null || database.Length == 0)
         {
             Debug.Log("Not Existing");
@@ -197,12 +278,18 @@ public class MarkedMenuScript : MonoBehaviour
             database[1] = "100";
             database[2] = "1";
             database[3] = "1";
+            database[4] = "0";
+            database[5] = "0";
+            database[6] = "0";
         }
 
         currency = int.Parse(database[0]);
         playerHealth = int.Parse(database[1]);
         weaponDamageModifier = float.Parse(database[2]);
         houseLevel = int.Parse(database[3]);
+        assaultHasBought = (database[4] == "1") ? true : false;
+        shotgunHasBought = (database[5] == "1") ? true : false;
+        uziHasBought = (database[6] == "1") ? true : false;
     }
     private void UpdateText()
     {
@@ -213,9 +300,16 @@ public class MarkedMenuScript : MonoBehaviour
         damageCostText.text = "Damage Upgrade Cost: " + upgradeDamagePrice.ToString();
         damageModifierText.text = "Current Modifier: " + weaponDamageModifier.ToString() + " - Damage Modifier Increase: " + (0.1).ToString();
         currencyText.text = "Current beaver teeth: " + currency.ToString();
+
+        assualtRifleCostText.text = "Cost: " + assaultRifleCost.ToString();
+        assaultRifleHasBoughtText.text = (assaultHasBought == true) ? "Has Bought" : "For Sale";
+        shotgunCostText.text = "Cost: " + shotgunCost.ToString();
+        shotgunHasBoughtText.text = (shotgunHasBought == true) ? "Has Bought" : "For Sale";
+        uziCostText.text = "Cost: " + uziCost.ToString();
+        uziHasBoughtText.text = (uziHasBought == true) ? "Has Bought" : "For Sale";
     }
     private void SaveToDatabase()
     {
-        File.WriteAllLines("Assets/MarkedUpgrade.txt", database);
+        File.WriteAllLines(filePath, database);
     }
 }
