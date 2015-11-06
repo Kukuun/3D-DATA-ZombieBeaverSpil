@@ -25,7 +25,7 @@ public class ButtonClickScript : MonoBehaviour
 
     public void StartGame()
     {
-        Application.LoadLevel("PresentationScene");
+        Application.LoadLevel("Test");
     }
 
     public void GoToOptions()

@@ -205,8 +205,8 @@ public class MarkedMenuScript : MonoBehaviour
 
     public void BackToPreviousMenu()
     {
+        source.PlayOneShot(menuSound);
         SaveToDatabase();
-
         Application.LoadLevel("MainMenu");
     }
 
