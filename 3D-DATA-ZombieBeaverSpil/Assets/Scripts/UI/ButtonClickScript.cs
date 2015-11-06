@@ -18,7 +18,7 @@ public class ButtonClickScript : MonoBehaviour
 
     public void StartGame()
     {
-        Application.LoadLevel("Game");
+        Application.LoadLevel("PresentationScene");
     }
 
     public void GoToOptions()
@@ -29,5 +29,10 @@ public class ButtonClickScript : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void GoToMarked()
+    {
+        Application.LoadLevel("MarkedScene");
     }
 }
