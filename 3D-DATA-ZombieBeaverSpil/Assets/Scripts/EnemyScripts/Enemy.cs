@@ -78,7 +78,7 @@ public class Enemy : MonoBehaviour
         {
           source.PlayOneShot(BeaverHurt, vol);  
         }
-        Debug.Log("Took Damage: " + damage);
+        //Debug.Log("Took Damage: " + damage);
         health -= damage;
 
         if (health <= 0)

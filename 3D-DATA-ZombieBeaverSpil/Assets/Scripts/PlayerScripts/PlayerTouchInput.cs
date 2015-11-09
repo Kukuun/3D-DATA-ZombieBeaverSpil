@@ -66,7 +66,7 @@ public class PlayerTouchInput : MonoBehaviour
         //The angle between the move and aim vector in radians. cos(v)= a ⋅ b / ∣a∣ ⋅ ∣b∣
         float vR = Mathf.Acos((MoveVector.x * aimJoystick.inputVector.x + MoveVector.y * aimJoystick.inputVector.y + MoveVector.z * aimJoystick.inputVector.z) / (Mathf.Sqrt(Mathf.Pow(MoveVector.x, 2) + Mathf.Pow(MoveVector.y, 2) + Mathf.Pow(MoveVector.z, 2)) * Mathf.Sqrt(Mathf.Pow(aimJoystick.inputVector.x, 2) + Mathf.Pow(aimJoystick.inputVector.y, 2) + Mathf.Pow(aimJoystick.inputVector.z, 2))));
 
-        Debug.Log(myRigidbody.velocity);
+        //Debug.Log(myRigidbody.velocity);
 
         if (myRigidbody.velocity == Vector3.zero)
         {
