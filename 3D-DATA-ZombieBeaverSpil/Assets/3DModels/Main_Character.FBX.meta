@@ -86,6 +86,9 @@ ModelImporter:
     100156: IK Chain026
     100158: IK Chain027
     100160: IK Chain028
+    100162: Cylinder001
+    100164: Dummy003
+    100166: Dummy004
     400000: //RootNode
     400002: Bone001
     400004: Bone002
@@ -167,9 +170,15 @@ ModelImporter:
     400156: IK Chain026
     400158: IK Chain027
     400160: IK Chain028
+    400162: Cylinder001
+    400164: Dummy003
+    400166: Dummy004
     2300000: //RootNode
+    2300002: Cylinder001
     3300000: //RootNode
+    3300002: Cylinder001
     4300000: Box001
+    4300002: Cylinder001
     7400000: RunForward
     7400002: RunForwardStart
     7400004: RunBackward
