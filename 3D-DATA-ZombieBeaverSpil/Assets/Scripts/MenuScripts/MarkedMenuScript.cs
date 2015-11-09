@@ -70,6 +70,7 @@ public class MarkedMenuScript : MonoBehaviour
     void Start()
     {
         filePath = Application.persistentDataPath + "/MarkedUpgrade.txt";
+        print(Application.persistentDataPath + "/MarkedUpgrade.txt");
         SetupDatabase();
 
         UpdatePrice(UpgradeType.Health);
@@ -89,7 +90,6 @@ public class MarkedMenuScript : MonoBehaviour
     {
         if (CanBuy(currency, upgradeHealthPrice))
         {
-            source.PlayOneShot(buySound);
             playerHealth += 25;
             UpdatePrice(UpgradeType.Health);
             Debug.Log("New Health price: " + upgradeHealthPrice);
@@ -98,6 +98,7 @@ public class MarkedMenuScript : MonoBehaviour
 
             UpdateText();
             SaveToDatabase();
+            source.PlayOneShot(buySound);
         }
         else
         {
@@ -109,7 +110,6 @@ public class MarkedMenuScript : MonoBehaviour
     {
         if (CanBuy(currency, upgradeHousePrice, houseLevel, maxHouseLevel))
         {
-            source.PlayOneShot(buySound);
             Debug.Log("Upgraded the house");
             houseLevel++;
             UpdatePrice(UpgradeType.HouseLevel);
@@ -119,6 +119,7 @@ public class MarkedMenuScript : MonoBehaviour
 
             UpdateText();
             SaveToDatabase();
+            source.PlayOneShot(buySound);
         }
         else
         {
@@ -138,6 +139,7 @@ public class MarkedMenuScript : MonoBehaviour
             database[4] = "1";
             UpdateText();
             SaveToDatabase();
+            source.PlayOneShot(buySound);
         }
         else if (assaultHasBought)
         {
@@ -158,6 +160,7 @@ public class MarkedMenuScript : MonoBehaviour
             database[5] = "1";
             UpdateText();
             SaveToDatabase();
+            source.PlayOneShot(buySound);
         }
         else if (shotgunHasBought)
         {
@@ -178,6 +181,7 @@ public class MarkedMenuScript : MonoBehaviour
             database[6] = "1";
             UpdateText();
             SaveToDatabase();
+            source.PlayOneShot(buySound);
         }
         else if (uziHasBought)
         {
@@ -200,14 +204,15 @@ public class MarkedMenuScript : MonoBehaviour
 
             UpdateText();
             SaveToDatabase();
+            source.PlayOneShot(buySound);
         }
     }
 
     public void BackToPreviousMenu()
     {
-        source.PlayOneShot(menuSound);
         SaveToDatabase();
         Application.LoadLevel("MainMenu");
+        source.PlayOneShot(menuSound);
     }
 
     private bool CanBuy(int currentCurrency, int price)
