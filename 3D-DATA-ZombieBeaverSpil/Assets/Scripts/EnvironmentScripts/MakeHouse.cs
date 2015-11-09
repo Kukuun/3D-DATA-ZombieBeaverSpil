@@ -34,14 +34,7 @@ public class MakeHouse : MonoBehaviour
 
         SetupDatabase();
         currentHouseLevel = int.Parse(database[3]);
-        if (currentHouseLevel == 1)
-        {
-            Instantiate(allHouses[currentHouseLevel - 1], houseSpawnPosition, Quaternion.Euler(new Vector3(270, 0, 0)));
-        }
-        else
-        {
-            Instantiate(allHouses[currentHouseLevel - 1], houseSpawnPosition, Quaternion.identity);
-        }
+        Instantiate(allHouses[currentHouseLevel - 1], houseSpawnPosition, Quaternion.identity);
     }
 
     // Update is called once per frame
