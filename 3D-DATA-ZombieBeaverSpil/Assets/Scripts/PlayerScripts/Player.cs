@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     private Ray attackRay;
     private RaycastHit hit;
     private bool dead;
+    private bool reloading;
+    private int reloadTimer;
+    private int ammo = 7;
     private AudioSource source;
     private float volLowRange = .5f;
     private float volHighRange = 1.0f;
@@ -16,6 +19,8 @@ public class Player : MonoBehaviour
     public AudioClip gameOver;
     public AudioClip playerHurt;
     public AudioClip playerDeath;
+    public AudioClip reload;
+    public bool isPlayingReload = false;
 
     [SerializeField]
     private int maxHealth;
@@ -62,6 +67,7 @@ public class Player : MonoBehaviour
     {
         filePath = Application.persistentDataPath + "/MarkedUpgrade.txt";
         source = GetComponent<AudioSource>();
+        reloading = false;
     }
     // Use this for initialization
     void Start()
@@ -81,15 +87,18 @@ public class Player : MonoBehaviour
         CheckForInteractiveObjects();
 
         LifeZeroEnding();
+
+        Reloading();
     }
 
     private void Shoot()
     {
-        if (shootClock >= rateOfFire)
+        if (shootClock >= rateOfFire && reloading == false && ammo >= 1)
         {
             float vol = Random.Range(volLowRange, volHighRange);
             source.PlayOneShot(gunSound, vol);
             MakeRay();
+            ammo--;
             if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
             {
                 //Debug.Log("Hit with Ray: " + hit.collider.gameObject.layer);
@@ -140,6 +149,29 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Reloading()
+    {
+        if (ammo == 0 && reloading == false)
+        {
+            reloading = true;
+            if (isPlayingReload == false)
+            {
+              source.PlayOneShot(reload);
+              isPlayingReload = true;
+            }
+            reloadTimer = 0;
+            reloadTimer++;
+        }
+        reloadTimer++;
+        if (reloadTimer == 30 && ammo == 0 && reloading == true)
+        {
+            isPlayingReload = false;
+            ammo = 7;
+            reloading = false;
+        }
+        
+        
+    }
     public void TakeDamage(int damage)
     {
         if (currentHealth > 0)
