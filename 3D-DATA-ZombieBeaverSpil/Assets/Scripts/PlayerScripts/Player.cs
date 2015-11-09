@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     private Ray attackRay;
     private RaycastHit hit;
     private bool dead;
+    private bool reloading;
+    private int reloadTimer;
+    private int ammo = 7;
     private AudioSource source;
     private float volLowRange = .5f;
     private float volHighRange = 1.0f;
@@ -16,6 +19,8 @@ public class Player : MonoBehaviour
     public AudioClip gameOver;
     public AudioClip playerHurt;
     public AudioClip playerDeath;
+    public AudioClip reload;
+    public bool isPlayingReload = false;
 
     [SerializeField]
     private int maxHealth;
@@ -62,6 +67,7 @@ public class Player : MonoBehaviour
     {
         filePath = Application.persistentDataPath + "/MarkedUpgrade.txt";
         source = GetComponent<AudioSource>();
+        reloading = false;
     }
     // Use this for initialization
     void Start()
@@ -81,18 +87,21 @@ public class Player : MonoBehaviour
         CheckForInteractiveObjects();
 
         LifeZeroEnding();
+
+        Reloading();
     }
 
     private void Shoot()
     {
-        if (shootClock >= rateOfFire)
+        if (shootClock >= rateOfFire && reloading == false && ammo >= 1)
         {
             float vol = Random.Range(volLowRange, volHighRange);
             source.PlayOneShot(gunSound, vol);
             MakeRay();
+            ammo--;
             if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
             {
-                //Debug.Log("Hit with Ray: " + hit.collider.gameObject.layer);
+                Debug.Log("Hit with Ray: " + hit.collider.gameObject.layer);
 
                 if (hit.collider.tag == "Enemy")
                 {
@@ -118,8 +127,8 @@ public class Player : MonoBehaviour
 
     private void MakeRay()
     {
-        attackRay = new Ray(transform.position, transform.forward);
-        Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
+        attackRay = new Ray(new Vector3(0,1,0) + transform.position, transform.forward);
+        Debug.DrawRay(new Vector3(0, 1, 0) + transform.position, transform.forward * 10, Color.blue);
     }
 
     private void LifeZeroEnding()
@@ -140,6 +149,29 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Reloading()
+    {
+        if (ammo == 0 && reloading == false)
+        {
+            reloading = true;
+            if (isPlayingReload == false)
+            {
+              source.PlayOneShot(reload);
+              isPlayingReload = true;
+            }
+            reloadTimer = 0;
+            reloadTimer++;
+        }
+        reloadTimer++;
+        if (reloadTimer == 60 && ammo == 0 && reloading == true)
+        {
+            isPlayingReload = false;
+            ammo = 7;
+            reloading = false;
+        }
+        
+        
+    }
     public void TakeDamage(int damage)
     {
         if (currentHealth > 0)
@@ -187,7 +219,7 @@ public class Player : MonoBehaviour
         database = File.ReadAllLines(filePath);
         if (database == null || database.Length == 0)
         {
-            Debug.Log("Not Existing");
+            //Debug.Log("Not Existing");
             database = new string[20];
             database[0] = "0";
             database[1] = "100";
