@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
             reloadTimer++;
         }
         reloadTimer++;
-        if (reloadTimer == 30 && ammo == 0 && reloading == true)
+        if (reloadTimer == 60 && ammo == 0 && reloading == true)
         {
             isPlayingReload = false;
             ammo = 7;
