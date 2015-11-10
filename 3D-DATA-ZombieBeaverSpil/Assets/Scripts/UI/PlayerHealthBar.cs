@@ -4,13 +4,9 @@ using UnityEngine.UI;
 
 public class PlayerHealthBar : MonoBehaviour {
 
-    public Image bar;
+    public Image healthBar;
     float currentValue;
     public int healthSpeed = 5;
-
-    //[SerializeField]
-    //private GameObject player;
-
     public int maxHealth;
     public int currentHealth;
 
@@ -19,7 +15,6 @@ public class PlayerHealthBar : MonoBehaviour {
 
         maxHealth = gameObject.GetComponent<Player>().MaxHealth;
         currentHealth = maxHealth;
-        
     }
 	
 	// Update is called once per frame
@@ -35,13 +30,11 @@ public class PlayerHealthBar : MonoBehaviour {
     {
         currentValue = MapValues(currentHealth, 0, maxHealth, 0, 1);
         
-        bar.fillAmount = Mathf.Lerp(bar.fillAmount, currentValue, Time.deltaTime * healthSpeed);
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, currentValue, Time.deltaTime * healthSpeed);
     }
 
     private float MapValues(float x, float inMin, float inMax, float outMin, float outMax)
     {
         return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-    }
-
-    
+    }   
 }

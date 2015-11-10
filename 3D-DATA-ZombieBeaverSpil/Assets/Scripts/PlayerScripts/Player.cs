@@ -101,7 +101,7 @@ public class Player : MonoBehaviour
             ammo--;
             if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
             {
-                //Debug.Log("Hit with Ray: " + hit.collider.gameObject.layer);
+                Debug.Log("Hit with Ray: " + hit.collider.gameObject.layer);
 
                 if (hit.collider.tag == "Enemy")
                 {
@@ -127,8 +127,8 @@ public class Player : MonoBehaviour
 
     private void MakeRay()
     {
-        attackRay = new Ray(transform.position, transform.forward);
-        Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
+        attackRay = new Ray(new Vector3(0,1,0) + transform.position, transform.forward);
+        Debug.DrawRay(new Vector3(0, 1, 0) + transform.position, transform.forward * 10, Color.blue);
     }
 
     private void LifeZeroEnding()
@@ -185,20 +185,27 @@ public class Player : MonoBehaviour
     private void CheckForInteractiveObjects()
     {
         GameObject[] intObj = GameObject.FindGameObjectsWithTag("Interactive Object");
-
+        bool closeObj = false;
         foreach (GameObject obj in intObj)
         {
             //Checks if an object is close enough to interact
             Vector3 v = obj.transform.position - transform.position;
             float vLenght = Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2) + Mathf.Pow(v.z, 2));
+            //Debug.Log(vLenght);
             if (vLenght < interactionMaxDistance) //if it is
             {
-                FindObjectOfType<ActionButton>().greenify = true;
+                //Debug.Log("Green");
+                closeObj = true;
             }
-            else //if it isnt
-            {
-                FindObjectOfType<ActionButton>().greenify = false;
-            }
+        }
+        if (closeObj) //if it is
+        {
+            //Debug.Log("Green");
+            FindObjectOfType<ActionButton>().greenify = true;
+        }
+        else //if it isnt
+        {
+            FindObjectOfType<ActionButton>().greenify = false;
         }
     }
 
@@ -219,7 +226,7 @@ public class Player : MonoBehaviour
         database = File.ReadAllLines(filePath);
         if (database == null || database.Length == 0)
         {
-            Debug.Log("Not Existing");
+            //Debug.Log("Not Existing");
             database = new string[20];
             database[0] = "0";
             database[1] = "100";

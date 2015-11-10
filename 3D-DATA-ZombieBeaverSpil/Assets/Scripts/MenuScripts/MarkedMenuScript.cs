@@ -92,8 +92,8 @@ public class MarkedMenuScript : MonoBehaviour
         {
             playerHealth += 25;
             UpdatePrice(UpgradeType.Health);
-            Debug.Log("New Health price: " + upgradeHealthPrice);
-            Debug.Log("Bought health");
+            //Debug.Log("New Health price: " + upgradeHealthPrice);
+            //Debug.Log("Bought health");
             database[1] = playerHealth.ToString();
 
             UpdateText();
@@ -102,7 +102,7 @@ public class MarkedMenuScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough beaver teeth");
+            //Debug.Log("Not enough beaver teeth");
         }
     }
 
@@ -110,11 +110,11 @@ public class MarkedMenuScript : MonoBehaviour
     {
         if (CanBuy(currency, upgradeHousePrice, houseLevel, maxHouseLevel))
         {
-            Debug.Log("Upgraded the house");
+            //Debug.Log("Upgraded the house");
             houseLevel++;
             UpdatePrice(UpgradeType.HouseLevel);
-            Debug.Log("New houselevel: " + houseLevel);
-            Debug.Log("New House price: " + upgradeHousePrice);
+            //Debug.Log("New houselevel: " + houseLevel);
+            //Debug.Log("New House price: " + upgradeHousePrice);
             database[3] = houseLevel.ToString();
 
             UpdateText();
@@ -123,7 +123,7 @@ public class MarkedMenuScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough beaver teeth");
+            //Debug.Log("Not enough beaver teeth");
         }
 
     }
@@ -133,7 +133,7 @@ public class MarkedMenuScript : MonoBehaviour
 
         if (CanBuy(currency, assaultRifleCost, assaultHasBought))
         {
-            Debug.Log("Bought weapon");
+            //Debug.Log("Bought weapon");
 
             assaultHasBought = true;
             database[4] = "1";
@@ -143,18 +143,18 @@ public class MarkedMenuScript : MonoBehaviour
         }
         else if (assaultHasBought)
         {
-            Debug.Log("Already Bought");
+            //Debug.Log("Already Bought");
         }
         else
         {
-            Debug.Log("Not enough beaver teeth");
+            //Debug.Log("Not enough beaver teeth");
         }
     }
     public void BuyShotgun()
     {
         if (CanBuy(currency, shotgunCost, shotgunHasBought))
         {
-            Debug.Log("Bought weapon");
+            //Debug.Log("Bought weapon");
 
             shotgunHasBought = true;
             database[5] = "1";
@@ -164,18 +164,18 @@ public class MarkedMenuScript : MonoBehaviour
         }
         else if (shotgunHasBought)
         {
-            Debug.Log("Already Bought");
+            //Debug.Log("Already Bought");
         }
         else
         {
-            Debug.Log("Not enough beaver teeth");
+            //Debug.Log("Not enough beaver teeth");
         }
     }
     public void BuyUzi()
     {
         if (CanBuy(currency, uziCost, uziHasBought))
         {
-            Debug.Log("Bought weapon");
+            //Debug.Log("Bought weapon");
 
             uziHasBought = true;
             database[6] = "1";
@@ -185,11 +185,11 @@ public class MarkedMenuScript : MonoBehaviour
         }
         else if (uziHasBought)
         {
-            Debug.Log("Already Bought");
+            //Debug.Log("Already Bought");
         }
         else
         {
-            Debug.Log("Not enough beaver teeth");
+            //Debug.Log("Not enough beaver teeth");
         }
     }
 
@@ -199,7 +199,7 @@ public class MarkedMenuScript : MonoBehaviour
         {
             weaponDamageModifier += 0.1f;
             UpdatePrice(UpgradeType.Damage);
-            Debug.Log("New Weapon damage price: " + upgradeDamagePrice);
+            //Debug.Log("New Weapon damage price: " + upgradeDamagePrice);
             database[2] = weaponDamageModifier.ToString();
 
             UpdateText();
@@ -277,7 +277,7 @@ public class MarkedMenuScript : MonoBehaviour
         database = File.ReadAllLines(filePath);
         if (database == null || database.Length == 0)
         {
-            Debug.Log("Not Existing");
+            //Debug.Log("Not Existing");
             database = new string[20];
             database[0] = "1000";
             database[1] = "100";

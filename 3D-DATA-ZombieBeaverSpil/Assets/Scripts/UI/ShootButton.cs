@@ -30,7 +30,7 @@ public class ShootButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             pos.y = (pos.y / shootButton.rectTransform.sizeDelta.y);
              
 
-            Debug.Log("I puez sh00t butten.");
+            //Debug.Log("I puez sh00t butten.");
         }
     }
 
