@@ -61,6 +61,9 @@ public class Player : MonoBehaviour
     /// </summary>
     public bool actionEvent;
     public float interactionMaxDistance = 2;
+
+    private float oriMoveSpeed;
+    private bool collidingStairs;
     #endregion
 
     void Awake()
@@ -77,6 +80,7 @@ public class Player : MonoBehaviour
         File.WriteAllLines(filePath, database);
         currentHealth = maxHealth;
         //InvokeRepeating("decreaseHealth", 1f, 1f);
+        oriMoveSpeed = gameObject.GetComponent<PlayerTouchInput>().movementSpeed;
     }
 
     // Update is called once per frame
@@ -89,6 +93,8 @@ public class Player : MonoBehaviour
         LifeZeroEnding();
 
         Reloading();
+
+        StairFix();
     }
 
     private void Shoot()
@@ -207,6 +213,30 @@ public class Player : MonoBehaviour
         {
             FindObjectOfType<ActionButton>().greenify = false;
         }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.tag == "StairCollider")
+        {
+            collidingStairs = true;
+        }
+    }
+
+    private void StairFix()
+    {
+        //Debug.Log(collidingStairs);
+        if (collidingStairs)
+        {
+            //Debug.Log("Stairs!!!");
+            gameObject.GetComponent<PlayerTouchInput>().movementSpeed = 40;
+        }
+        else
+        {
+            //Debug.Log("NO Stairs!!!");
+            gameObject.GetComponent<PlayerTouchInput>().movementSpeed = oriMoveSpeed;
+        }
+        collidingStairs = false;
     }
 
 
