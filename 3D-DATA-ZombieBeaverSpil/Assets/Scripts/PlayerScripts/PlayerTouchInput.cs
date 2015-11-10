@@ -36,6 +36,11 @@ public class PlayerTouchInput : MonoBehaviour
     {
         myRigidbody.AddForce(MoveVector * movementSpeed);
 
+        if (MoveVector == Vector3.zero)
+        {
+            myRigidbody.velocity = Vector3.zero;
+        }
+
         Vector3 point = transform.position + aimJoystick.inputVector;
 
         if (aimJoystick.initialInput)
