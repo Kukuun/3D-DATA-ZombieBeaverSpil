@@ -185,20 +185,27 @@ public class Player : MonoBehaviour
     private void CheckForInteractiveObjects()
     {
         GameObject[] intObj = GameObject.FindGameObjectsWithTag("Interactive Object");
-
+        bool closeObj = false;
         foreach (GameObject obj in intObj)
         {
             //Checks if an object is close enough to interact
             Vector3 v = obj.transform.position - transform.position;
             float vLenght = Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2) + Mathf.Pow(v.z, 2));
+            //Debug.Log(vLenght);
             if (vLenght < interactionMaxDistance) //if it is
             {
-                FindObjectOfType<ActionButton>().greenify = true;
+                //Debug.Log("Green");
+                closeObj = true;
             }
-            else //if it isnt
-            {
-                FindObjectOfType<ActionButton>().greenify = false;
-            }
+        }
+        if (closeObj) //if it is
+        {
+            //Debug.Log("Green");
+            FindObjectOfType<ActionButton>().greenify = true;
+        }
+        else //if it isnt
+        {
+            FindObjectOfType<ActionButton>().greenify = false;
         }
     }
 
