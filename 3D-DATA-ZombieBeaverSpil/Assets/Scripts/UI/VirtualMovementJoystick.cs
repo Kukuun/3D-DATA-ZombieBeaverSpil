@@ -38,7 +38,7 @@ public class VirtualMovementJoystick : MonoBehaviour, IDragHandler, IPointerUpHa
             movementJoystickImage.rectTransform.anchoredPosition = new Vector3(inputVector.x * (movementBackgroundImage.rectTransform.sizeDelta.x / 2.7f), inputVector.z * (movementBackgroundImage.rectTransform.sizeDelta.y / 2.7f));
             angle = movementJoystickImage.rectTransform.anchoredPosition;
 
-            Debug.Log(inputVector);
+            //Debug.Log(inputVector);
         }
     }
 

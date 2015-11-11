@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Enemy : MonoBehaviour
     GameObject playerGO;
     Object playerO;
     [SerializeField]
-    float distanceToPlayerBeforeHold;
+    float attackRange = 1.1f;
     [SerializeField]
     private int health;
     [SerializeField]
@@ -63,7 +64,7 @@ public class Enemy : MonoBehaviour
         if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName("LayingDead"))
         {
             deathTimer += Time.deltaTime;
-            
+
             if (deathTimer >= 3)
             {
                 Destroy(gameObject);
@@ -76,16 +77,16 @@ public class Enemy : MonoBehaviour
         float vol = Random.Range(volLowRange, volHighRange);
         if (dead != true)
         {
-          source.PlayOneShot(BeaverHurt, vol);  
+            source.PlayOneShot(BeaverHurt, vol);
         }
-        Debug.Log("Took Damage: " + damage);
+        //Debug.Log("Took Damage: " + damage);
         health -= damage;
 
         if (health <= 0)
         {
             if (dead != true)
             {
-               source.PlayOneShot(BeaverDie, vol); 
+                source.PlayOneShot(BeaverDie, vol);
             }
             dead = true;
             myAnimator.SetBool("Dying", true);
@@ -94,8 +95,32 @@ public class Enemy : MonoBehaviour
 
     private void Attack()
     {
+        #region destroyableObjects
+        //Finds all destroyable gameobjects.
+        //The obj needs an empty child with the tag.
+        GameObject[] tmp = GameObject.FindGameObjectsWithTag("Destroyable");
+        List<GameObject> destroyableObjects = new List<GameObject>();
+        foreach (GameObject go in tmp)
+        {
+            destroyableObjects.Add(go.transform.parent.gameObject);
+        }
+
+        GameObject destroyObj = null;
+
+        foreach (GameObject go in destroyableObjects)
+        {
+            Vector3 ve = go.transform.position - transform.position;
+            float veLenght = Mathf.Sqrt(Mathf.Pow(ve.x, 2) + Mathf.Pow(ve.y, 2) + Mathf.Pow(ve.z, 2));
+            //Damages the go
+            if (veLenght <= attackRange * 2)
+            {
+                destroyObj = go;
+            }
+        }
+        #endregion
+
         Vector3 v = playerGO.transform.position - transform.position; //The vector between the player and the enemy
-        if (Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2) + Mathf.Pow(v.z, 2)) <= distanceToPlayerBeforeHold * 2) //if the distance is less or equal the enemies stoppingposition * 2
+        if (Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2) + Mathf.Pow(v.z, 2)) <= attackRange * 2) //if the distance is less or equal the enemies stoppingposition * 2
         {
             attackTime += Time.deltaTime;
             if (attackTime >= attackRate)
@@ -106,6 +131,10 @@ public class Enemy : MonoBehaviour
                 myAnimator.SetBool("Attacking", true);
             }
         }
+        else if (destroyObj != null)
+        {
+            AttackObstacle(destroyObj);
+        }
         else
         {
             myAnimator.SetBool("Attacking", false);
@@ -115,21 +144,21 @@ public class Enemy : MonoBehaviour
     private void Navigation()
     {
         Vector3 v = playerGO.transform.position - transform.position;
-        if (Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2) + Mathf.Pow(v.z, 2)) > distanceToPlayerBeforeHold)
+        if (Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2) + Mathf.Pow(v.z, 2)) > attackRange)
         {
             float vol2 = Random.Range(stepVolLowRange, stepVolHighRange);
             if (isPlaying == false)
             {
-               source.PlayOneShot(beaverStep, vol2);
-               stepTimer++;
-               isPlaying = true;
+                source.PlayOneShot(beaverStep, vol2);
+                stepTimer++;
+                isPlaying = true;
             }
             if (stepTimer == 12)
             {
                 stepTimer = 0;
                 isPlaying = false;
             }
-            
+
 
             myAgent.SetDestination(playerGO.transform.position);
             myAnimator.SetBool("Walking", true);
@@ -138,6 +167,25 @@ public class Enemy : MonoBehaviour
         {
             myAgent.SetDestination(transform.position);
             myAnimator.SetBool("Walking", false);
+        }
+    }
+
+    private void AttackObstacle(GameObject go)
+    {
+        attackTime += Time.deltaTime;
+        if (attackTime >= attackRate)
+        {
+            source.PlayOneShot(beaverAttack);
+            if (go.GetComponent("Door") as Door != null)
+            {
+                (go.GetComponent("Door") as Door).health -= damage;
+            }
+            else if (go.GetComponent("Barricade") as Barricade != null)
+            {
+                (go.GetComponent("Barricade") as Barricade).health -= damage;
+            }
+            attackTime = 0;
+            myAnimator.SetBool("Attacking", true);
         }
     }
 }

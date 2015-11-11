@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     private Ray attackRay;
     private RaycastHit hit;
     private bool dead;
+    private bool reloading;
+    private int reloadTimer;
+    private int ammo = 7;
     private AudioSource source;
     private float volLowRange = .5f;
     private float volHighRange = 1.0f;
@@ -16,6 +19,8 @@ public class Player : MonoBehaviour
     public AudioClip gameOver;
     public AudioClip playerHurt;
     public AudioClip playerDeath;
+    public AudioClip reload;
+    public bool isPlayingReload = false;
 
     [SerializeField]
     private int maxHealth;
@@ -56,12 +61,16 @@ public class Player : MonoBehaviour
     /// </summary>
     public bool actionEvent;
     public float interactionMaxDistance = 2;
+
+    private float oriMoveSpeed;
+    private bool collidingStairs;
     #endregion
 
     void Awake()
     {
         filePath = Application.persistentDataPath + "/MarkedUpgrade.txt";
         source = GetComponent<AudioSource>();
+        reloading = false;
     }
     // Use this for initialization
     void Start()
@@ -71,6 +80,7 @@ public class Player : MonoBehaviour
         File.WriteAllLines(filePath, database);
         currentHealth = maxHealth;
         //InvokeRepeating("decreaseHealth", 1f, 1f);
+        oriMoveSpeed = gameObject.GetComponent<PlayerTouchInput>().movementSpeed;
     }
 
     // Update is called once per frame
@@ -81,18 +91,23 @@ public class Player : MonoBehaviour
         CheckForInteractiveObjects();
 
         LifeZeroEnding();
+
+        Reloading();
+
+        StairFix();
     }
 
     private void Shoot()
     {
-        if (shootClock >= rateOfFire)
+        if (shootClock >= rateOfFire && reloading == false && ammo >= 1)
         {
             float vol = Random.Range(volLowRange, volHighRange);
             source.PlayOneShot(gunSound, vol);
             MakeRay();
+            ammo--;
             if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
             {
-                //Debug.Log("Hit with Ray: " + hit.collider.gameObject.layer);
+                Debug.Log("Hit with Ray: " + hit.collider.gameObject.layer);
 
                 if (hit.collider.tag == "Enemy")
                 {
@@ -101,11 +116,11 @@ public class Player : MonoBehaviour
                     Debug.Log("DeltaPos: " + deltaPos.magnitude);
                     if (deltaPos.magnitude <= meleeRange)
                     {
-                        hit.collider.SendMessage("TakeDamageMan", 50);
+                        hit.collider.SendMessage("TakeDamageMan", 5);
                     }
                     else  //Melee? slut
                     {
-                        hit.collider.SendMessage("TakeDamageMan", 100);
+                        hit.collider.SendMessage("TakeDamageMan", 10);
                         Debug.Log("Hit");
                     }
                     
@@ -118,8 +133,8 @@ public class Player : MonoBehaviour
 
     private void MakeRay()
     {
-        attackRay = new Ray(transform.position, transform.forward);
-        Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
+        attackRay = new Ray(new Vector3(0,1,0) + transform.position, transform.forward);
+        Debug.DrawRay(new Vector3(0, 1, 0) + transform.position, transform.forward * 10, Color.blue);
     }
 
     private void LifeZeroEnding()
@@ -140,6 +155,29 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Reloading()
+    {
+        if (ammo == 0 && reloading == false)
+        {
+            reloading = true;
+            if (isPlayingReload == false)
+            {
+              source.PlayOneShot(reload);
+              isPlayingReload = true;
+            }
+            reloadTimer = 0;
+            reloadTimer++;
+        }
+        reloadTimer++;
+        if (reloadTimer == 60 && ammo == 0 && reloading == true)
+        {
+            isPlayingReload = false;
+            ammo = 7;
+            reloading = false;
+        }
+        
+        
+    }
     public void TakeDamage(int damage)
     {
         if (currentHealth > 0)
@@ -153,21 +191,52 @@ public class Player : MonoBehaviour
     private void CheckForInteractiveObjects()
     {
         GameObject[] intObj = GameObject.FindGameObjectsWithTag("Interactive Object");
-
+        bool closeObj = false;
         foreach (GameObject obj in intObj)
         {
             //Checks if an object is close enough to interact
             Vector3 v = obj.transform.position - transform.position;
             float vLenght = Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2) + Mathf.Pow(v.z, 2));
+            //Debug.Log(vLenght);
             if (vLenght < interactionMaxDistance) //if it is
             {
-                FindObjectOfType<ActionButton>().greenify = true;
-            }
-            else //if it isnt
-            {
-                FindObjectOfType<ActionButton>().greenify = false;
+                //Debug.Log("Green");
+                closeObj = true;
             }
         }
+        if (closeObj) //if it is
+        {
+            //Debug.Log("Green");
+            FindObjectOfType<ActionButton>().greenify = true;
+        }
+        else //if it isnt
+        {
+            FindObjectOfType<ActionButton>().greenify = false;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.tag == "StairCollider")
+        {
+            collidingStairs = true;
+        }
+    }
+
+    private void StairFix()
+    {
+        //Debug.Log(collidingStairs);
+        if (collidingStairs)
+        {
+            //Debug.Log("Stairs!!!");
+            gameObject.GetComponent<PlayerTouchInput>().movementSpeed = 40;
+        }
+        else
+        {
+            //Debug.Log("NO Stairs!!!");
+            gameObject.GetComponent<PlayerTouchInput>().movementSpeed = oriMoveSpeed;
+        }
+        collidingStairs = false;
     }
 
 
@@ -187,7 +256,7 @@ public class Player : MonoBehaviour
         database = File.ReadAllLines(filePath);
         if (database == null || database.Length == 0)
         {
-            Debug.Log("Not Existing");
+            //Debug.Log("Not Existing");
             database = new string[20];
             database[0] = "0";
             database[1] = "100";
