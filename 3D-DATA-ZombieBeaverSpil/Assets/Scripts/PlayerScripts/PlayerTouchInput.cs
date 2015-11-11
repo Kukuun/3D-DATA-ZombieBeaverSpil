@@ -34,7 +34,8 @@ public class PlayerTouchInput : MonoBehaviour
 
     void Move()
     {
-        myRigidbody.AddForce(MoveVector * movementSpeed);
+        float translate = movementSpeed * Time.deltaTime;
+        myRigidbody.AddForce(MoveVector *  translate);
 
         if (MoveVector == Vector3.zero)
         {
