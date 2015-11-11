@@ -46,8 +46,12 @@ public class MarkedMenuScript : MonoBehaviour
     private bool uziHasBought;
 
     [SerializeField]
+    private int sniperCost;
+    private bool sniperHasBought;
+
+    [SerializeField]
     Text healthCostText, healthValueText, houseCostText, houseLevelText, damageCostText, damageModifierText, currencyText,
-    assualtRifleCostText, assaultRifleHasBoughtText, shotgunCostText, shotgunHasBoughtText, uziCostText, uziHasBoughtText;
+    assualtRifleCostText, assaultRifleHasBoughtText, shotgunCostText, shotgunHasBoughtText, uziCostText, uziHasBoughtText, sniperCostText, sniperHasBoughtText;
 
     private string filePath;
 
@@ -59,6 +63,7 @@ public class MarkedMenuScript : MonoBehaviour
     4: assaulRifleHasBought if true = 1
     5: shotgunHasBought if true = 1
     6: uziHasBought if true = 1
+    7: sniperHasBought if true = 1
     */
 
     void Awake()
@@ -193,6 +198,28 @@ public class MarkedMenuScript : MonoBehaviour
         }
     }
 
+    public void BuySniper()
+    {
+        if (CanBuy(currency, sniperCost, sniperHasBought))
+        {
+            //Debug.Log("Bought weapon");
+
+            sniperHasBought = true;
+            database[7] = "1";
+            UpdateText();
+            SaveToDatabase();
+            source.PlayOneShot(buySound);
+        }
+        else if (sniperHasBought)
+        {
+            //Debug.Log("Already Bought");
+        }
+        else
+        {
+            //Debug.Log("Not enough beaver teeth");
+        }
+    }
+
     public void UpgradeWeaponDamage()
     {
         if (CanBuy(currency, upgradeDamagePrice))
@@ -286,6 +313,7 @@ public class MarkedMenuScript : MonoBehaviour
             database[4] = "0";
             database[5] = "0";
             database[6] = "0";
+            database[7] = "0";
         }
 
         currency = int.Parse(database[0]);
@@ -295,6 +323,7 @@ public class MarkedMenuScript : MonoBehaviour
         assaultHasBought = (database[4] == "1") ? true : false;
         shotgunHasBought = (database[5] == "1") ? true : false;
         uziHasBought = (database[6] == "1") ? true : false;
+        sniperHasBought = (database[7] == "1") ? true : false;
     }
     private void UpdateText()
     {
@@ -312,6 +341,8 @@ public class MarkedMenuScript : MonoBehaviour
         shotgunHasBoughtText.text = (shotgunHasBought == true) ? "Has Bought" : "For Sale";
         uziCostText.text = "Cost: " + uziCost.ToString();
         uziHasBoughtText.text = (uziHasBought == true) ? "Has Bought" : "For Sale";
+        sniperCostText.text = "Cost: " + sniperCost.ToString();
+        sniperHasBoughtText.text = (sniperHasBought == true) ? "Has Bought" : "For Sale";
     }
     private void SaveToDatabase()
     {
