@@ -9,8 +9,7 @@ public class Door : MonoBehaviour
     private AudioSource source;
     [SerializeField]
     private GameObject player;
-    [SerializeField]
-    private int health;
+    public int health;
 
     [SerializeField]
     private bool open;

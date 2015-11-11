@@ -6,6 +6,7 @@ public class Barricade : MonoBehaviour {
     private Player player;
     [SerializeField]
     private GameObject barricade;
+    public int health = 100;
 	// Use this for initialization
 	void Start () {
         player = (FindObjectOfType<Player>() as Player);
@@ -19,6 +20,10 @@ public class Barricade : MonoBehaviour {
         {
             Instantiate(barricade, transform.position, transform.rotation);
 
+            Destroy(gameObject);
+        }
+        if (health <= 0)
+        {
             Destroy(gameObject);
         }
 	}
