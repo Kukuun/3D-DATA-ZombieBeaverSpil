@@ -265,6 +265,7 @@ public class Player : MonoBehaviour
             database[4] = "0";
             database[5] = "0";
             database[6] = "0";
+            database[7] = "0";
         }
 
         //currency = int.Parse(database[0]);
