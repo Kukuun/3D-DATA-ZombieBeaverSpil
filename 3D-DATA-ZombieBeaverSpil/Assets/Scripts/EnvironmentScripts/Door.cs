@@ -63,13 +63,13 @@ public class Door : MonoBehaviour
         {
             
             Quaternion doorClosed = Quaternion.Euler(0, closeAngle, 0);
-            GetComponentInChildren<Transform>().localRotation = Quaternion.Slerp(transform.localRotation, doorClosed, Time.deltaTime * smooth);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, doorClosed, Time.deltaTime * smooth);
         }
         if (open)
         {
             
             Quaternion doorOpen = Quaternion.Euler(0, openAngle, 0);
-            GetComponentInChildren<Transform>().localRotation = Quaternion.Slerp(transform.localRotation, doorOpen, Time.deltaTime * smooth);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, doorOpen, Time.deltaTime * smooth);
         }
     }
     private void Die()
