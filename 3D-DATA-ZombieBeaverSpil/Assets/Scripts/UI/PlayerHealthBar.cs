@@ -9,11 +9,11 @@ public class PlayerHealthBar : MonoBehaviour {
     public int healthSpeed = 5;
     public int maxHealth;
     public int currentHealth;
+    public Player player;
 
 	// Use this for initialization
 	void Start () {
-
-        maxHealth = gameObject.GetComponent<Player>().MaxHealth;
+        maxHealth = player.MaxHealth;
         currentHealth = maxHealth;
     }
 	
@@ -22,7 +22,7 @@ public class PlayerHealthBar : MonoBehaviour {
     {
         HandleHealth();
 
-        currentHealth = gameObject.GetComponent<Player>().CurrentHealth;
+        currentHealth = player.CurrentHealth;
 
     }
     
