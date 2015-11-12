@@ -61,6 +61,9 @@ public class Player : MonoBehaviour
     /// </summary>
     public bool actionEvent;
     public float interactionMaxDistance = 2;
+
+    private float oriMoveSpeed;
+    private bool collidingStairs;
     #endregion
 
     void Awake()
@@ -77,6 +80,7 @@ public class Player : MonoBehaviour
     {
         shootClock = 0;
         //InvokeRepeating("decreaseHealth", 1f, 1f);
+        oriMoveSpeed = gameObject.GetComponent<PlayerTouchInput>().movementSpeed;
     }
 
     // Update is called once per frame
@@ -89,6 +93,8 @@ public class Player : MonoBehaviour
         LifeZeroEnding();
 
         Reloading();
+
+        StairFix();
     }
 
     private void Shoot()
@@ -185,21 +191,52 @@ public class Player : MonoBehaviour
     private void CheckForInteractiveObjects()
     {
         GameObject[] intObj = GameObject.FindGameObjectsWithTag("Interactive Object");
-
+        bool closeObj = false;
         foreach (GameObject obj in intObj)
         {
             //Checks if an object is close enough to interact
             Vector3 v = obj.transform.position - transform.position;
             float vLenght = Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2) + Mathf.Pow(v.z, 2));
+            //Debug.Log(vLenght);
             if (vLenght < interactionMaxDistance) //if it is
             {
-                FindObjectOfType<ActionButton>().greenify = true;
-            }
-            else //if it isnt
-            {
-                FindObjectOfType<ActionButton>().greenify = false;
+                //Debug.Log("Green");
+                closeObj = true;
             }
         }
+        if (closeObj) //if it is
+        {
+            //Debug.Log("Green");
+            FindObjectOfType<ActionButton>().greenify = true;
+        }
+        else //if it isnt
+        {
+            FindObjectOfType<ActionButton>().greenify = false;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.tag == "StairCollider")
+        {
+            collidingStairs = true;
+        }
+    }
+
+    private void StairFix()
+    {
+        //Debug.Log(collidingStairs);
+        if (collidingStairs)
+        {
+            //Debug.Log("Stairs!!!");
+            gameObject.GetComponent<PlayerTouchInput>().movementSpeed = 40;
+        }
+        else
+        {
+            //Debug.Log("NO Stairs!!!");
+            gameObject.GetComponent<PlayerTouchInput>().movementSpeed = oriMoveSpeed;
+        }
+        collidingStairs = false;
     }
 
 
@@ -228,6 +265,7 @@ public class Player : MonoBehaviour
             database[4] = "0";
             database[5] = "0";
             database[6] = "0";
+            database[7] = "0";
         }
 
         //currency = int.Parse(database[0]);
