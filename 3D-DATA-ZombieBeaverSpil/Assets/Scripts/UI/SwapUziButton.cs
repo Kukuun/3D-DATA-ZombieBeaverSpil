@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class SwapUziButton : MonoBehaviour, IPointerDownHandler {
 
-    public Image rifleButton, shotgunButton, handgunButton;
+    public Image rifleButton, shotgunButton, handgunButton, axeButton, sniperButton;
 
     [SerializeField]
     GameObject weapon;
@@ -43,6 +43,8 @@ public class SwapUziButton : MonoBehaviour, IPointerDownHandler {
             rifleButton.color = new Color32(0, 255, 55, 0);
             shotgunButton.color = new Color32(0, 255, 55, 0);
             handgunButton.color = new Color32(0, 255, 55, 0);
+            axeButton.color = new Color32(0, 255, 55, 0);
+            sniperButton.color = new Color32(0, 255, 55, 0);
         }
     }
 }

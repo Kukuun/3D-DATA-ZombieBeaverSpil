@@ -8,15 +8,25 @@ ModelImporter:
     100000: //RootNode
     100002: OverEtage_Dobbelt001
     100004: Setup_005
+    100006: OverEtage_Dobbelt
+    100008: Setup_004
     400000: //RootNode
     400002: OverEtage_Dobbelt001
     400004: Setup_005
+    400006: OverEtage_Dobbelt
+    400008: Setup_004
     2300000: OverEtage_Dobbelt001
     2300002: Setup_005
+    2300004: OverEtage_Dobbelt
+    2300006: Setup_004
     3300000: OverEtage_Dobbelt001
     3300002: Setup_005
+    3300004: OverEtage_Dobbelt
+    3300006: Setup_004
     4300000: Setup_005
     4300002: OverEtage_Dobbelt001
+    4300004: Setup_004
+    4300006: OverEtage_Dobbelt
   materials:
     importMaterials: 1
     materialName: 0
