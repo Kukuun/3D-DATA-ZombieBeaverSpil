@@ -68,14 +68,14 @@ public class Player : MonoBehaviour
         filePath = Application.persistentDataPath + "/MarkedUpgrade.txt";
         source = GetComponent<AudioSource>();
         reloading = false;
+        SetupDatabase();
+        File.WriteAllLines(filePath, database);
+        currentHealth = maxHealth;
     }
     // Use this for initialization
     void Start()
     {
         shootClock = 0;
-        SetupDatabase();
-        File.WriteAllLines(filePath, database);
-        currentHealth = maxHealth;
         //InvokeRepeating("decreaseHealth", 1f, 1f);
     }
 
