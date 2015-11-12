@@ -10,23 +10,33 @@ ModelImporter:
     100004: Setup_005
     100006: OverEtage_Enkelt
     100008: Setup_003
+    100010: Object003
+    100012: Object004
     400000: //RootNode
     400002: OverEtage_Enkelt001
     400004: Setup_005
     400006: OverEtage_Enkelt
     400008: Setup_003
+    400010: Object003
+    400012: Object004
     2300000: OverEtage_Enkelt001
     2300002: Setup_005
     2300004: OverEtage_Enkelt
     2300006: Setup_003
+    2300008: Object003
+    2300010: Object004
     3300000: OverEtage_Enkelt001
     3300002: Setup_005
     3300004: OverEtage_Enkelt
     3300006: Setup_003
+    3300008: Object003
+    3300010: Object004
     4300000: Setup_005
     4300002: OverEtage_Enkelt001
     4300004: Setup_003
     4300006: OverEtage_Enkelt
+    4300008: Object003
+    4300010: Object004
   materials:
     importMaterials: 1
     materialName: 0
@@ -83,10 +93,8 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-    hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
-  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
