@@ -11,7 +11,9 @@ public class Player : MonoBehaviour
     private bool dead;
     private bool reloading;
     private int reloadTimer;
-    private int ammo = 7;
+    public int ammo;
+    public int weaponDamage;
+    public float rateOfFire;
     private AudioSource source;
     private float volLowRange = .5f;
     private float volHighRange = 1.0f;
@@ -42,11 +44,7 @@ public class Player : MonoBehaviour
     {
         get { return bæverTænder; }
     }
-
-    
-
-    [SerializeField]
-    private float rateOfFire;
+        
     private float shootClock;
 
     [SerializeField]
@@ -54,6 +52,11 @@ public class Player : MonoBehaviour
 
     private string[] database;
     private string filePath;
+
+    private const int handgunMaxAmmo = 7;
+    private const int shotgunMaxAmmo = 2;
+    private const int uziMaxAmmo = 30, rifleMaxAmmo = 30;
+    private const int sniperMaxAmmo = 10;
 
     /// <summary>
     /// Is true if the action button is down. 
@@ -116,16 +119,14 @@ public class Player : MonoBehaviour
                     Debug.Log("DeltaPos: " + deltaPos.magnitude);
                     if (deltaPos.magnitude <= meleeRange)
                     {
-                        hit.collider.SendMessage("TakeDamageMan", 5);
+                        hit.collider.SendMessage("TakeDamageMan", weaponDamage * 1.2f);
                     }
                     else  //Melee? slut
                     {
-                        hit.collider.SendMessage("TakeDamageMan", 10);
+                        hit.collider.SendMessage("TakeDamageMan", weaponDamage);
                         Debug.Log("Hit");
-                    }
-                    
+                    }                    
                 }
-
             }
             shootClock = 0;
         }
@@ -172,12 +173,37 @@ public class Player : MonoBehaviour
         if (reloadTimer == 60 && ammo == 0 && reloading == true)
         {
             isPlayingReload = false;
-            ammo = 7;
+
+            UpdateAmmo();
+
             reloading = false;
         }
-        
-        
     }
+
+    public void UpdateAmmo()
+    {
+        switch (transform.GetChild(0).GetComponent<WeaponSwap>().currentWeapon)
+        {
+            case 0:
+                ammo = handgunMaxAmmo;
+                break;
+            case 1:
+                ammo = shotgunMaxAmmo;
+                break;
+            case 2:
+                ammo = uziMaxAmmo;
+                break;
+            case 3:
+                ammo = rifleMaxAmmo;
+                break;
+            case 4:
+                ammo = sniperMaxAmmo;
+                break;
+            default:
+                break;
+        }
+    }
+
     public void TakeDamage(int damage)
     {
         if (currentHealth > 0)
