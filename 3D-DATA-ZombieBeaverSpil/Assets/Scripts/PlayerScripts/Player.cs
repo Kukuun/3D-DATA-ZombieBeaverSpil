@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.Text;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class Player : MonoBehaviour
     private Ray attackRay;
     private RaycastHit hit;
     private bool dead;
-    private bool reloading;
+    private bool isReloading;
     private int reloadTimer;
     public int ammo;
     public int weaponDamage;
@@ -23,6 +24,8 @@ public class Player : MonoBehaviour
     public AudioClip playerDeath;
     public AudioClip reload;
     public bool isPlayingReload = false;
+    public Image reloadButton;
+    public bool initialFillOff = true;
 
     [SerializeField]
     private int maxHealth;
@@ -45,7 +48,15 @@ public class Player : MonoBehaviour
     {
         get { return bæverTænder; }
     }
-        
+
+    public bool IsReloading
+    {
+        set
+        {
+            isReloading = value;
+        }
+    }
+
     private float shootClock;
 
     [SerializeField]
@@ -74,10 +85,12 @@ public class Player : MonoBehaviour
     {
         filePath = Application.persistentDataPath + "/MarkedUpgrade.txt";
         source = GetComponent<AudioSource>();
-        reloading = false;
+        isReloading = false;
         SetupDatabase();
         File.WriteAllLines(filePath, database);
         currentHealth = maxHealth;
+        ammo = handgunMaxAmmo;
+        FindObjectOfType<WeaponSwap>().SelectWeapon(0);
     }
     // Use this for initialization
     void Start()
@@ -85,6 +98,7 @@ public class Player : MonoBehaviour
         shootClock = 0;
         //InvokeRepeating("decreaseHealth", 1f, 1f);
         oriMoveSpeed = gameObject.GetComponent<PlayerTouchInput>().movementSpeed;
+        //reloadTimer = 61;
     }
 
     // Update is called once per frame
@@ -101,23 +115,24 @@ public class Player : MonoBehaviour
         StairFix();
     }
 
-    private void Shoot()
+    public void Shoot()
     {
-        if (shootClock >= rateOfFire && reloading == false && ammo >= 1)
+        if (shootClock >= rateOfFire && isReloading == false && ammo >= 1)
         {
             float vol = Random.Range(volLowRange, volHighRange);
             source.PlayOneShot(gunSound, vol);
             MakeRay();
             ammo--;
+            Debug.Log(ammo);
             if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
             {
-                Debug.Log("Hit with Ray: " + hit.collider.gameObject.layer);
+                //Debug.Log("Hit with Ray: " + hit.collider.gameObject.layer);
 
                 if (hit.collider.tag == "Enemy")
                 {
                     //Melee?
                     Vector3 deltaPos = hit.collider.transform.position - gameObject.transform.position;
-                    Debug.Log("DeltaPos: " + deltaPos.magnitude);
+                    //Debug.Log("DeltaPos: " + deltaPos.magnitude);
                     if (deltaPos.magnitude <= meleeRange)
                     {
                         hit.collider.SendMessage("TakeDamageMan", weaponDamage * 1.2f);
@@ -125,8 +140,8 @@ public class Player : MonoBehaviour
                     else  //Melee? slut
                     {
                         hit.collider.SendMessage("TakeDamageMan", weaponDamage);
-                        Debug.Log("Hit");
-                    }                    
+                        //Debug.Log("Hit");
+                    }
                 }
             }
             shootClock = 0;
@@ -135,7 +150,7 @@ public class Player : MonoBehaviour
 
     private void MakeRay()
     {
-        attackRay = new Ray(new Vector3(0,1,0) + transform.position, transform.forward);
+        attackRay = new Ray(new Vector3(0, 1, 0) + transform.position, transform.forward);
         Debug.DrawRay(new Vector3(0, 1, 0) + transform.position, transform.forward * 10, Color.blue);
     }
 
@@ -159,26 +174,51 @@ public class Player : MonoBehaviour
 
     public void Reloading()
     {
-        if (ammo == 0 && reloading == false)
+        if (ammo == 0 && isReloading == false)
         {
-            reloading = true;
+            initialFillOff = false;
+            isReloading = true;
+
             if (isPlayingReload == false)
             {
-              source.PlayOneShot(reload);
-              isPlayingReload = true;
+                source.PlayOneShot(reload);
+                isPlayingReload = true;
             }
             reloadTimer = 0;
             reloadTimer++;
         }
         reloadTimer++;
-        if (reloadTimer == 60 && ammo == 0 && reloading == true)
+
+        if (!initialFillOff)
+        {
+            ReloadButtonFill();
+        }
+
+        if (reloadTimer == 60 && ammo == 0 && isReloading == true)
         {
             isPlayingReload = false;
-
             UpdateAmmo();
-
-            reloading = false;
+            isReloading = false;
         }
+    }
+
+    private void ReloadButtonFill()
+    {
+        if (reloadTimer <= 60)
+        {
+            float currentValue = Values(reloadTimer, 0, 60, 0, 1);
+
+            reloadButton.fillAmount = Mathf.Lerp(reloadButton.fillAmount, currentValue, Time.deltaTime * 50);
+        }
+        else
+        {
+            reloadButton.fillAmount = 0;
+        }
+    }
+
+    private float Values(float x, float inMin, float inMax, float outMin, float outMax)
+    {
+        return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
     }
 
     public void UpdateAmmo()
@@ -209,7 +249,7 @@ public class Player : MonoBehaviour
     {
         if (currentHealth > 0)
         {
-          source.PlayOneShot(playerHurt, 0.7f);  
+            source.PlayOneShot(playerHurt, 0.7f);
         }
 
         currentHealth -= damage;
@@ -267,14 +307,6 @@ public class Player : MonoBehaviour
         }
         collidingStairs = false;
     }
-
-
-
-
-
-
-
-
 
     private void SetupDatabase()
     {
