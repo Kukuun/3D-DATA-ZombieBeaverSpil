@@ -13,11 +13,14 @@ public class WeaponSwap : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        SelectWeapon(currentWeapon);
+        //SelectWeapon(currentWeapon);
     }
 
     public void SelectWeapon(int index)
     {
+        FindObjectOfType<Player>().isPlayingReload = false;
+        FindObjectOfType<Player>().IsReloading = false;
+
         for (int i = 0; i < transform.childCount; i++)
         {
             if (i == index)

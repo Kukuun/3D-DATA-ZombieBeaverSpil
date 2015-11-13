@@ -40,6 +40,7 @@ public class SwapRifleButton : MonoBehaviour, IPointerDownHandler
 
             Debug.Log("SwapRifleButton was pressed.");
             weapon.GetComponent<WeaponSwap>().currentWeapon = 3;
+            weapon.GetComponent<WeaponSwap>().SelectWeapon(3);
 
             swapRifleButton.color = new Color32(0, 255, 55, 255);
             uziButton.color = new Color32(0, 255, 55, 0);
