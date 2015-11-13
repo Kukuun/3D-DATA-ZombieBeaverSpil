@@ -38,6 +38,8 @@ public class SwapShotgunButton : MonoBehaviour, IPointerDownHandler
 
             Debug.Log("SwapShotgunButton was pressed.");
             weapon.GetComponent<WeaponSwap>().currentWeapon = 1;
+            weapon.GetComponent<WeaponSwap>().SelectWeapon(1);
+
 
             swapShotgunButton.color = new Color32(0, 255, 55, 255);
             rifleButton.color = new Color32(0, 255, 55, 0);

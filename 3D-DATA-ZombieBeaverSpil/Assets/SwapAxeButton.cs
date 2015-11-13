@@ -18,7 +18,6 @@ public class SwapAxeButton : MonoBehaviour, IPointerDownHandler
     {
         inputVector = Vector3.zero;
         swapAxeButton = GetComponent<Image>();
-        swapAxeButton.color = new Color32(0, 255, 55, 255);
     }
 
     // Update is called once per frame
@@ -40,7 +39,7 @@ public class SwapAxeButton : MonoBehaviour, IPointerDownHandler
             inputVector = (inputVector.magnitude > 1.0f) ? inputVector.normalized : inputVector;
 
             Debug.Log("SwapHandgunButton was pressed.");
-            weapon.GetComponent<WeaponSwap>().currentWeapon = 0;
+            weapon.GetComponent<WeaponSwap>().currentWeapon = 4;
 
             swapAxeButton.color = new Color32(0, 255, 55, 255);
             rifleButton.color = new Color32(0, 255, 55, 0);
