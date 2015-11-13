@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private int maxHealth;
+    [SerializeField]
     private int currentHealth;
     public int CurrentHealth
     {
@@ -252,6 +253,8 @@ public class Player : MonoBehaviour
         }
 
         currentHealth -= damage;
+
+        Debug.Log("Player took " + damage + " damage");
     }
 
     private void CheckForInteractiveObjects()
