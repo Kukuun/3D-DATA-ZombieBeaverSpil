@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     public bool isPlayingReload = false;
     public Image reloadButton;
     public bool initialFillOff = true;
+    public GameObject ui;
+    public Text ammoText;
 
     [SerializeField]
     private int maxHealth;
@@ -79,14 +81,26 @@ public class Player : MonoBehaviour
 
     private float oriMoveSpeed;
     private bool collidingStairs;
+
+    private bool hasShotgun;
+    private bool hasUzi;
+    private bool hasRifle;
+    private bool hasSniper;
+
     #endregion
 
     void Awake()
     {
+        for (int i = 5; i < 9; i++)
+        {
+            ui.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
         filePath = Application.persistentDataPath + "/MarkedUpgrade.txt";
         source = GetComponent<AudioSource>();
         isReloading = false;
         SetupDatabase();
+        EnableWeapon();
         File.WriteAllLines(filePath, database);
         currentHealth = maxHealth;
         ammo = handgunMaxAmmo;
@@ -112,6 +126,15 @@ public class Player : MonoBehaviour
 
         Reloading();
 
+        if (!isReloading)
+        {
+            ammoText.text = "Ammo: " + ammo;
+        }
+        else
+        {
+            ammoText.text = "Reloading";
+        }
+
         StairFix();
     }
 
@@ -123,6 +146,7 @@ public class Player : MonoBehaviour
             source.PlayOneShot(gunSound, vol);
             MakeRay();
             ammo--;
+
             Debug.Log(ammo);
             if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
             {
@@ -164,7 +188,7 @@ public class Player : MonoBehaviour
             //Destroy(gameObject);
             dead = true;
 
-            database[0] += bæverTænder;
+            database[0] = (int.Parse(database[0]) + bæverTænder).ToString();
 
             File.WriteAllLines(filePath, database);
 
@@ -329,10 +353,11 @@ public class Player : MonoBehaviour
             database[7] = "0";
         }
 
-        //currency = int.Parse(database[0]);
         maxHealth = int.Parse(database[1]);
-        //weaponDamageModifier = float.Parse(database[2]);
-        //houseLevel = int.Parse(database[3]);
+        hasRifle = (database[4] == "1") ? true : false;
+        hasShotgun = (database[5] == "1") ? true : false;
+        hasUzi = (database[6] == "1") ? true : false;
+        hasSniper = (database[7] == "1") ? true : false;
     }
 
     void decreaseHealth()
@@ -343,4 +368,23 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void EnableWeapon()
+    {
+        if (hasRifle)
+        {
+            ui.transform.GetChild(5).gameObject.SetActive(true);
+        }
+        if (hasUzi)
+        {
+            ui.transform.GetChild(6).gameObject.SetActive(true);
+        }
+        if (hasShotgun)
+        {
+            ui.transform.GetChild(7).gameObject.SetActive(true);
+        }
+        if (hasSniper)
+        {
+            ui.transform.GetChild(8).gameObject.SetActive(true);
+        }
+    }
 }
