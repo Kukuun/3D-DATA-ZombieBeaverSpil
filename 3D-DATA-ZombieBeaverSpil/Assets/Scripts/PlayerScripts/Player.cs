@@ -79,6 +79,9 @@ public class Player : MonoBehaviour
 
     private float oriMoveSpeed;
     private bool collidingStairs;
+
+    [SerializeField]
+    private Text ammoText;
     #endregion
 
     void Awake()
@@ -113,6 +116,13 @@ public class Player : MonoBehaviour
         Reloading();
 
         StairFix();
+
+        ShowAmmo();
+    }
+
+    public void ShowAmmo()
+    {
+        ammoText.text = "Ammunition: " + ammo;
     }
 
     public void Shoot()
