@@ -62,13 +62,13 @@ public class Door : MonoBehaviour
         if (!open)
         {
             
-            Quaternion doorClosed = Quaternion.Euler(0, closeAngle, 0);
+            Quaternion doorClosed = Quaternion.Euler(-90, 0, closeAngle);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, doorClosed, Time.deltaTime * smooth);
         }
         if (open)
         {
             
-            Quaternion doorOpen = Quaternion.Euler(0, openAngle, 0);
+            Quaternion doorOpen = Quaternion.Euler(-90, 0, openAngle);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, doorOpen, Time.deltaTime * smooth);
         }
     }
