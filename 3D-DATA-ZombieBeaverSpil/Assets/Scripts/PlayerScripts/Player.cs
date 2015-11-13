@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 public class Player : MonoBehaviour
 {
@@ -12,25 +13,51 @@ public class Player : MonoBehaviour
     private AudioSource source;
     private float volLowRange = .5f;
     private float volHighRange = 1.0f;
+
+
+    public float cooldownTimer;
+
     public AudioClip gunSound;
     public AudioClip gameOver;
     public AudioClip playerHurt;
     public AudioClip playerDeath;
 
+
+
     [SerializeField]
-    private int maxHealth;
-    private int currentHealth;
-    public int CurrentHealth
+    private float maxHealth;
+    private float currentHealth;
+    public float CurrentHealth
     {
         get
         {
             return currentHealth;
         }
     }
-    public int MaxHealth
+    public float MaxHealth
     {
         get { return maxHealth; }
     }
+
+    [SerializeField]
+    private float maxArmor;
+
+    public float MaxArmor
+    {
+        get { return maxArmor; }
+        set { maxArmor = value; }
+    }
+
+    private float currentArmor;
+
+    public float CurrentArmor
+    {
+        get { return currentArmor; }
+        set { currentArmor = value; }
+    }
+
+
+
     [SerializeField]
     private int bæverTænder;
     public int BæverTænder
@@ -38,7 +65,7 @@ public class Player : MonoBehaviour
         get { return bæverTænder; }
     }
 
-    
+
 
     [SerializeField]
     private float rateOfFire;
@@ -62,6 +89,7 @@ public class Player : MonoBehaviour
     {
         filePath = Application.persistentDataPath + "/MarkedUpgrade.txt";
         source = GetComponent<AudioSource>();
+
     }
     // Use this for initialization
     void Start()
@@ -70,7 +98,8 @@ public class Player : MonoBehaviour
         SetupDatabase();
         File.WriteAllLines(filePath, database);
         currentHealth = maxHealth;
-        //InvokeRepeating("decreaseHealth", 1f, 1f);
+        currentArmor = maxArmor;
+        InvokeRepeating("decreaseHealth", 1f, 1f);
     }
 
     // Update is called once per frame
@@ -80,11 +109,34 @@ public class Player : MonoBehaviour
 
         CheckForInteractiveObjects();
 
-        LifeZeroEnding();
+        //LifeZeroEnding();
+
+        //Timer for rate of fire PowerUp
+        #region PowerUp Update
+        if (cooldownTimer >= 0)
+        {
+            cooldownTimer -= Time.deltaTime;
+        }
+
+        if (cooldownTimer <= 0)
+        {
+            ResetPowerUps();
+            cooldownTimer = 0;
+        }
+
+        #endregion
+
+
+
     }
+
+
 
     private void Shoot()
     {
+
+
+
         if (shootClock >= rateOfFire)
         {
             float vol = Random.Range(volLowRange, volHighRange);
@@ -108,7 +160,7 @@ public class Player : MonoBehaviour
                         hit.collider.SendMessage("TakeDamageMan", 10);
                         Debug.Log("Hit");
                     }
-                    
+
                 }
 
             }
@@ -124,6 +176,7 @@ public class Player : MonoBehaviour
 
     private void LifeZeroEnding()
     {
+
         if (currentHealth <= 0 && !dead)
         {
             source.PlayOneShot(playerDeath, 0.4f);
@@ -144,10 +197,24 @@ public class Player : MonoBehaviour
     {
         if (currentHealth > 0)
         {
-          source.PlayOneShot(playerHurt, 0.7f);  
+            source.PlayOneShot(playerHurt, 0.7f);
         }
 
-        currentHealth -= damage;
+        currentArmor -= damage;
+
+        if (currentArmor < 0)
+        {
+            currentHealth += currentArmor;
+
+            currentArmor = 0;
+
+        }
+        else
+        {
+            currentHealth -= damage;
+        }
+
+
     }
 
     private void CheckForInteractiveObjects()
@@ -170,11 +237,74 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Tells what happens when the player collides with the PowerUp box/crate
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        //Tells what happens when the player collides with the "PowerUp" tagged gameobject
+        if (collision.gameObject.tag == "PowerUp")
+        {
+            
+            
+            //For at kunne tilgå PowerUpScript
+            PowerUpScript tempPowerup;
+            tempPowerup = collision.gameObject.GetComponent<PowerUpScript>();
+
+            //Sets the drop chance for every powerUp to 25%
+            int chance = Random.Range(4, 5);
+
+            if (chance == 1)
+            {
+                //Gives the player the health bonus from PowerUpScript
+                maxHealth += tempPowerup.healthBonus;
+            }
+
+            if (chance == 2)
+            {
+                //Gives the player the armor bonus from PowerUpScript
+                maxArmor += tempPowerup.armorBonus;
+
+            }
+
+            if (chance == 3)
+            {
+                //Gives the player the rateOfFire bonus PowerUpScript
+                rateOfFire -= tempPowerup.rateOfFireBonus;
 
 
+                //Sets the timer for the PowerUp to 5 sec
+                cooldownTimer = 5;
+
+                Update();
+                
+            }
+
+            if (chance == 4)
+            {
+                FindObjectOfType<PlayerTouchInput>().SendMessage("ChangeMovementspeed", collision);
+
+            }
+
+            //Destroys the PowerUp box object
+            Destroy(collision.gameObject);
 
 
+        }
 
+
+    }
+
+    //Resets the PowerUp attckspeed bonus to 1
+    private void ResetPowerUps()
+    {
+        GetComponent<PowerUpScript>();
+
+        PowerUpScript tempPowerup;
+        tempPowerup = gameObject.GetComponent<PowerUpScript>();
+
+        rateOfFire = 1;
+
+    }
 
 
 

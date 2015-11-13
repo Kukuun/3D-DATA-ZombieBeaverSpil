@@ -12,7 +12,10 @@ public class PlayerTouchInput : MonoBehaviour {
     public VirtualMovementJoystick moveJoystick;
     public VirtualAimingJoystick aimJoystick;
 
+    public float cooldownTimer;
+
     private Rigidbody myRigidbody;
+
 
     void Start()
     {
@@ -26,6 +29,21 @@ public class PlayerTouchInput : MonoBehaviour {
         MoveVector = PoolInput();
 
         Move();
+
+        //Timer for movementspeed PowerUp
+        #region PowerUp Update
+        if (cooldownTimer >= 0)
+        {
+            cooldownTimer -= Time.deltaTime;
+        }
+
+        if (cooldownTimer <= 0)
+        {
+            ResetPowerUps();
+            cooldownTimer = 0;
+        }
+        #endregion
+
     }
 
     void Move()
@@ -54,5 +72,37 @@ public class PlayerTouchInput : MonoBehaviour {
         }
 
         return dir;
+    }
+
+    //Tells what happens when the player collides with the PowerUp
+    private void ChangeMovementspeed(Collision collision)
+    {
+             
+            //Used to get acces to the PwerUpScript
+            PowerUpScript tempPowerup;
+            tempPowerup = collision.gameObject.GetComponent<PowerUpScript>();
+
+            
+           
+                //Gives the movementspeed bonus
+                movementSpeed += tempPowerup.movementspeedBonus;
+
+
+                //Sets the coolDown timer to 5 seconds
+                cooldownTimer = 5;
+               
+    }
+
+
+    private void ResetPowerUps()
+    {
+        GetComponent<PowerUpScript>();
+
+        PowerUpScript tempPowerup;
+        tempPowerup = gameObject.GetComponent<PowerUpScript>();
+
+        movementSpeed = 40;
+
+        //rateOfFire = 1; //tempPowerup.rateOfFireBonus + rateOfFire;
     }
 }

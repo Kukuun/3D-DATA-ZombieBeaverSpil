@@ -33,6 +33,11 @@ public class Enemy : MonoBehaviour
     bool isPlaying = false;
     int stepTimer = 0;
 
+    //Use for making the enemy able to drop PowerUp
+    [SerializeField]
+    GameObject pickUp;
+
+
     // Use this for initialization
     void Awake()
     {
@@ -63,7 +68,7 @@ public class Enemy : MonoBehaviour
         if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName("LayingDead"))
         {
             deathTimer += Time.deltaTime;
-            
+
             if (deathTimer >= 3)
             {
                 Destroy(gameObject);
@@ -76,7 +81,7 @@ public class Enemy : MonoBehaviour
         float vol = Random.Range(volLowRange, volHighRange);
         if (dead != true)
         {
-          source.PlayOneShot(BeaverHurt, vol);  
+            source.PlayOneShot(BeaverHurt, vol);
         }
         Debug.Log("Took Damage: " + damage);
         health -= damage;
@@ -85,10 +90,23 @@ public class Enemy : MonoBehaviour
         {
             if (dead != true)
             {
-               source.PlayOneShot(BeaverDie, vol); 
+                source.PlayOneShot(BeaverDie, vol);
+
+
+                //Sets the drop chance for PowerUps to 10%
+                int chance = Random.Range(1, 101);
+
+                if (chance <= 101)
+                {
+                    Instantiate(pickUp, transform.position, Quaternion.identity);
+                }
+
             }
+
             dead = true;
             myAnimator.SetBool("Dying", true);
+
+
         }
     }
 
@@ -120,16 +138,16 @@ public class Enemy : MonoBehaviour
             float vol2 = Random.Range(stepVolLowRange, stepVolHighRange);
             if (isPlaying == false)
             {
-               source.PlayOneShot(beaverStep, vol2);
-               stepTimer++;
-               isPlaying = true;
+                source.PlayOneShot(beaverStep, vol2);
+                stepTimer++;
+                isPlaying = true;
             }
             if (stepTimer == 12)
             {
                 stepTimer = 0;
                 isPlaying = false;
             }
-            
+
 
             myAgent.SetDestination(playerGO.transform.position);
             myAnimator.SetBool("Walking", true);
