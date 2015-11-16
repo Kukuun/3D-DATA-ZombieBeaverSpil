@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using UnityEngine.UI;
 
+
 public class Player : MonoBehaviour
 {
     #region Fields
@@ -18,6 +19,10 @@ public class Player : MonoBehaviour
     private AudioSource source;
     private float volLowRange = .5f;
     private float volHighRange = 1.0f;
+
+
+    public float cooldownTimer;
+
     public AudioClip gunSound;
     public AudioClip gameOver;
     public AudioClip playerHurt;
@@ -31,20 +36,40 @@ public class Player : MonoBehaviour
     public bool axeOn = false;
 
     [SerializeField]
-    private int maxHealth;
+    private float maxHealth;
     [SerializeField]
-    private int currentHealth;
-    public int CurrentHealth
+    private float currentHealth;
+    public float CurrentHealth
     {
         get
         {
             return currentHealth;
         }
     }
-    public int MaxHealth
+    public float MaxHealth
     {
         get { return maxHealth; }
     }
+
+    [SerializeField]
+    private float maxArmor;
+
+    public float MaxArmor
+    {
+        get { return maxArmor; }
+        set { maxArmor = value; }
+    }
+
+    private float currentArmor;
+
+    public float CurrentArmor
+    {
+        get { return currentArmor; }
+        set { currentArmor = value; }
+    }
+
+
+
     [SerializeField]
     private int bæverTænder;
     public int BæverTænder
@@ -60,7 +85,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    private float shootClock;
+    //[SerializeField]
+    //private float rateOfFire;
+	private float shootClock;
 
     [SerializeField]
     private float meleeRange;
@@ -88,11 +115,13 @@ public class Player : MonoBehaviour
     private bool hasRifle;
     private bool hasSniper;
 
+    public bool shooting;
+
     #endregion
 
     void Awake()
     {
-        for (int i = 5; i < 9; i++)
+        for (int i = 5; i < 11; i++)
         {
             ui.transform.GetChild(i).gameObject.SetActive(false);
         }
@@ -111,9 +140,14 @@ public class Player : MonoBehaviour
     void Start()
     {
         shootClock = 0;
-        //InvokeRepeating("decreaseHealth", 1f, 1f);
+        SetupDatabase();
+        File.WriteAllLines(filePath, database);
+        currentHealth = maxHealth;
+        currentArmor = maxArmor;
+        InvokeRepeating("decreaseHealth", 1f, 1f);
         oriMoveSpeed = gameObject.GetComponent<PlayerTouchInput>().movementSpeed;
-        //reloadTimer = 61;
+            
+		//ReloadTimer = 61;
     }
 
     // Update is called once per frame
@@ -124,12 +158,17 @@ public class Player : MonoBehaviour
         CheckForInteractiveObjects();
 
         LifeZeroEnding();
-
-        Reloading();
-
+		
+		Reloading();
+		
         if (!isReloading)
         {
             ammoText.text = "Ammo: " + ammo;
+
+        
+
+
+
         }
         else
         {
@@ -137,10 +176,26 @@ public class Player : MonoBehaviour
         }
 
         StairFix();
+		
+		//Timer for rate of fire PowerUp
+        #region PowerUp Update
+        if (cooldownTimer >= 0)
+        {
+            cooldownTimer -= Time.deltaTime;
+        }
+
+        if (cooldownTimer <= 0)
+        {
+            ResetPowerUps();
+            cooldownTimer = 0;
+        }
+
+        #endregion
     }
 
     public void Shoot()
     {
+        shooting = false;
         if (shootClock >= rateOfFire && isReloading == false && ammo >= 1)
         {
             float vol = Random.Range(volLowRange, volHighRange);
@@ -150,8 +205,8 @@ public class Player : MonoBehaviour
             if (!axeOn)
             {
                 ammo--;
-            }
-
+				shooting = true;
+			}				
             Debug.Log(ammo);
             if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
             {
@@ -171,6 +226,7 @@ public class Player : MonoBehaviour
                         hit.collider.SendMessage("TakeDamageMan", weaponDamage);
                         //Debug.Log("Hit");
                     }
+                    
                 }
             }
             shootClock = 0;
@@ -185,6 +241,7 @@ public class Player : MonoBehaviour
 
     private void LifeZeroEnding()
     {
+
         if (currentHealth <= 0 && !dead)
         {
             source.PlayOneShot(playerDeath, 0.4f);
@@ -254,8 +311,6 @@ public class Player : MonoBehaviour
     {
         switch (transform.GetChild(0).GetComponent<WeaponSwap>().currentWeapon)
         {
-            case 0:
-                break;
             case 1:
                 ammo = handgunMaxAmmo;
                 break;
@@ -283,9 +338,21 @@ public class Player : MonoBehaviour
             source.PlayOneShot(playerHurt, 0.7f);
         }
 
-        currentHealth -= damage;
+        currentArmor -= damage;
 
-        Debug.Log("Player took " + damage + " damage");
+        if (currentArmor < 0)
+        {
+            currentHealth += currentArmor;
+
+            currentArmor = 0;
+
+        }
+        else
+        {
+            currentHealth -= damage;
+        }
+
+
     }
 
     private void CheckForInteractiveObjects()
@@ -324,20 +391,92 @@ public class Player : MonoBehaviour
     }
 
     private void StairFix()
+    //Debug.Log(collidingStairs);
     {
-        //Debug.Log(collidingStairs);
         if (collidingStairs)
         {
             //Debug.Log("Stairs!!!");
-            gameObject.GetComponent<PlayerTouchInput>().movementSpeed = 40;
+
         }
+
         else
         {
             //Debug.Log("NO Stairs!!!");
-            gameObject.GetComponent<PlayerTouchInput>().movementSpeed = oriMoveSpeed;
+
         }
         collidingStairs = false;
+
+
     }
+        private void OnCollisionEnter(Collision collision)
+    	{
+        gameObject.GetComponent<PlayerTouchInput>().movementSpeed = 40;
+        gameObject.GetComponent<PlayerTouchInput>().movementSpeed = oriMoveSpeed;
+    
+        //Tells what happens when the player collides with the "PowerUp" tagged gameobject
+        if (collision.gameObject.tag == "PowerUp")
+        {
+            //For at kunne tilgå PowerUpScript
+            PowerUpScript tempPowerup;
+            tempPowerup = collision.gameObject.GetComponent<PowerUpScript>();
+    	{
+            //Sets the drop chance for every powerUp to 25%
+            int chance = Random.Range(1, 5);
+        
+            if (chance == 1)
+            {
+                //Gives the player the health bonus from PowerUpScript
+                currentHealth += tempPowerup.healthBonus;
+            }
+    
+            if (chance == 2)
+            {
+                //Gives the player the armor bonus from PowerUpScript
+                maxArmor += tempPowerup.armorBonus;
+        
+            }
+
+            if (chance == 3)
+            {
+                //Gives the player the rateOfFire bonus PowerUpScript
+                rateOfFire -= tempPowerup.rateOfFireBonus;
+
+
+                //Sets the timer for the PowerUp to 5 sec
+                cooldownTimer = 5;
+
+                Update();
+                
+            }
+
+            if (chance == 4)
+            {
+                FindObjectOfType<PlayerTouchInput>().SendMessage("ChangeMovementspeed", collision);
+
+            }
+
+            //Destroys the PowerUp box object
+            Destroy(collision.gameObject);
+
+    }
+        }
+
+
+    }
+
+    //Resets the PowerUp attckspeed bonus to 1
+    private void ResetPowerUps()
+    {
+        GetComponent<PowerUpScript>();
+
+        PowerUpScript tempPowerup;
+        tempPowerup = gameObject.GetComponent<PowerUpScript>();
+
+        rateOfFire = 1;
+
+    }
+            
+
 
     private void SetupDatabase()
     {

@@ -34,6 +34,11 @@ public class Enemy : MonoBehaviour
     bool isPlaying = false;
     int stepTimer = 0;
 
+    //Use for making the enemy able to drop PowerUp
+    [SerializeField]
+    GameObject pickUp;
+
+
     // Use this for initialization
     void Awake()
     {
@@ -87,9 +92,22 @@ public class Enemy : MonoBehaviour
             if (dead != true)
             {
                 source.PlayOneShot(BeaverDie, vol);
+
+
+                //Sets the drop chance for PowerUps to 10%
+                int chance = Random.Range(1, 101);
+
+                if (chance <= 101)
+                {
+                    Instantiate(pickUp, transform.position, Quaternion.identity);
+                }
+
             }
+
             dead = true;
             myAnimator.SetBool("Dying", true);
+
+
         }
     }
 

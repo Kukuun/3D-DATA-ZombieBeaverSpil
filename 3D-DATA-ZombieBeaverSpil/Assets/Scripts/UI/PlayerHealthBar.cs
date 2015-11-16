@@ -7,8 +7,8 @@ public class PlayerHealthBar : MonoBehaviour {
     public Image healthBar;
     float currentValue;
     public int healthSpeed = 5;
-    public int maxHealth;
-    public int currentHealth;
+    public float maxHealth;
+    public float currentHealth;
     public Player player;
 
 	// Use this for initialization
