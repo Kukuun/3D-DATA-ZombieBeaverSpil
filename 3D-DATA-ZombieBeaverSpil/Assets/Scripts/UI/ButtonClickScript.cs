@@ -10,6 +10,18 @@ public class ButtonClickScript : MonoBehaviour
 
     private string[] database;
     private string filePath;
+    private int currentHouseLevel;
+
+    /*
+    0: currency
+    1: playerHealth
+    2: weaponDamageModifier
+    3: houseLevel
+    4: assaulRifleHasBought if true = 1
+    5: shotgunHasBought if true = 1
+    6: uziHasBought if true = 1
+    7: sniperHasBought if true = 1
+    */
 
     void Awake()
     {
@@ -19,6 +31,8 @@ public class ButtonClickScript : MonoBehaviour
     void Start()
     {
         filePath = Application.persistentDataPath + "/MarkedUpgrade.txt";
+        print(filePath);
+        SetupDatabase();
     }
 
     // Update is called once per frame
@@ -29,7 +43,8 @@ public class ButtonClickScript : MonoBehaviour
 
     public void StartGame()
     {
-        Application.LoadLevel("PresentationScene");
+
+        Application.LoadLevel("GameScene" + currentHouseLevel);
     }
 
     public void GoToOptions()
@@ -47,7 +62,7 @@ public class ButtonClickScript : MonoBehaviour
         Application.LoadLevel("MarkedScene");
     }
 
-    public void SetupDatabase()
+    public void ResetSetupDatabase()
     {
         if (!File.Exists(filePath))
         {
@@ -80,5 +95,30 @@ public class ButtonClickScript : MonoBehaviour
         }
 
         File.WriteAllLines(filePath, database);
+    }
+
+    private void SetupDatabase()
+    {
+        if (!File.Exists(filePath))
+        {
+            File.CreateText(filePath).Close();
+        }
+        database = File.ReadAllLines(filePath);
+        if (database == null || database.Length == 0)
+        {
+            //Debug.Log("Not Existing");
+            database = new string[20];
+            database[0] = "0";
+            database[1] = "100";
+            database[2] = "1";
+            database[3] = "1";
+            database[4] = "0";
+            database[5] = "0";
+            database[6] = "0";
+            database[7] = "0";
+        }
+
+        File.WriteAllLines(filePath, database);
+        currentHouseLevel = int.Parse(database[3]);
     }
 }

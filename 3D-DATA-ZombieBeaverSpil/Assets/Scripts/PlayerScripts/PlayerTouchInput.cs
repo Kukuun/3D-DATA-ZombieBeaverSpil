@@ -14,8 +14,10 @@ public class PlayerTouchInput : MonoBehaviour
     public VirtualMovementJoystick moveJoystick;
     public VirtualAimingJoystick aimJoystick;
 
+    public float cooldownTimer;
     private Animator myAnimator;
     private Rigidbody myRigidbody;
+
 
     void Start()
     {
@@ -30,6 +32,21 @@ public class PlayerTouchInput : MonoBehaviour
         MoveVector = PoolInput();
 
         Move();
+
+        //Timer for movementspeed PowerUp
+        #region PowerUp Update
+        if (cooldownTimer >= 0)
+        {
+            cooldownTimer -= Time.deltaTime;
+        }
+
+        if (cooldownTimer <= 0)
+        {
+            ResetPowerUps();
+            cooldownTimer = 0;
+        }
+        #endregion
+
     }
 
     void Move()
@@ -68,21 +85,43 @@ public class PlayerTouchInput : MonoBehaviour
     }
 
     private void WalkAnimation()
-    {
-        //The angle between the move and aim vector in radians. cos(v)= a ⋅ b / ∣a∣ ⋅ ∣b∣
-        float vR = Mathf.Acos((MoveVector.x * aimJoystick.inputVector.x + MoveVector.y * aimJoystick.inputVector.y + MoveVector.z * aimJoystick.inputVector.z) / (Mathf.Sqrt(Mathf.Pow(MoveVector.x, 2) + Mathf.Pow(MoveVector.y, 2) + Mathf.Pow(MoveVector.z, 2)) * Mathf.Sqrt(Mathf.Pow(aimJoystick.inputVector.x, 2) + Mathf.Pow(aimJoystick.inputVector.y, 2) + Mathf.Pow(aimJoystick.inputVector.z, 2))));
-
-        //Debug.Log(myRigidbody.velocity);
-
-        if (myRigidbody.velocity == Vector3.zero)
+	
+	{
+		float vR = Mathf.Acos((MoveVector.x * aimJoystick.inputVector.x + MoveVector.y * aimJoystick.inputVector.y + MoveVector.z * aimJoystick.inputVector.z) / (Mathf.Sqrt(Mathf.Pow(MoveVector.x, 2) + Mathf.Pow(MoveVector.y, 2) + Mathf.Pow(MoveVector.z, 2)) * Mathf.Sqrt(Mathf.Pow(aimJoystick.inputVector.x, 2) + Mathf.Pow(aimJoystick.inputVector.y, 2) + Mathf.Pow(aimJoystick.inputVector.z, 2))));
+            
+			
+			if (myRigidbody.velocity == Vector3.zero)
         {
+                
             myAnimator.SetFloat("ForwardMomentum", 0);
             myAnimator.SetFloat("RightMomentum", 0);
-        }
+                
+               
+    	}
         else
-        {
-            myAnimator.SetFloat("ForwardMomentum", Mathf.Cos(vR));
-            myAnimator.SetFloat("RightMomentum", Mathf.Sin(vR));
+		{
+			myAnimator.SetFloat("ForwardMomentum", Mathf.Cos(vR));
+			myAnimator.SetFloat("RightMomentum", Mathf.Sin(vR));
+		}
+	}
+    private void ChangeMovementspeed(Collision collision)
+    {
+        PowerUpScript tempPowerup;
+            tempPowerup = collision.gameObject.GetComponent<PowerUpScript>();
+            movementSpeed += 1000f;  //tempPowerup.movementspeedBonus;
+
+//Sets the coolDown timer to 5 seconds
+                cooldownTimer = 5;
+				
+	}
+	
+    private void ResetPowerUps()
+    {
+        GetComponent<PowerUpScript>();
+            
+        PowerUpScript tempPowerup;
+        tempPowerup = gameObject.GetComponent<PowerUpScript>();
+        movementSpeed = 500;
         }
-    }
+        //rateOfFire = 1; //tempPowerup.rateOfFireBonus + rateOfFire
 }
