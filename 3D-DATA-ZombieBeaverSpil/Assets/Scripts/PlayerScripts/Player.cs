@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public bool initialFillOff = true;
     public GameObject ui;
     public Text ammoText;
+    public bool axeOn = false;
 
     [SerializeField]
     private int maxHealth;
@@ -104,7 +105,7 @@ public class Player : MonoBehaviour
         File.WriteAllLines(filePath, database);
         currentHealth = maxHealth;
         ammo = handgunMaxAmmo;
-        FindObjectOfType<WeaponSwap>().SelectWeapon(0);
+        FindObjectOfType<WeaponSwap>().SelectWeapon(1);
     }
     // Use this for initialization
     void Start()
@@ -145,7 +146,11 @@ public class Player : MonoBehaviour
             float vol = Random.Range(volLowRange, volHighRange);
             source.PlayOneShot(gunSound, vol);
             MakeRay();
-            ammo--;
+
+            if (!axeOn)
+            {
+                ammo--;
+            }
 
             Debug.Log(ammo);
             if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
@@ -250,18 +255,20 @@ public class Player : MonoBehaviour
         switch (transform.GetChild(0).GetComponent<WeaponSwap>().currentWeapon)
         {
             case 0:
-                ammo = handgunMaxAmmo;
                 break;
             case 1:
-                ammo = shotgunMaxAmmo;
+                ammo = handgunMaxAmmo;
                 break;
             case 2:
-                ammo = uziMaxAmmo;
+                ammo = shotgunMaxAmmo;
                 break;
             case 3:
-                ammo = rifleMaxAmmo;
+                ammo = uziMaxAmmo;
                 break;
             case 4:
+                ammo = rifleMaxAmmo;
+                break;
+            case 5:
                 ammo = sniperMaxAmmo;
                 break;
             default:
