@@ -306,7 +306,7 @@ public class MarkedMenuScript : MonoBehaviour
         {
             //Debug.Log("Not Existing");
             database = new string[20];
-            database[0] = "1000";
+            database[0] = "0";
             database[1] = "100";
             database[2] = "1";
             database[3] = "1";

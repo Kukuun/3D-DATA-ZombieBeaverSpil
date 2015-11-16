@@ -2,11 +2,8 @@
 using System.Collections;
 using System.IO;
 using System.Text;
-<<<<<<< HEAD
-using System.Threading;
-=======
 using UnityEngine.UI;
->>>>>>> a31c5639921baf91520d7eae09bf1753d37b38d1
+
 
 public class Player : MonoBehaviour
 {
@@ -34,20 +31,14 @@ public class Player : MonoBehaviour
     public bool isPlayingReload = false;
     public Image reloadButton;
     public bool initialFillOff = true;
-
-
+    public GameObject ui;
+    public Text ammoText;
 
     [SerializeField]
-<<<<<<< HEAD
     private float maxHealth;
+    [SerializeField]
     private float currentHealth;
     public float CurrentHealth
-=======
-    private int maxHealth;
-    [SerializeField]
-    private int currentHealth;
-    public int CurrentHealth
->>>>>>> a31c5639921baf91520d7eae09bf1753d37b38d1
     {
         get
         {
@@ -85,9 +76,6 @@ public class Player : MonoBehaviour
         get { return bæverTænder; }
     }
 
-<<<<<<< HEAD
-
-=======
     public bool IsReloading
     {
         set
@@ -95,9 +83,10 @@ public class Player : MonoBehaviour
             isReloading = value;
         }
     }
->>>>>>> a31c5639921baf91520d7eae09bf1753d37b38d1
 
-    private float shootClock;
+    //[SerializeField]
+    //private float rateOfFire;
+	private float shootClock;
 
     [SerializeField]
     private float meleeRange;
@@ -120,40 +109,44 @@ public class Player : MonoBehaviour
     private float oriMoveSpeed;
     private bool collidingStairs;
 
-    [SerializeField]
-    private Text ammoText;
+    private bool hasShotgun;
+    private bool hasUzi;
+    private bool hasRifle;
+    private bool hasSniper;
+
+    public bool shooting;
+
     #endregion
 
     void Awake()
     {
+        for (int i = 5; i < 9; i++)
+        {
+            ui.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
         filePath = Application.persistentDataPath + "/MarkedUpgrade.txt";
         source = GetComponent<AudioSource>();
-<<<<<<< HEAD
-
-=======
         isReloading = false;
         SetupDatabase();
+        EnableWeapon();
         File.WriteAllLines(filePath, database);
         currentHealth = maxHealth;
         ammo = handgunMaxAmmo;
         FindObjectOfType<WeaponSwap>().SelectWeapon(0);
->>>>>>> a31c5639921baf91520d7eae09bf1753d37b38d1
     }
     // Use this for initialization
     void Start()
     {
         shootClock = 0;
-<<<<<<< HEAD
         SetupDatabase();
         File.WriteAllLines(filePath, database);
         currentHealth = maxHealth;
         currentArmor = maxArmor;
         InvokeRepeating("decreaseHealth", 1f, 1f);
-=======
-        //InvokeRepeating("decreaseHealth", 1f, 1f);
         oriMoveSpeed = gameObject.GetComponent<PlayerTouchInput>().movementSpeed;
-        //reloadTimer = 61;
->>>>>>> a31c5639921baf91520d7eae09bf1753d37b38d1
+            
+		//ReloadTimer = 61;
     }
 
     // Update is called once per frame
@@ -163,8 +156,13 @@ public class Player : MonoBehaviour
 
         CheckForInteractiveObjects();
 
-<<<<<<< HEAD
-        //LifeZeroEnding();
+        LifeZeroEnding();
+		
+		Reloading();
+		
+		StairFix();
+		
+		ShowAmmo();
 
         //Timer for rate of fire PowerUp
         #region PowerUp Update
@@ -182,41 +180,34 @@ public class Player : MonoBehaviour
         #endregion
 
 
+<<<<<<< HEAD
 
     }
-
-
-
-    private void Shoot()
-    {
-
-
-
-        if (shootClock >= rateOfFire)
 =======
-        LifeZeroEnding();
-
-        Reloading();
+        if (!isReloading)
+        {
+            ammoText.text = "Ammo: " + ammo;
+        }
+        else
+        {
+            ammoText.text = "Reloading";
+        }
+>>>>>>> 818f767eff0787aeae473b31adea6aa2ccad5551
 
         StairFix();
-
-        ShowAmmo();
-    }
-
-    public void ShowAmmo()
-    {
-        ammoText.text = "Ammunition: " + ammo;
     }
 
     public void Shoot()
     {
+        shooting = false;
         if (shootClock >= rateOfFire && isReloading == false && ammo >= 1)
->>>>>>> a31c5639921baf91520d7eae09bf1753d37b38d1
         {
             float vol = Random.Range(volLowRange, volHighRange);
             source.PlayOneShot(gunSound, vol);
             MakeRay();
             ammo--;
+            shooting = true;
+
             Debug.Log(ammo);
             if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
             {
@@ -236,10 +227,7 @@ public class Player : MonoBehaviour
                         hit.collider.SendMessage("TakeDamageMan", weaponDamage);
                         //Debug.Log("Hit");
                     }
-<<<<<<< HEAD
-
-=======
->>>>>>> a31c5639921baf91520d7eae09bf1753d37b38d1
+                    
                 }
             }
             shootClock = 0;
@@ -263,7 +251,7 @@ public class Player : MonoBehaviour
             //Destroy(gameObject);
             dead = true;
 
-            database[0] += bæverTænder;
+            database[0] = (int.Parse(database[0]) + bæverTænder).ToString();
 
             File.WriteAllLines(filePath, database);
 
@@ -349,7 +337,6 @@ public class Player : MonoBehaviour
         if (currentHealth > 0)
         {
             source.PlayOneShot(playerHurt, 0.7f);
-<<<<<<< HEAD
         }
 
         currentArmor -= damage;
@@ -367,13 +354,6 @@ public class Player : MonoBehaviour
         }
 
 
-=======
-        }
-
-        currentHealth -= damage;
-
-        Debug.Log("Player took " + damage + " damage");
->>>>>>> a31c5639921baf91520d7eae09bf1753d37b38d1
     }
 
     private void CheckForInteractiveObjects()
@@ -403,11 +383,37 @@ public class Player : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
-    //Tells what happens when the player collides with the PowerUp box/crate
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
+        if (collision.collider.tag == "StairCollider")
+        {
+            collidingStairs = true;
+        }
+    }
 
+    private void StairFix()
+    //Debug.Log(collidingStairs);
+    {
+        if (collidingStairs)
+        {
+            //Debug.Log("Stairs!!!");
+
+        }
+
+        else
+        {
+            //Debug.Log("NO Stairs!!!");
+
+        }
+        collidingStairs = false;
+
+
+    }
+        private void OnCollisionEnter(Collision collision)
+    {
+        gameObject.GetComponent<PlayerTouchInput>().movementSpeed = 40;
+        gameObject.GetComponent<PlayerTouchInput>().movementSpeed = oriMoveSpeed;
+    
         //Tells what happens when the player collides with the "PowerUp" tagged gameobject
         if (collision.gameObject.tag == "PowerUp")
         {
@@ -416,21 +422,21 @@ public class Player : MonoBehaviour
             //For at kunne tilgå PowerUpScript
             PowerUpScript tempPowerup;
             tempPowerup = collision.gameObject.GetComponent<PowerUpScript>();
-
+    {
             //Sets the drop chance for every powerUp to 25%
-            int chance = Random.Range(4, 5);
-
+            int chance = Random.Range(1, 5);
+        
             if (chance == 1)
             {
                 //Gives the player the health bonus from PowerUpScript
-                maxHealth += tempPowerup.healthBonus;
+                currentHealth += tempPowerup.healthBonus;
             }
-
+    
             if (chance == 2)
             {
                 //Gives the player the armor bonus from PowerUpScript
                 maxArmor += tempPowerup.armorBonus;
-
+        
             }
 
             if (chance == 3)
@@ -455,7 +461,7 @@ public class Player : MonoBehaviour
             //Destroys the PowerUp box object
             Destroy(collision.gameObject);
 
-
+    }
         }
 
 
@@ -472,33 +478,8 @@ public class Player : MonoBehaviour
         rateOfFire = 1;
 
     }
+            
 
-
-=======
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.collider.tag == "StairCollider")
-        {
-            collidingStairs = true;
-        }
-    }
-
-    private void StairFix()
-    {
-        //Debug.Log(collidingStairs);
-        if (collidingStairs)
-        {
-            //Debug.Log("Stairs!!!");
-            gameObject.GetComponent<PlayerTouchInput>().movementSpeed = 40;
-        }
-        else
-        {
-            //Debug.Log("NO Stairs!!!");
-            gameObject.GetComponent<PlayerTouchInput>().movementSpeed = oriMoveSpeed;
-        }
-        collidingStairs = false;
-    }
->>>>>>> a31c5639921baf91520d7eae09bf1753d37b38d1
 
     private void SetupDatabase()
     {
@@ -521,10 +502,11 @@ public class Player : MonoBehaviour
             database[7] = "0";
         }
 
-        //currency = int.Parse(database[0]);
         maxHealth = int.Parse(database[1]);
-        //weaponDamageModifier = float.Parse(database[2]);
-        //houseLevel = int.Parse(database[3]);
+        hasRifle = (database[4] == "1") ? true : false;
+        hasShotgun = (database[5] == "1") ? true : false;
+        hasUzi = (database[6] == "1") ? true : false;
+        hasSniper = (database[7] == "1") ? true : false;
     }
 
     void decreaseHealth()
@@ -535,4 +517,23 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void EnableWeapon()
+    {
+        if (hasRifle)
+        {
+            ui.transform.GetChild(5).gameObject.SetActive(true);
+        }
+        if (hasUzi)
+        {
+            ui.transform.GetChild(6).gameObject.SetActive(true);
+        }
+        if (hasShotgun)
+        {
+            ui.transform.GetChild(7).gameObject.SetActive(true);
+        }
+        if (hasSniper)
+        {
+            ui.transform.GetChild(8).gameObject.SetActive(true);
+        }
+    }
 }
