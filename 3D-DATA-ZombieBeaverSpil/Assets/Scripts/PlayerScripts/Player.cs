@@ -87,6 +87,8 @@ public class Player : MonoBehaviour
     private bool hasRifle;
     private bool hasSniper;
 
+    public bool shooting;
+
     #endregion
 
     void Awake()
@@ -140,12 +142,14 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
+        shooting = false;
         if (shootClock >= rateOfFire && isReloading == false && ammo >= 1)
         {
             float vol = Random.Range(volLowRange, volHighRange);
             source.PlayOneShot(gunSound, vol);
             MakeRay();
             ammo--;
+            shooting = true;
 
             Debug.Log(ammo);
             if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
