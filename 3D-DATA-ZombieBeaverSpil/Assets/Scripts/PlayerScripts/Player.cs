@@ -82,8 +82,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private float rateOfFire;
+    //[SerializeField]
+    //private float rateOfFire;
 	private float shootClock;
 
     [SerializeField]
@@ -131,7 +131,8 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         currentArmor = maxArmor;
         InvokeRepeating("decreaseHealth", 1f, 1f);
-		oriMoveSpeed = gameObject.GetComponemt<PlayerTouchInput>().movementSpeed;
+        oriMoveSpeed = gameObject.GetComponent<PlayerTouchInput>().movementSpeed;
+            
 		//ReloadTimer = 61;
     }
 
@@ -365,26 +366,29 @@ public class Player : MonoBehaviour
         }
     }
 
-    
-    private void OnCollisionEnter(Collision collision)
-    {
     private void StairFix()
-	//Debug.Log(collidingStairs);
-	
-	if (collidingStairs)
-	{
-	//Debug.Log("Stairs!!!");
-            gameObject.GetComponent<PlayerTouchInput>().movementSpeed = 40;
-	}
-				
-			
-			else
+    //Debug.Log(collidingStairs);
+    {
+        if (collidingStairs)
+        {
+            //Debug.Log("Stairs!!!");
+
+        }
+
+        else
         {
             //Debug.Log("NO Stairs!!!");
-            gameObject.GetComponent<PlayerTouchInput>().movementSpeed = oriMoveSpeed;
+
         }
         collidingStairs = false;
-		
+
+
+    }
+        private void OnCollisionEnter(Collision collision)
+    {
+        gameObject.GetComponent<PlayerTouchInput>().movementSpeed = 40;
+        gameObject.GetComponent<PlayerTouchInput>().movementSpeed = oriMoveSpeed;
+    
         //Tells what happens when the player collides with the "PowerUp" tagged gameobject
         if (collision.gameObject.tag == "PowerUp")
         {
@@ -395,12 +399,12 @@ public class Player : MonoBehaviour
             tempPowerup = collision.gameObject.GetComponent<PowerUpScript>();
     {
             //Sets the drop chance for every powerUp to 25%
-            int chance = Random.Range(4, 5);
+            int chance = Random.Range(1, 5);
         
             if (chance == 1)
             {
                 //Gives the player the health bonus from PowerUpScript
-                maxHealth += tempPowerup.healthBonus;
+                currentHealth += tempPowerup.healthBonus;
             }
     
             if (chance == 2)
@@ -432,7 +436,7 @@ public class Player : MonoBehaviour
             //Destroys the PowerUp box object
             Destroy(collision.gameObject);
 
-
+    }
         }
 
 

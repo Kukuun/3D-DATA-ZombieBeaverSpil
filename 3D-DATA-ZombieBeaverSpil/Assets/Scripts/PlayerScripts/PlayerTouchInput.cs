@@ -88,7 +88,7 @@ public class PlayerTouchInput : MonoBehaviour
 	
 	{
 		float vR = Mathf.Acos((MoveVector.x * aimJoystick.inputVector.x + MoveVector.y * aimJoystick.inputVector.y + MoveVector.z * aimJoystick.inputVector.z) / (Mathf.Sqrt(Mathf.Pow(MoveVector.x, 2) + Mathf.Pow(MoveVector.y, 2) + Mathf.Pow(MoveVector.z, 2)) * Mathf.Sqrt(Mathf.Pow(aimJoystick.inputVector.x, 2) + Mathf.Pow(aimJoystick.inputVector.y, 2) + Mathf.Pow(aimJoystick.inputVector.z, 2))));
-            PowerUpScript tempPowerup;
+            
 			
 			if (myRigidbody.velocity == Vector3.zero)
         {
@@ -106,9 +106,10 @@ public class PlayerTouchInput : MonoBehaviour
 	}
     private void ChangeMovementspeed(Collision collision)
     {
-        
+        PowerUpScript tempPowerup;
             tempPowerup = collision.gameObject.GetComponent<PowerUpScript>();
-			movementSpeed += tempPowerup.movementspeedBonus;
+            movementSpeed += 1000f;  //tempPowerup.movementspeedBonus;
+
 //Sets the coolDown timer to 5 seconds
                 cooldownTimer = 5;
 				
@@ -120,7 +121,7 @@ public class PlayerTouchInput : MonoBehaviour
             
         PowerUpScript tempPowerup;
         tempPowerup = gameObject.GetComponent<PowerUpScript>();
-        movementSpeed = 40;
+        movementSpeed = 500;
         }
         //rateOfFire = 1; //tempPowerup.rateOfFireBonus + rateOfFire
 }
