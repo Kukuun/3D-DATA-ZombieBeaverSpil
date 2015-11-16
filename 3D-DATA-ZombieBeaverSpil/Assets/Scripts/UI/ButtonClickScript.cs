@@ -29,7 +29,7 @@ public class ButtonClickScript : MonoBehaviour
 
     public void StartGame()
     {
-        Application.LoadLevel("Test");
+        Application.LoadLevel("PresentationScene");
     }
 
     public void GoToOptions()
