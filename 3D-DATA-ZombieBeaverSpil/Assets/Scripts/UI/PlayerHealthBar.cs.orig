@@ -7,9 +7,18 @@ public class PlayerHealthBar : MonoBehaviour {
     public Image healthBar;
     float currentValue;
     public int healthSpeed = 5;
+<<<<<<< HEAD
+
+    //[SerializeField]
+    //private GameObject player;
+
     public float maxHealth;
     public float currentHealth;
+=======
+    public int maxHealth;
+    public int currentHealth;
     public Player player;
+>>>>>>> a31c5639921baf91520d7eae09bf1753d37b38d1
 
 	// Use this for initialization
 	void Start () {
