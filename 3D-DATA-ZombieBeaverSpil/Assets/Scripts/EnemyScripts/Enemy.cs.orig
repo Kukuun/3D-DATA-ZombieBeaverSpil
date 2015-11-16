@@ -92,6 +92,7 @@ public class Enemy : MonoBehaviour
             if (dead != true)
             {
                 source.PlayOneShot(BeaverDie, vol);
+<<<<<<< HEAD
 
 
                 //Sets the drop chance for PowerUps to 10%
@@ -102,6 +103,8 @@ public class Enemy : MonoBehaviour
                     Instantiate(pickUp, transform.position, Quaternion.identity);
                 }
 
+=======
+>>>>>>> a31c5639921baf91520d7eae09bf1753d37b38d1
             }
 
             dead = true;
