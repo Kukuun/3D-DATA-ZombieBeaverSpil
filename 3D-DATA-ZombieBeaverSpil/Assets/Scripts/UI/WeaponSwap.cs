@@ -4,7 +4,7 @@ using System.Collections;
 public class WeaponSwap : MonoBehaviour {
     
     public int currentWeapon = 0;
-    private int maxWeapons = 3;
+    private int maxWeapons = 5;
 
 	// Use this for initialization
 	void Start () {
@@ -27,7 +27,12 @@ public class WeaponSwap : MonoBehaviour {
             {
                 transform.GetChild(i).gameObject.SetActive(true);
 
-                if (transform.GetChild(i).name == "Handgun")
+                if (transform.GetChild(i).name == "Axe")
+                {
+                    transform.parent.GetComponent<Player>().rateOfFire = 0.5f;
+                    transform.parent.GetComponent<Player>().weaponDamage = 60;
+                }
+                else if (transform.GetChild(i).name == "Handgun")
                 {
                     transform.parent.GetComponent<Player>().UpdateAmmo();
                     transform.parent.GetComponent<Player>().rateOfFire = 0.3f;
@@ -54,7 +59,7 @@ public class WeaponSwap : MonoBehaviour {
                 else if (transform.GetChild(i).name == "Sniper")
                 {
                     transform.parent.GetComponent<Player>().UpdateAmmo();
-                    transform.parent.GetComponent<Player>().rateOfFire = 1.5f;
+                    transform.parent.GetComponent<Player>().rateOfFire = 0.8f;
                     transform.parent.GetComponent<Player>().weaponDamage = 100;
                 }
             }

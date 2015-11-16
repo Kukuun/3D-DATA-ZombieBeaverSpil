@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     public bool initialFillOff = true;
     public GameObject ui;
     public Text ammoText;
+    public bool axeOn = false;
 
     [SerializeField]
     private float maxHealth;
@@ -120,7 +121,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        for (int i = 5; i < 9; i++)
+        for (int i = 5; i < 11; i++)
         {
             ui.transform.GetChild(i).gameObject.SetActive(false);
         }
@@ -133,7 +134,7 @@ public class Player : MonoBehaviour
         File.WriteAllLines(filePath, database);
         currentHealth = maxHealth;
         ammo = handgunMaxAmmo;
-        FindObjectOfType<WeaponSwap>().SelectWeapon(0);
+        FindObjectOfType<WeaponSwap>().SelectWeapon(1);
     }
     // Use this for initialization
     void Start()
@@ -200,9 +201,12 @@ public class Player : MonoBehaviour
             float vol = Random.Range(volLowRange, volHighRange);
             source.PlayOneShot(gunSound, vol);
             MakeRay();
-            ammo--;
-            shooting = true;
 
+            if (!axeOn)
+            {
+                ammo--;
+				shooting = true;
+			}				
             Debug.Log(ammo);
             if (Physics.Raycast(attackRay, out hit, Mathf.Infinity, (1 << 8)))
             {
@@ -307,19 +311,19 @@ public class Player : MonoBehaviour
     {
         switch (transform.GetChild(0).GetComponent<WeaponSwap>().currentWeapon)
         {
-            case 0:
+            case 1:
                 ammo = handgunMaxAmmo;
                 break;
-            case 1:
+            case 2:
                 ammo = shotgunMaxAmmo;
                 break;
-            case 2:
+            case 3:
                 ammo = uziMaxAmmo;
                 break;
-            case 3:
+            case 4:
                 ammo = rifleMaxAmmo;
                 break;
-            case 4:
+            case 5:
                 ammo = sniperMaxAmmo;
                 break;
             default:
@@ -405,19 +409,17 @@ public class Player : MonoBehaviour
 
     }
         private void OnCollisionEnter(Collision collision)
-    {
+    	{
         gameObject.GetComponent<PlayerTouchInput>().movementSpeed = 40;
         gameObject.GetComponent<PlayerTouchInput>().movementSpeed = oriMoveSpeed;
     
         //Tells what happens when the player collides with the "PowerUp" tagged gameobject
         if (collision.gameObject.tag == "PowerUp")
         {
-            
-            
             //For at kunne tilgå PowerUpScript
             PowerUpScript tempPowerup;
             tempPowerup = collision.gameObject.GetComponent<PowerUpScript>();
-    {
+    	{
             //Sets the drop chance for every powerUp to 25%
             int chance = Random.Range(1, 5);
         

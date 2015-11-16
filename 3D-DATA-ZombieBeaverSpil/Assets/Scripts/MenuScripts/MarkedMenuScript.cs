@@ -26,7 +26,7 @@ public class MarkedMenuScript : MonoBehaviour
     private int upgradeHousePrice;
 
     private int houseLevel;
-    private const int maxHouseLevel = 3;
+    private const int maxHouseLevel = 4;
 
     public AudioClip buySound;
     public AudioClip menuSound;

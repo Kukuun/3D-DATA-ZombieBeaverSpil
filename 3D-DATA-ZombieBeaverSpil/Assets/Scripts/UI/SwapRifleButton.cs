@@ -10,6 +10,9 @@ public class SwapRifleButton : MonoBehaviour, IPointerDownHandler
     [SerializeField]
     GameObject weapon;
 
+    public GameObject canvas;
+    public GameObject player;
+
     private Vector3 inputVector;
     private Image swapRifleButton;
 
@@ -39,8 +42,11 @@ public class SwapRifleButton : MonoBehaviour, IPointerDownHandler
             inputVector = (inputVector.magnitude > 1.0f) ? inputVector.normalized : inputVector;
 
             Debug.Log("SwapRifleButton was pressed.");
-            weapon.GetComponent<WeaponSwap>().currentWeapon = 3;
-            weapon.GetComponent<WeaponSwap>().SelectWeapon(3);
+            weapon.GetComponent<WeaponSwap>().currentWeapon = 4;
+            weapon.GetComponent<WeaponSwap>().SelectWeapon(4);
+            canvas.transform.GetChild(4).gameObject.SetActive(true);
+            canvas.transform.GetChild(12).gameObject.SetActive(true);
+            player.GetComponent<Player>().axeOn = false;
 
             swapRifleButton.color = new Color32(0, 255, 55, 255);
             uziButton.color = new Color32(0, 255, 55, 0);
