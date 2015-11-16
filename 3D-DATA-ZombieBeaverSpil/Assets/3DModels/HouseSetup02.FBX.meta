@@ -6,10 +6,25 @@ ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Object005
+    100004: Object006
+    100006: Setup_002
     400000: //RootNode
+    400002: Object005
+    400004: Object006
+    400006: Setup_002
     2300000: //RootNode
+    2300002: Object005
+    2300004: Object006
+    2300006: Setup_002
     3300000: //RootNode
+    3300002: Object005
+    3300004: Object006
+    3300006: Setup_002
     4300000: Setup_005
+    4300002: Setup_002
+    4300004: Object005
+    4300006: Object006
   materials:
     importMaterials: 1
     materialName: 0
@@ -66,10 +81,8 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-    hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
-  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

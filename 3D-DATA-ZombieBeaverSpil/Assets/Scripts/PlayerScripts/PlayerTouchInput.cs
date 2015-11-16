@@ -2,9 +2,11 @@
 using System.Collections;
 using UnityEngine.UI;
 
-//[RequireComponent(typeof(Rigidbody))]
-public class PlayerTouchInput : MonoBehaviour {
-    
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Animator))]
+public class PlayerTouchInput : MonoBehaviour
+{
+
     public float movementSpeed = 20.0f;
     public float drag = 2f;
     public float terminalRotationSpeed = 25f;
@@ -13,7 +15,7 @@ public class PlayerTouchInput : MonoBehaviour {
     public VirtualAimingJoystick aimJoystick;
 
     public float cooldownTimer;
-
+    private Animator myAnimator;
     private Rigidbody myRigidbody;
 
 
@@ -22,6 +24,7 @@ public class PlayerTouchInput : MonoBehaviour {
         myRigidbody = GetComponent<Rigidbody>();
         myRigidbody.maxAngularVelocity = terminalRotationSpeed;
         myRigidbody.drag = drag;
+        myAnimator = GetComponent<Animator>();
     }
 
     void Update()
@@ -48,7 +51,13 @@ public class PlayerTouchInput : MonoBehaviour {
 
     void Move()
     {
-        myRigidbody.AddForce(MoveVector * movementSpeed);
+        float translate = movementSpeed * Time.deltaTime;
+        myRigidbody.AddForce(MoveVector *  translate);
+
+        if (MoveVector == Vector3.zero)
+        {
+            myRigidbody.velocity = Vector3.zero;
+        }
 
         Vector3 point = transform.position + aimJoystick.inputVector;
 
@@ -57,12 +66,13 @@ public class PlayerTouchInput : MonoBehaviour {
             transform.LookAt(point);
             //transform.LookAt(new Vector3(aimJoystick.angle.x, 0, aimJoystick.angle.y));
         }
+        WalkAnimation();
     }
 
     private Vector3 PoolInput()
     {
         Vector3 dir = Vector3.zero;
-        
+
         dir.x = moveJoystick.Horizontal();
         dir.z = moveJoystick.Vertical();
 
@@ -74,35 +84,43 @@ public class PlayerTouchInput : MonoBehaviour {
         return dir;
     }
 
-    //Tells what happens when the player collides with the PowerUp
+    private void WalkAnimation()
+	
+	{
+		float vR = Mathf.Acos((MoveVector.x * aimJoystick.inputVector.x + MoveVector.y * aimJoystick.inputVector.y + MoveVector.z * aimJoystick.inputVector.z) / (Mathf.Sqrt(Mathf.Pow(MoveVector.x, 2) + Mathf.Pow(MoveVector.y, 2) + Mathf.Pow(MoveVector.z, 2)) * Mathf.Sqrt(Mathf.Pow(aimJoystick.inputVector.x, 2) + Mathf.Pow(aimJoystick.inputVector.y, 2) + Mathf.Pow(aimJoystick.inputVector.z, 2))));
+            PowerUpScript tempPowerup;
+			
+			if (myRigidbody.velocity == Vector3.zero)
+        {
+                
+            myAnimator.SetFloat("ForwardMomentum", 0);
+            myAnimator.SetFloat("RightMomentum", 0);
+                
+               
+    	}
+        else
+		{
+			myAnimator.SetFloat("ForwardMomentum", Mathf.Cos(vR));
+			myAnimator.SetFloat("RightMomentum", Mathf.Sin(vR));
+		}
+	}
     private void ChangeMovementspeed(Collision collision)
     {
-             
-            //Used to get acces to the PwerUpScript
-            PowerUpScript tempPowerup;
+        
             tempPowerup = collision.gameObject.GetComponent<PowerUpScript>();
-
-            
-           
-                //Gives the movementspeed bonus
-                movementSpeed += tempPowerup.movementspeedBonus;
-
-
-                //Sets the coolDown timer to 5 seconds
+			movementSpeed += tempPowerup.movementspeedBonus;
+//Sets the coolDown timer to 5 seconds
                 cooldownTimer = 5;
-               
-    }
-
-
+				
+	}
+	
     private void ResetPowerUps()
     {
         GetComponent<PowerUpScript>();
-
+            
         PowerUpScript tempPowerup;
         tempPowerup = gameObject.GetComponent<PowerUpScript>();
-
         movementSpeed = 40;
-
-        //rateOfFire = 1; //tempPowerup.rateOfFireBonus + rateOfFire;
-    }
+        }
+        //rateOfFire = 1; //tempPowerup.rateOfFireBonus + rateOfFire
 }
