@@ -10,6 +10,9 @@ public class SwapHandgunButton : MonoBehaviour, IPointerDownHandler
     [SerializeField]
     GameObject weapon;
 
+    public GameObject canvas;
+    public GameObject player;
+
     private Vector3 inputVector;
     private Image swapHandgunButton;
 
@@ -40,8 +43,11 @@ public class SwapHandgunButton : MonoBehaviour, IPointerDownHandler
             inputVector = (inputVector.magnitude > 1.0f) ? inputVector.normalized : inputVector;
 
             Debug.Log("SwapHandgunButton was pressed.");
-            weapon.GetComponent<WeaponSwap>().currentWeapon = 0;
-            weapon.GetComponent<WeaponSwap>().SelectWeapon(0);
+            weapon.GetComponent<WeaponSwap>().currentWeapon = 1;
+            weapon.GetComponent<WeaponSwap>().SelectWeapon(1);
+            canvas.transform.GetChild(4).gameObject.SetActive(true);
+            canvas.transform.GetChild(12).gameObject.SetActive(true);
+            player.GetComponent<Player>().axeOn = false;
 
             swapHandgunButton.color = new Color32(0, 255, 55, 255);
             rifleButton.color = new Color32(0, 255, 55, 0);
