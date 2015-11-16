@@ -160,23 +160,11 @@ public class Player : MonoBehaviour
 		
 		Reloading();
 		
-        if (!isReloading)
-        {
-            ammoText.text = "Ammo: " + ammo;
-
-        
-
-
-
-        }
-        else
-        {
-            ammoText.text = "Reloading";
-        }
-
-        StairFix();
+		StairFix();
 		
-		//Timer for rate of fire PowerUp
+		ShowAmmo();
+
+        //Timer for rate of fire PowerUp
         #region PowerUp Update
         if (cooldownTimer >= 0)
         {
@@ -190,6 +178,23 @@ public class Player : MonoBehaviour
         }
 
         #endregion
+
+
+<<<<<<< HEAD
+
+    }
+=======
+        if (!isReloading)
+        {
+            ammoText.text = "Ammo: " + ammo;
+        }
+        else
+        {
+            ammoText.text = "Reloading";
+        }
+>>>>>>> 818f767eff0787aeae473b31adea6aa2ccad5551
+
+        StairFix();
     }
 
     public void Shoot()
