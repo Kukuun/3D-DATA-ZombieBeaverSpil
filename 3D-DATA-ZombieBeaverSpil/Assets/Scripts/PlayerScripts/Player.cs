@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 
     //[SerializeField]
     //private float rateOfFire;
-	private float shootClock;
+    private float shootClock;
 
     [SerializeField]
     private float meleeRange;
@@ -145,8 +145,8 @@ public class Player : MonoBehaviour
         currentArmor = maxArmor;
         InvokeRepeating("decreaseHealth", 1f, 1f);
         oriMoveSpeed = gameObject.GetComponent<PlayerTouchInput>().movementSpeed;
-            
-		//ReloadTimer = 61;
+
+        //ReloadTimer = 61;
     }
 
     // Update is called once per frame
@@ -157,17 +157,12 @@ public class Player : MonoBehaviour
         CheckForInteractiveObjects();
 
         LifeZeroEnding();
-		
-		Reloading();
-		
+
+        Reloading();
+
         if (!isReloading)
         {
             ammoText.text = "Ammo: " + ammo;
-
-        
-
-
-
         }
         else
         {
@@ -175,8 +170,8 @@ public class Player : MonoBehaviour
         }
 
         StairFix();
-		
-		//Timer for rate of fire PowerUp
+
+        //Timer for rate of fire PowerUp
         #region PowerUp Update
         if (cooldownTimer >= 0)
         {
@@ -222,7 +217,7 @@ public class Player : MonoBehaviour
                         hit.collider.SendMessage("TakeDamageMan", weaponDamage);
                         //Debug.Log("Hit");
                     }
-                    
+
                 }
             }
             shootClock = 0;
@@ -329,6 +324,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        
         if (currentHealth > 0)
         {
             source.PlayOneShot(playerHurt, 0.7f);
@@ -404,59 +400,59 @@ public class Player : MonoBehaviour
 
 
     }
-        private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         gameObject.GetComponent<PlayerTouchInput>().movementSpeed = 40;
         gameObject.GetComponent<PlayerTouchInput>().movementSpeed = oriMoveSpeed;
-    
+
         //Tells what happens when the player collides with the "PowerUp" tagged gameobject
         if (collision.gameObject.tag == "PowerUp")
         {
-            
-            
+
+
             //For at kunne tilgå PowerUpScript
             PowerUpScript tempPowerup;
             tempPowerup = collision.gameObject.GetComponent<PowerUpScript>();
-    {
-            //Sets the drop chance for every powerUp to 25%
-            int chance = Random.Range(1, 5);
-        
-            if (chance == 1)
             {
-                //Gives the player the health bonus from PowerUpScript
-                currentHealth += tempPowerup.healthBonus;
+                //Sets the drop chance for every powerUp to 25%
+                int chance = Random.Range(1, 5);
+
+                if (chance == 1)
+                {
+                    //Gives the player the health bonus from PowerUpScript
+                    currentHealth += tempPowerup.healthBonus;
+                }
+
+                if (chance == 2)
+                {
+                    //Gives the player the armor bonus from PowerUpScript
+                    maxArmor += tempPowerup.armorBonus;
+
+                }
+
+                if (chance == 3)
+                {
+                    //Gives the player the rateOfFire bonus PowerUpScript
+                    rateOfFire -= tempPowerup.rateOfFireBonus;
+
+
+                    //Sets the timer for the PowerUp to 5 sec
+                    cooldownTimer = 5;
+
+                    Update();
+
+                }
+
+                if (chance == 4)
+                {
+                    FindObjectOfType<PlayerTouchInput>().SendMessage("ChangeMovementspeed", collision);
+
+                }
+
+                //Destroys the PowerUp box object
+                Destroy(collision.gameObject);
+
             }
-    
-            if (chance == 2)
-            {
-                //Gives the player the armor bonus from PowerUpScript
-                maxArmor += tempPowerup.armorBonus;
-        
-            }
-
-            if (chance == 3)
-            {
-                //Gives the player the rateOfFire bonus PowerUpScript
-                rateOfFire -= tempPowerup.rateOfFireBonus;
-
-
-                //Sets the timer for the PowerUp to 5 sec
-                cooldownTimer = 5;
-
-                Update();
-                
-            }
-
-            if (chance == 4)
-            {
-                FindObjectOfType<PlayerTouchInput>().SendMessage("ChangeMovementspeed", collision);
-
-            }
-
-            //Destroys the PowerUp box object
-            Destroy(collision.gameObject);
-
-    }
         }
 
 
@@ -473,7 +469,7 @@ public class Player : MonoBehaviour
         rateOfFire = 1;
 
     }
-            
+
 
 
     private void SetupDatabase()
@@ -504,13 +500,13 @@ public class Player : MonoBehaviour
         hasSniper = (database[7] == "1") ? true : false;
     }
 
-    void decreaseHealth()
-    {
-        if (currentHealth > 0)
-        {
-            currentHealth -= 10;
-        }
-    }
+    //void decreaseHealth()
+    //{
+    //    if (currentHealth > 0)
+    //    {
+    //        currentHealth -= 10;
+    //    }
+    //}
 
     private void EnableWeapon()
     {
