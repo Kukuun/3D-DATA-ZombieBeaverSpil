@@ -21,12 +21,14 @@ public class GunFlash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(player.GetComponent<Player>().shooting);
         if (player.GetComponent<Player>().shooting)
         {
             foreach (GameObject child in children)
             {
                 child.GetComponent<MeshRenderer>().enabled = true;
             }
+            player.GetComponent<Player>().shooting = false;
         }
         else
         {

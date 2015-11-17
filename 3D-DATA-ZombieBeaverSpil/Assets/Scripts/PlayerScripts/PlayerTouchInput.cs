@@ -19,6 +19,8 @@ public class PlayerTouchInput : MonoBehaviour
     private Rigidbody myRigidbody;
     private float originalMovementspeed;
 
+    Vector3 tmpAimVector = new Vector3(0,0,1);
+
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody>();
@@ -88,7 +90,14 @@ public class PlayerTouchInput : MonoBehaviour
 
     private void WalkAnimation()
     {
-        float vR = Mathf.Acos((MoveVector.x * aimJoystick.inputVector.x + MoveVector.y * aimJoystick.inputVector.y + MoveVector.z * aimJoystick.inputVector.z) / (Mathf.Sqrt(Mathf.Pow(MoveVector.x, 2) + Mathf.Pow(MoveVector.y, 2) + Mathf.Pow(MoveVector.z, 2)) * Mathf.Sqrt(Mathf.Pow(aimJoystick.inputVector.x, 2) + Mathf.Pow(aimJoystick.inputVector.y, 2) + Mathf.Pow(aimJoystick.inputVector.z, 2))));
+        //Debug.Log(aimJoystick.inputVector);
+
+        if (!(aimJoystick.inputVector == Vector3.zero))
+        {
+            tmpAimVector = aimJoystick.inputVector;
+        }
+        //Debug.Log(tmpAimVector);
+        float vR = Mathf.Acos((MoveVector.x * tmpAimVector.x + MoveVector.y * tmpAimVector.y + MoveVector.z * tmpAimVector.z) / (Mathf.Sqrt(Mathf.Pow(MoveVector.x, 2) + Mathf.Pow(MoveVector.y, 2) + Mathf.Pow(MoveVector.z, 2)) * Mathf.Sqrt(Mathf.Pow(tmpAimVector.x, 2) + Mathf.Pow(tmpAimVector.y, 2) + Mathf.Pow(tmpAimVector.z, 2))));
 
 
         if (myRigidbody.velocity == Vector3.zero)
