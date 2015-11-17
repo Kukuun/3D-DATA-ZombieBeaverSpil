@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     private bool isReloading;
     private int reloadTimer;
     public int ammo;
+    public int ammoLeft;
+    public bool ammoLeftBool;
     public int weaponDamage;
     public float rateOfFire;
     private AudioSource source;
@@ -199,20 +201,26 @@ public class Player : MonoBehaviour
         LifeZeroEnding();
 
         Reloading();
-
-        if (!isReloading)
+        if (!axeOn)
         {
-            ammoText.text = ammo + "/" + currentTotalAmmo;
-        }
-        else if (currentTotalAmmoint == 0 && ammo == 0)
-        {
-            ammoText.text = "Out of ammo!";
+            if (!isReloading)
+            {
+                ammoText.text = ammo + "/" + currentTotalAmmo;
+            }
+            else if (currentTotalAmmoint == 0 && ammo == 0)
+            {
+                ammoText.text = "Out of ammo!";
+            }
+            else
+            {
+                ammoText.text = "Reloading";
+            }
         }
         else
         {
-            ammoText.text = "Reloading";
+            ammoText.text = "";
         }
-
+       
         pickupText.text = pickupString;
 
         StairFix();
@@ -323,8 +331,22 @@ public class Player : MonoBehaviour
 
     public void Reloading()
     {
-        if (ammo == 0 && isReloading == false && !axeOn)
+        if (ammo == 0 && isReloading == false && !axeOn && !ammoLeftBool)
         {
+            initialFillOff = false;
+            isReloading = true;
+
+            if (isPlayingReload == false)
+            {
+                source.PlayOneShot(reload);
+                isPlayingReload = true;
+            }
+            reloadTimer = 0;
+            reloadTimer++;
+        }
+        else if (isReloading == false && !axeOn && ammoLeftBool)
+        {
+            ammo = ammoLeft;
             initialFillOff = false;
             isReloading = true;
 
@@ -348,6 +370,14 @@ public class Player : MonoBehaviour
             isPlayingReload = false;
             UpdateAmmo();
             isReloading = false;
+        }
+        else if (reloadTimer == 60 && ammoLeftBool && isReloading == true)
+        {
+            isPlayingReload = false;
+            UpdateAmmo();
+            isReloading = false;
+            ammoLeftBool = false;
+            ammoLeft = 0;
         }
     }
 
@@ -378,56 +408,56 @@ public class Player : MonoBehaviour
                 ammo = handgunMaxAmmo;
                 break;
             case 2:
-                if (shotgunTotalAmmo >= shotgunMaxAmmo)
+                if (shotgunTotalAmmo + ammo >= shotgunMaxAmmo)
                 {
-                    shotgunTotalAmmo -= shotgunMaxAmmo;
+                    shotgunTotalAmmo = shotgunTotalAmmo - shotgunMaxAmmo + ammo;
                     ammo = shotgunMaxAmmo;
                 }
-                else if (shotgunTotalAmmo != 0)
+                else if (shotgunTotalAmmo + ammo < shotgunMaxAmmo)
                 {
-                    ammo = shotgunTotalAmmo;
+                    ammo = ammo + shotgunTotalAmmo;
                     shotgunTotalAmmo = 0;
                 }
                 currentTotalAmmo = shotgunTotalAmmo.ToString();
                 currentTotalAmmoint = shotgunTotalAmmo;
                 break;
             case 3:
-                if (uziTotalAmmo >= uziMaxAmmo)
+                if (uziTotalAmmo + ammo >= uziMaxAmmo)
                 {
-                    uziTotalAmmo -= uziMaxAmmo;
+                    uziTotalAmmo = uziTotalAmmo - uziMaxAmmo + ammo;
                     ammo = uziMaxAmmo;
                 }
-                else if (uziTotalAmmo != 0)
+                else if (uziTotalAmmo + ammo < uziMaxAmmo)
                 {
-                    ammo = uziTotalAmmo;
+                    ammo = ammo + uziTotalAmmo;
                     uziTotalAmmo = 0;
                 }
                 currentTotalAmmo = uziTotalAmmo.ToString();
                 currentTotalAmmoint = uziTotalAmmo;
                 break;
             case 4:
-                if (rifleTotalAmmo >= rifleMaxAmmo)
+                if (rifleTotalAmmo + ammo >= rifleMaxAmmo)
                 {
-                    rifleTotalAmmo -= rifleMaxAmmo;
+                    rifleTotalAmmo = rifleTotalAmmo - rifleMaxAmmo + ammo;
                     ammo = rifleMaxAmmo;
                 }
-                else if (rifleTotalAmmo != 0)
+                else if (rifleTotalAmmo + ammo < rifleMaxAmmo)
                 {
-                    ammo = rifleTotalAmmo;
+                    ammo = ammo + rifleTotalAmmo;
                     rifleTotalAmmo = 0;
                 }
                 currentTotalAmmo = rifleTotalAmmo.ToString();
                 currentTotalAmmoint = rifleTotalAmmo;
                 break;
             case 5:
-                if (sniperTotalAmmo >= sniperMaxAmmo)
+                if (sniperTotalAmmo + ammo >= sniperMaxAmmo)
                 {
-                    sniperTotalAmmo -= sniperMaxAmmo;
+                    sniperTotalAmmo = sniperTotalAmmo - sniperMaxAmmo + ammo;
                     ammo = sniperMaxAmmo;
                 }
-                else if (sniperTotalAmmo != 0)
+                else if (sniperTotalAmmo + ammo < sniperMaxAmmo)
                 {
-                    ammo = sniperTotalAmmo;
+                    ammo = ammo + sniperTotalAmmo;
                     sniperTotalAmmo = 0;
                 }
                 currentTotalAmmo = sniperTotalAmmo.ToString();

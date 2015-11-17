@@ -19,7 +19,7 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         currentHouse = GameObject.FindGameObjectWithTag("House");
-        fromTopFloor = false;
+        fromTopFloor = true;
     }
 
     // Update is called once per frame
@@ -33,22 +33,23 @@ public class CameraFollow : MonoBehaviour
 
     private void SeeTopFloor(float playerCurrentYPos)
     {
+        Debug.Log(playerCurrentYPos);
         if (playerCurrentYPos >= 2f)
         {
-            currentHouse.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
-            for (int i = 0; i < currentHouse.transform.GetChild(0).childCount; i++)
-            {
-                currentHouse.transform.GetChild(0).GetChild(i).GetComponent<MeshRenderer>().enabled = true;
-            }
+            currentHouse.transform.GetChild(0).gameObject.SetActive(true);
+            //for (int i = 0; i < currentHouse.transform.GetChild(0).childCount; i++)
+            //{
+            //    currentHouse.transform.GetChild(0).GetChild(i).GetComponent<MeshRenderer>().enabled = true;
+            //}
             fromTopFloor = true;
         }
         else if (fromTopFloor)
         {
-            currentHouse.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
-            for (int i = 0; i < currentHouse.transform.GetChild(0).childCount; i++)
-            {
-                currentHouse.transform.GetChild(0).GetChild(i).GetComponent<MeshRenderer>().enabled = false;
-            }
+            currentHouse.transform.GetChild(0).gameObject.SetActive(false);
+            //for (int i = 0; i < currentHouse.transform.GetChild(0).childCount; i++)
+            //{
+            //    currentHouse.transform.GetChild(0).GetChild(i).GetComponent<MeshRenderer>().enabled = false;
+            //}
             fromTopFloor = false;
         }
     }
