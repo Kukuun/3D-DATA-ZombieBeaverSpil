@@ -1,0 +1,110 @@
+fileFormatVersion: 2
+guid: f0a2e926e99d3a543aeb8bda0c23eb4d
+timeCreated: 1446546934
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: bottle
+    100004: box
+    100006: chair
+    100008: large stake
+    100010: large stake at chair
+    100012: small stake
+    100014: small stake side ways
+    400000: //RootNode
+    400002: bottle
+    400004: box
+    400006: chair
+    400008: large stake
+    400010: large stake at chair
+    400012: small stake
+    400014: small stake side ways
+    2300000: bottle
+    2300002: box
+    2300004: chair
+    2300006: large stake
+    2300008: large stake at chair
+    2300010: small stake
+    2300012: small stake side ways
+    2300014: //RootNode
+    3300000: bottle
+    3300002: box
+    3300004: chair
+    3300006: large stake
+    3300008: large stake at chair
+    3300010: small stake
+    3300012: small stake side ways
+    3300014: //RootNode
+    4300000: small stake
+    4300002: bottle
+    4300004: box
+    4300006: large stake
+    4300008: chair
+    4300010: large stake at chair
+    4300012: small stake side ways
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
