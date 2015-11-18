@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        for (int i = 5; i < 11; i++)
+        for (int i = 6; i < 10; i++)
         {
             ui.transform.GetChild(i).gameObject.SetActive(false);
         }
@@ -185,7 +185,6 @@ public class Player : MonoBehaviour
         File.WriteAllLines(filePath, database);
         currentHealth = maxHealth;
         currentArmor = maxArmor;
-        InvokeRepeating("decreaseHealth", 1f, 1f);
         oriMoveSpeed = gameObject.GetComponent<PlayerTouchInput>().movementSpeed;
         // myAnimator = GetComponent<Animator>();
         //ReloadTimer = 61;
@@ -746,39 +745,23 @@ public class Player : MonoBehaviour
         hasSniper = (database[7] == "1") ? true : false;
     }
 
-    void decreaseHealth() //HealthBarTestMethod
-    {
-        //if (currentHealth > 0)
-        //{
-        //    currentHealth -= 10;
-        //}
-    }
-
     private void EnableWeapon()
     {
-        //Test
-        hasRifle = true;
-        hasShotgun = true;
-        hasSniper = true;
-        hasUzi = true;
-        //Test
-        ui.transform.GetChild(9).gameObject.SetActive(true);
-        ui.transform.GetChild(10).gameObject.SetActive(true);
         if (hasRifle)
-        {
-            ui.transform.GetChild(5).gameObject.SetActive(true);
-        }
-        if (hasUzi)
         {
             ui.transform.GetChild(6).gameObject.SetActive(true);
         }
-        if (hasShotgun)
+        if (hasUzi)
         {
             ui.transform.GetChild(7).gameObject.SetActive(true);
         }
-        if (hasSniper)
+        if (hasShotgun)
         {
             ui.transform.GetChild(8).gameObject.SetActive(true);
+        }
+        if (hasSniper)
+        {
+            ui.transform.GetChild(9).gameObject.SetActive(true);
         }
     }
 }
