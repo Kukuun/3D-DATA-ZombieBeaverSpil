@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private RaycastHit hit;
     private bool dead;
     private bool isReloading;
-    private int reloadTimer;
+    private float reloadTimer;
     public int ammo;
     public int ammoLeft;
     public bool ammoLeftBool;
@@ -342,7 +342,7 @@ public class Player : MonoBehaviour
                 isPlayingReload = true;
             }
             reloadTimer = 0;
-            reloadTimer++;
+            reloadTimer += Time.deltaTime;
         }
         else if (isReloading == false && !axeOn && ammoLeftBool)
         {
@@ -356,22 +356,22 @@ public class Player : MonoBehaviour
                 isPlayingReload = true;
             }
             reloadTimer = 0;
-            reloadTimer++;
+            reloadTimer += Time.deltaTime;
         }
-        reloadTimer++;
+        reloadTimer += Time.deltaTime;
 
         if (!initialFillOff)
         {
             ReloadButtonFill();
         }
 
-        if (reloadTimer == 60 && ammo == 0 && isReloading == true)
+        if (reloadTimer >= 5 && ammo == 0 && isReloading == true)
         {
             isPlayingReload = false;
             UpdateAmmo();
             isReloading = false;
         }
-        else if (reloadTimer == 60 && ammoLeftBool && isReloading == true)
+        else if (reloadTimer >= 5 && ammoLeftBool && isReloading == true)
         {
             isPlayingReload = false;
             UpdateAmmo();
@@ -383,9 +383,9 @@ public class Player : MonoBehaviour
 
     private void ReloadButtonFill()
     {
-        if (reloadTimer <= 60)
+        if (reloadTimer <= 5)
         {
-            float currentValue = Values(reloadTimer, 0, 60, 0, 1);
+            float currentValue = Values(reloadTimer, 0, 5, 0, 1);
 
             reloadButton.fillAmount = Mathf.Lerp(reloadButton.fillAmount, currentValue, Time.deltaTime * 50);
         }
