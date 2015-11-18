@@ -101,7 +101,7 @@ public class Enemy : MonoBehaviour
                 //Sets the drop chance for PowerUps to 10%
                 int chance = Random.Range(1, 101);
 
-                if (chance <= 101)
+                if (chance <= 11)
                 {
                     int rnd = Random.Range(1, 5);
                     switch (rnd)
