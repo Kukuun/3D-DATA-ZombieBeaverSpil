@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     #region Fields
+    private bool isSpeedy;
+
     private Ray attackRay;
     private RaycastHit hit;
     private bool dead;
@@ -146,7 +148,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        for (int i = 5; i < 11; i++)
+        for (int i = 6; i < 10; i++)
         {
             ui.transform.GetChild(i).gameObject.SetActive(false);
         }
@@ -185,7 +187,6 @@ public class Player : MonoBehaviour
         File.WriteAllLines(filePath, database);
         currentHealth = maxHealth;
         currentArmor = maxArmor;
-        InvokeRepeating("decreaseHealth", 1f, 1f);
         oriMoveSpeed = gameObject.GetComponent<PlayerTouchInput>().movementSpeed;
         // myAnimator = GetComponent<Animator>();
         //ReloadTimer = 61;
@@ -236,6 +237,7 @@ public class Player : MonoBehaviour
         {
             ResetPowerUps();
             cooldownTimer = 0;
+            isSpeedy = false;
         }
 
         #endregion
@@ -664,23 +666,28 @@ public class Player : MonoBehaviour
                     }
                 }
 
-                //if (tempPowerup.rateOfFireBonus > 0)
-                //{
-                //    //Gives the player the rateOfFire bonus PowerUpScript
-                //    rateOfFire -= tempPowerup.rateOfFireBonus;
+            //if (tempPowerup.rateOfFireBonus > 0)
+            //{
+            //    //Gives the player the rateOfFire bonus PowerUpScript
+            //    rateOfFire -= tempPowerup.rateOfFireBonus;
 
-                //    //Sets the timer for the PowerUp to 5 sec
-                //    cooldownTimer = 5;
-                //}
+            //    //Sets the timer for the PowerUp to 5 sec
+            //    cooldownTimer = 5;
+            //}
 
-                if (tempPowerup.movementspeedBonus > 0)
-                {
-                    FindObjectOfType<PlayerTouchInput>().SendMessage("ChangeMovementspeed", collision);
-                    
-                    cooldownTimer = 5;
-                }
+            if (tempPowerup.movementspeedBonus > 0 && isSpeedy != true)
+            {
+                FindObjectOfType<PlayerTouchInput>().SendMessage("ChangeMovementspeed", collision);
 
-                if (tempPowerup.ammoBonus > 0)
+                cooldownTimer = 5;
+                isSpeedy = true;
+            }
+            else if (tempPowerup.movementspeedBonus > 0)
+            {
+                cooldownTimer = 5;
+            }
+
+            if (tempPowerup.ammoBonus > 0)
                 {
                     int rnd = Random.Range(1, 5);
                     switch (rnd)
@@ -746,39 +753,23 @@ public class Player : MonoBehaviour
         hasSniper = (database[7] == "1") ? true : false;
     }
 
-    void decreaseHealth() //HealthBarTestMethod
-    {
-        //if (currentHealth > 0)
-        //{
-        //    currentHealth -= 10;
-        //}
-    }
-
     private void EnableWeapon()
     {
-        //Test
-        hasRifle = true;
-        hasShotgun = true;
-        hasSniper = true;
-        hasUzi = true;
-        //Test
-        ui.transform.GetChild(9).gameObject.SetActive(true);
-        ui.transform.GetChild(10).gameObject.SetActive(true);
         if (hasRifle)
-        {
-            ui.transform.GetChild(5).gameObject.SetActive(true);
-        }
-        if (hasUzi)
         {
             ui.transform.GetChild(6).gameObject.SetActive(true);
         }
-        if (hasShotgun)
+        if (hasUzi)
         {
             ui.transform.GetChild(7).gameObject.SetActive(true);
         }
-        if (hasSniper)
+        if (hasShotgun)
         {
             ui.transform.GetChild(8).gameObject.SetActive(true);
+        }
+        if (hasSniper)
+        {
+            ui.transform.GetChild(9).gameObject.SetActive(true);
         }
     }
 }

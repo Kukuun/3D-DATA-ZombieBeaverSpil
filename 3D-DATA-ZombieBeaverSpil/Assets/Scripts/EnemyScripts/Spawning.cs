@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Spawning : MonoBehaviour {
+public class Spawning : MonoBehaviour
+{
 
     private float clock;
     [SerializeField]
@@ -16,17 +17,17 @@ public class Spawning : MonoBehaviour {
 
     private Vector3 spawnPosition;
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start()
     {
         clock = 0;
         startedSpawning = false;
 
         spawnPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-	}
-	
-	// Update is called once per frame
-	void Update () 
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         clock += Time.deltaTime;
 
@@ -34,19 +35,35 @@ public class Spawning : MonoBehaviour {
         {
             if (clock >= startInterval)
             {
-
-                startedSpawning = true;
-                Instantiate(enemies[Random.Range(0, enemies.Length - 1)], spawnPosition, Quaternion.identity);
-                clock = 0;
+                if (enemies[0].tag == "BeaverHut")
+                {
+                    startedSpawning = true;
+                    Instantiate(enemies[Random.Range(0, enemies.Length - 1)], spawnPosition, Quaternion.Euler(270, 90, 0));
+                    clock = 0;
+                }
+                else
+                {
+                    startedSpawning = true;
+                    Instantiate(enemies[Random.Range(0, enemies.Length - 1)], spawnPosition, Quaternion.identity);
+                    clock = 0;
+                }
             }
         }
         else
         {
             if (clock >= Random.RandomRange(minInterval, maxInterval))
             {
-                Instantiate(enemies[Random.Range(0, enemies.Length)], spawnPosition, Quaternion.identity);
-                clock = 0;
+                if (enemies[0].tag == "BeaverHut")
+                {
+                    Instantiate(enemies[Random.Range(0, enemies.Length)], spawnPosition, Quaternion.Euler(270, 90, 0));
+                    clock = 0;
+                }
+                else
+                {
+                    Instantiate(enemies[Random.Range(0, enemies.Length)], spawnPosition, Quaternion.identity);
+                    clock = 0;
+                }
             }
         }
-	}
+    }
 }
