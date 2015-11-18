@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     #region Fields
+    private bool isSpeedy;
+
     private Ray attackRay;
     private RaycastHit hit;
     private bool dead;
@@ -235,6 +237,7 @@ public class Player : MonoBehaviour
         {
             ResetPowerUps();
             cooldownTimer = 0;
+            isSpeedy = false;
         }
 
         #endregion
@@ -663,23 +666,28 @@ public class Player : MonoBehaviour
                     }
                 }
 
-                //if (tempPowerup.rateOfFireBonus > 0)
-                //{
-                //    //Gives the player the rateOfFire bonus PowerUpScript
-                //    rateOfFire -= tempPowerup.rateOfFireBonus;
+            //if (tempPowerup.rateOfFireBonus > 0)
+            //{
+            //    //Gives the player the rateOfFire bonus PowerUpScript
+            //    rateOfFire -= tempPowerup.rateOfFireBonus;
 
-                //    //Sets the timer for the PowerUp to 5 sec
-                //    cooldownTimer = 5;
-                //}
+            //    //Sets the timer for the PowerUp to 5 sec
+            //    cooldownTimer = 5;
+            //}
 
-                if (tempPowerup.movementspeedBonus > 0)
-                {
-                    FindObjectOfType<PlayerTouchInput>().SendMessage("ChangeMovementspeed", collision);
-                    
-                    cooldownTimer = 5;
-                }
+            if (tempPowerup.movementspeedBonus > 0 && isSpeedy != true)
+            {
+                FindObjectOfType<PlayerTouchInput>().SendMessage("ChangeMovementspeed", collision);
 
-                if (tempPowerup.ammoBonus > 0)
+                cooldownTimer = 5;
+                isSpeedy = true;
+            }
+            else if (tempPowerup.movementspeedBonus > 0)
+            {
+                cooldownTimer = 5;
+            }
+
+            if (tempPowerup.ammoBonus > 0)
                 {
                     int rnd = Random.Range(1, 5);
                     switch (rnd)
