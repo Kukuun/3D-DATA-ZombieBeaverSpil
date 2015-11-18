@@ -367,13 +367,13 @@ public class Player : MonoBehaviour
             ReloadButtonFill();
         }
 
-        if (reloadTimer >= 5 && ammo == 0 && isReloading == true)
+        if (reloadTimer >= 2 && ammo == 0 && isReloading == true)
         {
             isPlayingReload = false;
             UpdateAmmo();
             isReloading = false;
         }
-        else if (reloadTimer >= 5 && ammoLeftBool && isReloading == true)
+        else if (reloadTimer >= 2 && ammoLeftBool && isReloading == true)
         {
             isPlayingReload = false;
             UpdateAmmo();
@@ -385,9 +385,9 @@ public class Player : MonoBehaviour
 
     private void ReloadButtonFill()
     {
-        if (reloadTimer <= 5)
+        if (reloadTimer <= 2)
         {
-            float currentValue = Values(reloadTimer, 0, 5, 0, 1);
+            float currentValue = Values(reloadTimer, 0, 2, 0, 1);
 
             reloadButton.fillAmount = Mathf.Lerp(reloadButton.fillAmount, currentValue, Time.deltaTime * 50);
         }
