@@ -140,6 +140,8 @@ public class Player : MonoBehaviour
     private bool hasRifle;
     private bool hasSniper;
 
+    private float damageModifier;
+
     int lastCase;
 
     string pickupString;
@@ -264,11 +266,11 @@ public class Player : MonoBehaviour
                     //Debug.Log("DeltaPos: " + deltaPos.magnitude);
                     if (deltaPos.magnitude <= meleeRange)
                     {
-                        hit.collider.SendMessage("TakeDamageMan", weaponDamage * 1.2f);
+                        hit.collider.SendMessage("TakeDamageMan", weaponDamage * 1.2f * damageModifier);
                     }
                     else  //Melee? slut
                     {
-                        hit.collider.SendMessage("TakeDamageMan", weaponDamage);
+                        hit.collider.SendMessage("TakeDamageMan", weaponDamage * damageModifier);
                         Debug.Log("Hit");
                     }
                     
@@ -747,6 +749,7 @@ public class Player : MonoBehaviour
         }
 
         maxHealth = int.Parse(database[1]);
+        damageModifier = float.Parse(database[2]);
         hasRifle = (database[4] == "1") ? true : false;
         hasShotgun = (database[5] == "1") ? true : false;
         hasUzi = (database[6] == "1") ? true : false;
