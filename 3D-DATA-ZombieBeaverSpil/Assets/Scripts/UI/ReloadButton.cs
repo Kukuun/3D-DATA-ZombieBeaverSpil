@@ -33,7 +33,8 @@ public class ReloadButton : MonoBehaviour, IPointerDownHandler {
             inputVector = (inputVector.magnitude > 1.0f) ? inputVector.normalized : inputVector;
 
             reloadButton.color = new Color32(0, 255, 55, 255);
-            FindObjectOfType<Player>().ammo = 0;
+            FindObjectOfType<Player>().ammoLeft = FindObjectOfType<Player>().ammo;
+            FindObjectOfType<Player>().ammoLeftBool = true;
             FindObjectOfType<Player>().initialFillOff = false;
         }
     }

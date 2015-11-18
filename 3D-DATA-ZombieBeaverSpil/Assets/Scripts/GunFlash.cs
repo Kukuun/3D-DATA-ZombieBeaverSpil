@@ -27,6 +27,7 @@ public class GunFlash : MonoBehaviour
             {
                 child.GetComponent<MeshRenderer>().enabled = true;
             }
+            player.GetComponent<Player>().shooting = false;
         }
         else
         {

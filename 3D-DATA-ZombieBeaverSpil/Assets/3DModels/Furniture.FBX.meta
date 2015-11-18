@@ -1,0 +1,128 @@
+fileFormatVersion: 2
+guid: 6128a76cc58a72c40b19beef6b3f7d3f
+timeCreated: 1446546933
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Bord001
+    100002: DoubleDuvet001
+    100004: //RootNode
+    100006: IKEABed001
+    100008: IKEABedsideTable_002
+    100010: IKEASkab001
+    100012: LongPillow_003
+    100014: Pejs005
+    100016: Pillow_003
+    100018: Sofa001
+    100020: SofaTable001
+    100022: Stol_006
+    400000: Bord001
+    400002: DoubleDuvet001
+    400004: //RootNode
+    400006: IKEABed001
+    400008: IKEABedsideTable_002
+    400010: IKEASkab001
+    400012: LongPillow_003
+    400014: Pejs005
+    400016: Pillow_003
+    400018: Sofa001
+    400020: SofaTable001
+    400022: Stol_006
+    2300000: Bord001
+    2300002: DoubleDuvet001
+    2300004: IKEABed001
+    2300006: IKEABedsideTable_002
+    2300008: IKEASkab001
+    2300010: LongPillow_003
+    2300012: Pejs005
+    2300014: Pillow_003
+    2300016: Sofa001
+    2300018: SofaTable001
+    2300020: Stol_006
+    3300000: Bord001
+    3300002: DoubleDuvet001
+    3300004: IKEABed001
+    3300006: IKEABedsideTable_002
+    3300008: IKEASkab001
+    3300010: LongPillow_003
+    3300012: Pejs005
+    3300014: Pillow_003
+    3300016: Sofa001
+    3300018: SofaTable001
+    3300020: Stol_006
+    4300000: Pejs005
+    4300002: IKEASkab001
+    4300004: IKEABedsideTable_002
+    4300006: IKEABed001
+    4300008: DoubleDuvet001
+    4300010: LongPillow_003
+    4300012: Pillow_003
+    4300014: Stol_006
+    4300016: Bord001
+    4300018: Sofa001
+    4300020: SofaTable001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
