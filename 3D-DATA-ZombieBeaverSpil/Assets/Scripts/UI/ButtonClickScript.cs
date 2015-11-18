@@ -43,8 +43,10 @@ public class ButtonClickScript : MonoBehaviour
 
     public void StartGame()
     {
-
-        Application.LoadLevel("GameScene" + currentHouseLevel);
+        Loading.level = "GameScene" + currentHouseLevel;
+        //Application.LoadLevel("GameScene" + currentHouseLevel);
+        Application.LoadLevel("Loading");
+        
     }
 
     public void GoToOptions()
